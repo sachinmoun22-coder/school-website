@@ -2,6 +2,7 @@
 
 @theme {
   --font-sans: "Inter", system-ui, sans-serif;
+  --hero-overlay: rgba(10, 30, 55, 0.75);
   --color-primary-50: #eff6ff;
   --color-primary-100: #dbeafe;
   --color-primary-200: #bfdbfe;

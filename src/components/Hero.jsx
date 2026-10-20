@@ -19,7 +19,7 @@ export function Hero() {
 
       <div className="absolute inset-0 z-0">
         <div
-          className="absolute inset-0 bg-gradient-to-br from-navy-900/90 via-navy-800/80 to-navy-900/90"
+          className="absolute inset-0 bg-[var(--hero-overlay)]"
           role="img"
           aria-label="School campus background image"
         />

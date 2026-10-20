@@ -23,7 +23,8 @@ export function Header() {
 
   return (
     <>
-      <div className="bg-navy-900 text-white py-2 px-4 sm:px-6 lg:px-8 hidden sm:block">
+      {/* Top Information Bar - always visible, separate from navbar */}
+      <div className="bg-navy-950 text-navy-100 py-2 px-4 sm:px-6 lg:px-8 hidden sm:block">
         <div className="max-w-7xl mx-auto flex items-center justify-between text-sm">
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5">
@@ -46,11 +47,12 @@ export function Header() {
         </div>
       </div>
 
+      {/* Sticky Navigation Header - always on top, separate from top bar */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-white/95 backdrop-blur-sm shadow-md border-b border-navy-100"
-            : "bg-transparent"
+            ? "bg-navy-950/95 backdrop-blur-sm shadow-md border-b border-navy-100"
+            : "bg-navy-950/95 backdrop-blur-sm border-b border-navy-100"
         }`}
       >
         <div className="container-custom">
@@ -72,17 +74,17 @@ export function Header() {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`relative py-2 text-sm font-medium transition-colors ${
+                  className={`relative py-2 text-sm font-medium transition-colors text-white ${
                     location.pathname === link.path
-                      ? "text-primary-600"
-                      : "text-navy-600 hover:text-primary-600"
+                      ? "text-primary-400"
+                      : "text-navy-300 hover:text-primary-400"
                   }`}
                 >
                   {link.label}
                   {location.pathname === link.path && (
                     <motion.div
                       layoutId="activeNav"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-500 to-secondary-400 rounded-full"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-400 to-secondary-300 rounded-full"
                       initial={false}
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
@@ -92,7 +94,7 @@ export function Header() {
             </div>
 
             <button
-              className="md:hidden p-2 rounded-lg text-navy-600 hover:bg-navy-100 transition-colors"
+              className="md:hidden p-2 rounded-lg text-navy-300 hover:bg-navy-100 transition-colors"
               onClick={() => setIsOpen(!isOpen)}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
@@ -102,34 +104,6 @@ export function Header() {
             </button>
           </div>
         </div>
-
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              id="mobile-menu"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden overflow-hidden bg-white border-t border-navy-100"
-            >
-              <div className="container-custom py-4 space-y-2">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.path}
-                    to={link.path}
-                    className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${
-                      location.pathname === link.path
-                        ? "bg-primary-50 text-primary-600"
-                        : "text-navy-600 hover:bg-navy-50 hover:text-primary-600"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </nav>
     </>
   );
