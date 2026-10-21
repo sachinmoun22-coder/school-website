@@ -36,6 +36,8 @@ export function ContactForm() {
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
+    console.log("Contact Form Submitted:", formData);
+
     setStatus("success");
     setSubmitMessage("Thank you for your inquiry! We will get back to you soon.");
     setFormData({ name: "", email: "", message: "" });
@@ -55,7 +57,7 @@ export function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+    <form onSubmit={handleSubmit} className="space-y-5" noValidate>
       <div>
         <label htmlFor="name" className="label-field">
           Full Name <span className="text-red-500">*</span>
@@ -143,9 +145,9 @@ export function ContactForm() {
         )}
       </div>
 
-      <div className="p-4 rounded-lg bg-navy-50 border border-navy-200 text-sm text-navy-600">
+      <div className="p-4 rounded-lg bg-cream-100 border border-border-light text-sm text-dark-600">
         <p className="flex items-start gap-2">
-          <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-secondary-500" />
+          <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-accent-500" />
           <span>
             <strong>Note:</strong> This is an inquiry form. Backend email delivery is not configured.
             Your message will be logged to the console for demonstration purposes.
@@ -165,8 +167,8 @@ export function ContactForm() {
           </>
         ) : (
           <>
+            <Send className="w-5 h-5 mr-2" />
             Send Message
-            <Send className="w-5 h-5 ml-2" />
           </>
         )}
       </button>
@@ -177,7 +179,7 @@ export function ContactForm() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="flex items-center gap-2 text-green-600 text-sm"
+            className="flex items-center gap-2 text-forest-600 text-sm"
           >
             <CheckCircle className="w-5 h-5 flex-shrink-0" />
             <span>{submitMessage}</span>

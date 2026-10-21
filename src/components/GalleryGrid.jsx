@@ -11,18 +11,18 @@ export function GalleryGrid({ images, onOpenLightbox }) {
             key={image.id}
             variants={{}}
             whileHover={{ y: -8 }}
-            className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer bg-navy-100"
+            className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer bg-forest-100"
             onClick={() => onOpenLightbox(index)}
             role="button"
             tabIndex={0}
             onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onOpenLightbox(index)}
             aria-label={`View ${image.caption || image.alt} in full size`}
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-navy-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+            <div className="absolute inset-0 bg-gradient-to-t from-forest-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
               <div className="w-full flex items-center justify-between">
                 <div className="text-white">
                   <h4 className="font-semibold text-lg">{image.caption || "School Image"}</h4>
-                  <p className="text-sm text-navy-200/80">{image.alt}</p>
+                  <p className="text-sm text-forest-100/80">{image.alt}</p>
                 </div>
                 <motion.div
                   whileHover={{ scale: 1.1 }}

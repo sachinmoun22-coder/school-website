@@ -35,7 +35,7 @@ export function Lightbox({ images, currentIndex, onClose, onNavigate }) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={handleOverlayClick}
-        className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4"
+        className="fixed inset-0 z-50 bg-forest-950/98 backdrop-blur-sm flex items-center justify-center p-4"
         role="dialog"
         aria-modal="true"
         aria-label="Image lightbox"
@@ -70,8 +70,8 @@ export function Lightbox({ images, currentIndex, onClose, onNavigate }) {
 
             <div className="mt-4 text-center">
               <h3 className="text-white text-lg font-medium">{currentImage.caption || "School Image"}</h3>
-              <p className="text-navy-300 text-sm mt-1">{currentImage.alt}</p>
-              <p className="text-navy-500 text-sm mt-2">
+              <p className="text-forest-300 text-sm mt-1">{currentImage.alt}</p>
+              <p className="text-forest-500 text-sm mt-2">
                 {currentIndex + 1} / {images.length}
               </p>
             </div>

@@ -1,56 +1,41 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, GraduationCap, Award, Users, Building2, Target } from "lucide-react";
-import { schoolData, streamsData } from "../data/schoolData";
+import { ArrowRight, BookOpen, GraduationCap, Award, Users, Building2, Target, Palette, Briefcase, Microscope, Heart, Shield, Bus, Home as HomeIcon, Bed, FlaskConical } from "lucide-react";
+import { schoolData, streamsData, highlightsData, whyChooseData, facilitiesData, transportRoutes } from "../data/schoolData";
 import { Hero } from "../components/Hero";
 import { SectionTitle } from "../components/SectionTitle";
-import { StreamCard } from "../components/StreamCard";
 import { ScrollReveal, StaggerContainer } from "../components/ScrollReveal";
 
 function WelcomeSection() {
   return (
-    <section id="welcome" className="section-padding bg-white">
+    <section id="about" className="section-padding bg-white">
       <div className="container-custom">
         <SectionTitle
-          title="Welcome to Shaheed Bhagat Singh Sr. Sec. School"
-          subtitle="About Us"
+          title="A Place to Learn, Grow and Excel"
+          subtitle="About Our School"
         />
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <ScrollReveal delay={0.1} direction="left">
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-navy-100">
+            <div className="relative aspect-[4/3] rounded-card-lg overflow-hidden bg-forest-100">
               <img
-                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80"
-                alt="School building and campus"
+                src="/images/School_Photos/School_Photo_3.jpg"
+                alt="S.B.S School Campus View"
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary-600/10 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 flex gap-4">
+              <div className="absolute inset-0 bg-gradient-to-tr from-forest-700/10 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6">
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="flex-1 p-6 bg-white rounded-xl shadow-lg"
+                  whileHover={{ scale: 1.02 }}
+                  className="p-5 bg-white/95 backdrop-blur-sm rounded-xl shadow-card border border-border-light"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-primary-100 text-primary-600">
+                    <div className="p-3 rounded-xl bg-forest-100 text-forest-700">
                       <GraduationCap className="w-6 h-6" />
                     </div>
                     <div>
-                      <p className="text-3xl font-bold text-navy-900">Class 12</p>
-                      <p className="text-sm text-navy-500">Senior Secondary</p>
-                    </div>
-                  </div>
-                </motion.div>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="flex-1 p-6 bg-white rounded-xl shadow-lg"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-secondary-100 text-secondary-600">
-                      <BookOpen className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <p className="text-3xl font-bold text-navy-900">3</p>
-                      <p className="text-sm text-navy-500">Academic Streams</p>
+                      <p className="text-2xl font-heading font-semibold text-dark-900">Nursery to 12th</p>
+                      <p className="text-sm text-dark-500">Complete Schooling</p>
                     </div>
                   </div>
                 </motion.div>
@@ -60,28 +45,28 @@ function WelcomeSection() {
 
           <ScrollReveal delay={0.2} direction="right">
             <div className="space-y-6">
-              <p className="text-lg text-navy-600 leading-relaxed">
+              <p className="text-body-lg text-dark-600 leading-relaxed">
                 {schoolData.introduction}
               </p>
-              <p className="text-navy-600 leading-relaxed">
-                {schoolData.about}
+              <p className="text-dark-600 leading-relaxed">
+                {schoolData.about} Our dedicated faculty, well-structured curriculum, and supportive learning environment ensure that every student receives the attention and guidance they need to thrive academically and personally.
               </p>
               <div className="flex flex-wrap gap-3 pt-4">
-                <span className="badge badge-primary">
+                <span className="badge badge-forest">
                   <GraduationCap className="w-4 h-4 mr-1" />
                   {schoolData.schoolType}
                 </span>
-                <span className="badge badge-secondary">
+                <span className="badge badge-sage">
                   <Target className="w-4 h-4 mr-1" />
                   {schoolData.educationLevel}
                 </span>
-                <span className="badge badge-navy">
+                <span className="badge badge-cream">
                   <Building2 className="w-4 h-4 mr-1" />
                   BSEH Code: {schoolData.schoolCode}
                 </span>
               </div>
               <Link to="/about" className="btn-primary inline-flex mt-4 group">
-                Learn More About Us
+                Read More About Us
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -92,61 +77,32 @@ function WelcomeSection() {
   );
 }
 
-function AcademicStreamsSection() {
+function HighlightsSection() {
   return (
-    <section id="academics" className="section-padding bg-navy-50">
+    <section className="section-padding bg-cream-100">
       <div className="container-custom">
         <SectionTitle
-          title="Academic Streams Offered"
-          subtitle="Our Curriculum"
-        />
-        <p className="text-center text-navy-600 max-w-2xl mx-auto mb-12">
-          We offer three distinct academic streams for Classes 11 and 12, allowing students
-          to pursue their interests and career aspirations.
-        </p>
-        <StaggerContainer staggerDelay={0.1} className="grid md:grid-cols-3 gap-6">
-          {streamsData.map((stream, index) => (
-            <StreamCard key={stream.id} stream={stream} index={index} />
-          ))}
-        </StaggerContainer>
-        <div className="text-center mt-12">
-          <Link to="/academics" className="btn-primary group inline-flex">
-            View All Academic Programs
-            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function SchoolAtGlanceSection() {
-  const stats = [
-    { label: "School Type", value: schoolData.schoolType, icon: Building2 },
-    { label: "Education Level", value: schoolData.educationLevel, icon: Target },
-    { label: "School Code", value: schoolData.schoolCode, icon: Award },
-    { label: "Academic Streams", value: "3", icon: BookOpen },
-  ];
-
-  return (
-    <section className="section-padding bg-white">
-      <div className="container-custom">
-        <SectionTitle
-          title="School at a Glance"
-          subtitle="Key Facts"
+          title="School Highlights"
+          subtitle="Our Strengths"
         />
         <StaggerContainer staggerDelay={0.1} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat, index) => (
-            <ScrollReveal key={stat.label} delay={0.1 * index} className="text-center p-6">
-              <div className="relative inline-block mb-4">
-                <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
-                  <stat.icon className="w-8 h-8 text-primary-600" />
+          {highlightsData.map((highlight, index) => (
+            <ScrollReveal key={highlight.id} delay={0.1 * index} className="h-full">
+              <div className="card h-full p-6 text-center">
+                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-forest-100 to-forest-200 flex items-center justify-center">
+                  {(() => {
+                    switch (highlight.icon) {
+                      case "GraduationCap": return <GraduationCap className="w-7 h-7 text-forest-600" />;
+                      case "Users": return <Users className="w-7 h-7 text-forest-600" />;
+                      case "Palette": return <Palette className="w-7 h-7 text-forest-600" />;
+                      case "Target": return <Target className="w-7 h-7 text-forest-600" />;
+                      default: return <BookOpen className="w-7 h-7 text-forest-600" />;
+                    }
+                  })()}
                 </div>
+                <h3 className="text-heading-sm font-semibold text-dark-900 mb-2">{highlight.title}</h3>
+                <p className="text-dark-600 text-sm leading-relaxed">{highlight.description}</p>
               </div>
-              <p className="text-3xl sm:text-4xl font-bold text-navy-900 mb-1">
-                {stat.value}
-              </p>
-              <p className="text-navy-600 text-sm">{stat.label}</p>
             </ScrollReveal>
           ))}
         </StaggerContainer>
@@ -155,26 +111,181 @@ function SchoolAtGlanceSection() {
   );
 }
 
-function AboutPreviewSection() {
+function KeyNumbersSection() {
   return (
-    <section className="section-padding bg-navy-50">
+    <section className="section-padding bg-forest-800 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(33,77,59,0.3)_0%,_transparent_70%)]" />
+      <div className="relative z-10 container-custom">
+        <SectionTitle
+          title="Our Campus at a Glance"
+          subtitle="Key Numbers"
+        />
+        <StaggerContainer staggerDelay={0.1} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            { icon: HomeIcon, title: "35 Classrooms", desc: "Spacious, well-ventilated rooms for Nursery to 12th" },
+            { icon: FlaskConical, title: "1 Science Laboratory", desc: "Well-equipped for Physics, Chemistry & Biology" },
+            { icon: Bus, title: "5 Buses + 1 Van", desc: "Covering 8+ villages including Ramgarh, Shimla, Kalasar" },
+            { icon: Bed, title: "Hostel Facility", desc: "Residential accommodation available for students" },
+          ].map((item, index) => (
+            <ScrollReveal key={index} delay={0.1 * index}>
+              <div className="p-6 text-center">
+                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-forest-700/50 border border-forest-600 flex items-center justify-center">
+                  <item.icon className="w-7 h-7 text-accent-400" />
+                </div>
+                <h3 className="text-heading-lg font-semibold text-white mb-2">{item.title}</h3>
+                <p className="text-forest-200 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            </ScrollReveal>
+          ))}
+        </StaggerContainer>
+      </div>
+    </section>
+  );
+}
+
+function AcademicProgramsSection() {
+  return (
+    <section id="academics" className="section-padding bg-white">
       <div className="container-custom">
         <SectionTitle
-          title="About Our School"
-          subtitle="Learn More"
+          title="Learning at Every Stage"
+          subtitle="Academics"
         />
-        <div className="max-w-3xl mx-auto text-center">
-          <ScrollReveal delay={0.1}>
-            <p className="text-lg text-navy-600 leading-relaxed mb-8">
-              {schoolData.about}
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={0.2}>
-            <Link to="/about" className="btn-primary group inline-flex">
-              Read Full About Page
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </ScrollReveal>
+        <StaggerContainer staggerDelay={0.1} className="grid md:grid-cols-3 gap-6 mb-12">
+          {streamsData.map((stream, index) => (
+            <ScrollReveal key={stream.id} delay={0.1 * index} className="h-full">
+              <Link
+                to="/academics"
+                className="card h-full overflow-hidden group"
+                aria-label={`Learn more about ${stream.name} stream`}
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={stream.image}
+                    alt={`${stream.name} stream learning environment`}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest-900/60 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
+                    <div className="p-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20">
+                      {(() => {
+                        switch (stream.icon) {
+                          case "Palette": return <Palette className="w-7 h-7 text-white" />;
+                          case "Briefcase": return <Briefcase className="w-7 h-7 text-white" />;
+                          case "Microscope": return <Microscope className="w-7 h-7 text-white" />;
+                          default: return <BookOpen className="w-7 h-7 text-white" />;
+                        }
+                      })()}
+                    </div>
+                  </div>
+                </div>
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="text-heading-sm font-semibold text-dark-900 mb-2">{stream.name}</h3>
+                  <p className="text-dark-600 text-sm leading-relaxed flex-1 mb-4">{stream.description}</p>
+                  <div className="flex items-center justify-between pt-3 border-t border-border-light">
+                    <span className="text-sm font-medium text-forest-600 group-hover:text-forest-700 transition-colors">
+                      Learn more
+                    </span>
+                    <motion.div
+                      whileHover={{ x: 4 }}
+                      className="p-2 rounded-lg bg-forest-100 text-forest-600 group-hover:bg-forest-200 transition-colors"
+                    >
+                      <ArrowRight className="w-5 h-5" />
+                    </motion.div>
+                  </div>
+                </div>
+              </Link>
+            </ScrollReveal>
+          ))}
+        </StaggerContainer>
+        <div className="text-center">
+          <Link to="/academics" className="btn-primary group inline-flex">
+            View All Programs
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WhyChooseSection() {
+  return (
+    <section className="section-padding bg-forest-800 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(33,77,59,0.3)_0%,_transparent_70%)]" />
+      <div className="absolute inset-0 bg-[url('/images/School_Photos/School_Photo_5.jpg')] bg-cover bg-center opacity-5" />
+      
+      <div className="relative z-10 container-custom">
+        <SectionTitle
+          title="An Education That Goes Beyond the Classroom"
+          subtitle="Why Choose Us"
+        />
+        <StaggerContainer staggerDelay={0.1} className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {whyChooseData.map((item, index) => (
+            <ScrollReveal key={item.id} delay={0.1 * index}>
+              <div className="p-6 text-center">
+                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-forest-700/50 border border-forest-600 flex items-center justify-center">
+                  {(() => {
+                    switch (item.icon) {
+                      case "GraduationCap": return <GraduationCap className="w-7 h-7 text-accent-400" />;
+                      case "Users": return <Users className="w-7 h-7 text-accent-400" />;
+                      case "Palette": return <Palette className="w-7 h-7 text-accent-400" />;
+                      case "Target": return <Target className="w-7 h-7 text-accent-400" />;
+                      default: return <BookOpen className="w-7 h-7 text-accent-400" />;
+                    }
+                  })()}
+                </div>
+                <h3 className="text-heading-sm font-semibold text-white mb-2">{item.title}</h3>
+                <p className="text-forest-200 text-sm leading-relaxed">{item.description}</p>
+              </div>
+            </ScrollReveal>
+          ))}
+        </StaggerContainer>
+      </div>
+    </section>
+  );
+}
+
+function FacilitiesPreviewSection() {
+  return (
+    <section id="facilities" className="section-padding bg-white">
+      <div className="container-custom">
+        <div className="flex items-center justify-between mb-12">
+          <SectionTitle
+            title="Spaces That Inspire Learning"
+            subtitle="Facilities"
+          />
+        </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+          {facilitiesData.slice(0, 6).map((facility, index) => (
+            <ScrollReveal key={facility.id} delay={0.1 * index}>
+              <Link
+                to="/facilities"
+                className="card overflow-hidden group"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={facility.image}
+                    alt={facility.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest-900/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                <div className="p-5">
+                  <h3 className="text-heading-sm font-semibold text-dark-900 mb-1">{facility.name}</h3>
+                  <p className="text-dark-600 text-sm leading-relaxed">{facility.description}</p>
+                </div>
+              </Link>
+            </ScrollReveal>
+          ))}
+        </div>
+        <div className="text-center">
+          <Link to="/facilities" className="btn-secondary group inline-flex">
+            View All Facilities
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
       </div>
     </section>
@@ -183,31 +294,34 @@ function AboutPreviewSection() {
 
 function AchievementsPreviewSection() {
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding bg-cream-100">
       <div className="container-custom">
         <SectionTitle
-          title="Achievements & Recognition"
-          subtitle="Our Pride"
+          title="Celebrating Our Students"
+          subtitle="Achievements"
         />
         <ScrollReveal delay={0.1}>
           <div className="max-w-3xl mx-auto text-center">
-            <div className="p-8 sm:p-12 rounded-2xl bg-navy-50 border border-navy-100">
-              <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-secondary-100 flex items-center justify-center">
-                <Award className="w-8 h-8 text-secondary-600" />
+            <div className="p-8 sm:p-12 rounded-card-lg bg-white border border-border-light">
+              <div className="w-16 h-16 mx-auto mb-6 rounded-xl bg-forest-100 flex items-center justify-center">
+                <Award className="w-8 h-8 text-forest-600" />
               </div>
-              <h3 className="text-xl font-semibold text-navy-900 mb-3">
-                Information Will Be Updated Soon
+              <h3 className="text-heading-md font-semibold text-dark-900 mb-3">
+                Achievements & Recognition
               </h3>
-              <p className="text-navy-600 leading-relaxed">
-                Verified achievements, awards, examination results, and student accomplishments
-                will be published here when the information becomes available from the school administration.
+              <p className="text-dark-600 leading-relaxed mb-6">
+                We take pride in our students' accomplishments across academics, sports, and extracurricular activities.
+                Verified achievements will be showcased here as they become available.
+              </p>
+              <p className="text-forest-600 text-sm font-medium">
+                Details will be updated soon.
               </p>
             </div>
           </div>
         </ScrollReveal>
         <ScrollReveal delay={0.2} className="mt-8 text-center">
           <Link to="/achievements" className="btn-outline group inline-flex">
-            Visit Achievements Page
+            View Achievements Page
             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
           </Link>
         </ScrollReveal>
@@ -217,35 +331,52 @@ function AchievementsPreviewSection() {
 }
 
 function GalleryPreviewSection() {
-  const previewImages = [
-    { id: 1, src: "https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=80", alt: "School campus view", caption: "Campus View" },
-    { id: 2, src: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&q=80", alt: "Classroom environment", caption: "Classroom" },
-    { id: 3, src: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&q=80", alt: "Library interior", caption: "Library" },
-    { id: 4, src: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80", alt: "Science laboratory", caption: "Science Lab" },
-  ];
-
   return (
-    <section className="section-padding bg-navy-50">
+    <section className="section-padding bg-white">
       <div className="container-custom">
         <div className="flex items-center justify-between mb-10">
-          <SectionTitle title="School Gallery" subtitle="Moments" />
+          <SectionTitle
+            title="A Glimpse Into School Life"
+            subtitle="Gallery"
+          />
         </div>
-        <div className="grid grid-cols-2 gap-4 mb-8">
-          {previewImages.map((image, index) => (
-            <ScrollReveal key={image.id} delay={0.1 * index}>
-              <Link to="/gallery" className="relative aspect-square rounded-xl overflow-hidden group">
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-900/70 to-transparent flex items-end p-4">
-                  <span className="text-white font-medium">{image.caption}</span>
-                </div>
-              </Link>
-            </ScrollReveal>
-          ))}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+          <div className="lg:col-span-2 lg:row-span-2 relative aspect-[4/3] rounded-card-lg overflow-hidden group">
+            <img
+              src="/images/School_Photos/School_Photo_1.jpg"
+              alt="School building exterior view"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-forest-900/60 via-transparent to-transparent flex items-end p-6">
+              <div className="text-white">
+                <h4 className="text-heading-md font-semibold">School Campus</h4>
+                <p className="text-forest-100 text-sm">Main Building & Grounds</p>
+              </div>
+            </div>
+          </div>
+          <div className="relative aspect-square rounded-card-lg overflow-hidden group">
+            <img
+              src="/images/School_Photos/School_Photo_2.jpg"
+              alt="Classroom environment"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-forest-900/60 via-transparent to-transparent flex items-end p-4">
+              <h4 className="text-white font-semibold">Classroom Learning</h4>
+            </div>
+          </div>
+          <div className="relative aspect-square rounded-card-lg overflow-hidden group">
+            <img
+              src="/images/School_Photos/School_Photo_3.jpg"
+              alt="School campus and grounds"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-forest-900/60 via-transparent to-transparent flex items-end p-4">
+              <h4 className="text-white font-semibold">Campus View</h4>
+            </div>
+          </div>
         </div>
         <div className="text-center">
           <Link to="/gallery" className="btn-primary group inline-flex">
@@ -258,94 +389,41 @@ function GalleryPreviewSection() {
   );
 }
 
-function AdmissionPreviewSection() {
+function AdmissionCTASection() {
   return (
-    <section className="section-padding bg-white">
-      <div className="container-custom">
-        <SectionTitle
-          title="Admission Information"
-          subtitle="Join Us"
-        />
-        <ScrollReveal delay={0.1}>
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="p-8 sm:p-12 rounded-2xl bg-gradient-to-br from-primary-50 to-primary-100 border border-primary-100">
-              <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-primary-100 flex items-center justify-center">
-                <GraduationCap className="w-8 h-8 text-primary-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-navy-900 mb-3">
-                Admissions Open for All Streams
-              </h3>
-              <p className="text-navy-600 leading-relaxed mb-6">
-                We welcome students seeking quality education in Arts, Commerce, and Science streams.
-                For detailed admission procedures, dates, eligibility criteria, and fee structure,
-                please contact the school directly.
-              </p>
-              <div className="p-4 rounded-lg bg-white border border-primary-200 text-sm text-navy-600">
-                <p className="font-medium text-primary-700 mb-2">Information will be updated soon.</p>
-                <p>Admission dates, fees, eligibility, and required documents will be published when confirmed by the school.</p>
-              </div>
+    <section className="section-padding bg-forest-800 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_30%,_rgba(214,168,92,0.15)_0%,_transparent_50%)]" />
+      <div className="relative z-10 container-custom">
+        <div className="max-w-3xl mx-auto text-center">
+          <ScrollReveal delay={0.1}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-400/20 text-accent-300 text-xs font-medium uppercase tracking-wider mb-6">
+              <Heart className="w-4 h-4" />
+              Admissions Open
             </div>
-          </div>
-        </ScrollReveal>
-        <ScrollReveal delay={0.2} className="mt-8 text-center">
-          <Link to="/admission" className="btn-primary group inline-flex">
-            Admission Details
-            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </ScrollReveal>
-      </div>
-    </section>
-  );
-}
-
-function ContactPreviewSection() {
-  return (
-    <section className="section-padding bg-navy-50">
-      <div className="container-custom">
-        <SectionTitle
-          title="Get in Touch"
-          subtitle="Contact"
-        />
-        <ScrollReveal delay={0.1}>
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="text-center p-6 rounded-2xl bg-white shadow-sm border border-navy-100 card-hover">
-              <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-primary-100 flex items-center justify-center">
-                <BookOpen className="w-7 h-7 text-primary-600" />
-              </div>
-              <h4 className="font-semibold text-navy-900 mb-2">Email Us</h4>
-              <a
-                href={`mailto:${schoolData.email}`}
-                className="text-navy-600 hover:text-primary-600 transition-colors"
-              >
-                {schoolData.email}
-              </a>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-white shadow-sm border border-navy-100 card-hover">
-              <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-secondary-100 flex items-center justify-center">
-                <GraduationCap className="w-7 h-7 text-secondary-600" />
-              </div>
-              <h4 className="font-semibold text-navy-900 mb-2">Visit Us</h4>
-              <address className="text-navy-600 not-italic leading-relaxed">
-                {schoolData.location}
-              </address>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-white shadow-sm border border-navy-100 card-hover">
-              <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-navy-100 flex items-center justify-center">
-                <span className="text-navy-600 font-medium">📞</span>
-              </div>
-              <h4 className="font-semibold text-navy-900 mb-2">Call Us</h4>
-              <p className="text-navy-600">
-                {schoolData.phoneVerified ? schoolData.phone : "Contact number verification pending"}
-              </p>
-            </div>
-          </div>
-        </ScrollReveal>
-        <ScrollReveal delay={0.2} className="mt-8 text-center">
-          <Link to="/contact" className="btn-primary group inline-flex">
-            Contact Us
-            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </ScrollReveal>
+          </ScrollReveal>
+          <ScrollReveal delay={0.2} className="mb-6">
+            <h2 className="text-display-sm sm:text-display-md font-medium text-white leading-tight mb-4">
+              Take the First Step Towards a Bright Future
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={0.3} className="mb-8">
+            <p className="text-body-lg text-forest-200 leading-relaxed">
+              Give your child the gift of quality education at S.B.S Sr.Sec. School.
+              Our admissions team is ready to guide you through the process for Nursery to Class 12
+              in Arts, Commerce, and Science streams at senior secondary level.
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delay={0.4} className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link to="/admissions" className="btn-accent group">
+              Admission Enquiry
+              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link to="/contact" className="bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 px-7 py-3.5 rounded-btn font-medium transition-all duration-300 inline-flex items-center gap-2">
+              Contact Us
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </ScrollReveal>
+        </div>
       </div>
     </section>
   );
@@ -356,13 +434,14 @@ export function Home() {
     <div className="min-h-screen">
       <Hero />
       <WelcomeSection />
-      <AcademicStreamsSection />
-      <SchoolAtGlanceSection />
-      <AboutPreviewSection />
+      <HighlightsSection />
+      <KeyNumbersSection />
+      <AcademicProgramsSection />
+      <WhyChooseSection />
+      <FacilitiesPreviewSection />
       <AchievementsPreviewSection />
       <GalleryPreviewSection />
-      <AdmissionPreviewSection />
-      <ContactPreviewSection />
+      <AdmissionCTASection />
     </div>
   );
 }
