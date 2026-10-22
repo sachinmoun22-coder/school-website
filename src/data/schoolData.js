@@ -31,37 +31,45 @@ export const navLinks = [
   { path: "/contact", label: "Contact" },
 ];
 
+// High-quality photos from public/images/ (3-3.8MB each)
+export const hqImages = {
+  building: "/images/1000041512.png",
+  classroom: "/images/1000041517.png",
+  campus: "/images/1000041518.png",
+  facilities: "/images/1000041519.png",
+  entrance: "/images/1000041461.jpg",
+};
+
 export const streamsData = [
   {
     id: "arts",
     name: "Arts",
     icon: "Palette",
     description: "Explore humanities, languages, and creative disciplines. Develop critical thinking, communication skills, and cultural awareness.",
-    image: "/images/School_Photos/School_Photo_1.jpg",
+    image: hqImages.campus,
   },
   {
     id: "commerce",
     name: "Commerce",
     icon: "Briefcase",
     description: "Build foundations in business, finance, and economics. Prepare for careers in accounting, management, and entrepreneurship.",
-    image: "/images/School_Photos/School_Photo_2.jpg",
+    image: hqImages.classroom,
   },
   {
     id: "science",
     name: "Science",
     icon: "Microscope",
     description: "Discover the natural world through physics, chemistry, and biology. Lay groundwork for engineering, medicine, and research careers.",
-    image: "/images/School_Photos/School_Photo_3.jpg",
+    image: hqImages.facilities,
   },
 ];
 
 export const galleryImages = [
-  { id: 1, src: "/images/School_Photos/School_Photo_1.jpg", alt: "School building exterior view", caption: "School Building" },
-  { id: 2, src: "/images/School_Photos/School_Photo_2.jpg", alt: "Classroom learning environment", caption: "Classroom" },
-  { id: 3, src: "/images/School_Photos/School_Photo_3.jpg", alt: "School campus and grounds", caption: "Campus View" },
-  { id: 4, src: "/images/School_Photos/School_Photo_4.jpg", alt: "School facilities", caption: "Facilities" },
-  { id: 5, src: "/images/School_Photos/School_Photo_5.jpg", alt: "School entrance", caption: "Entrance" },
-  { id: 6, src: "/images/School_Photos/School_Photo_6.jpg", alt: "School grounds", caption: "Grounds" },
+  { id: 1, src: hqImages.building, alt: "School building exterior view", caption: "School Building" },
+  { id: 2, src: hqImages.classroom, alt: "Classroom learning environment", caption: "Classroom" },
+  { id: 3, src: hqImages.campus, alt: "School campus and grounds", caption: "Campus View" },
+  { id: 4, src: hqImages.facilities, alt: "School facilities", caption: "Facilities" },
+  { id: 5, src: hqImages.entrance, alt: "School entrance", caption: "Entrance" },
 ];
 
 export const achievementsCategories = [
@@ -92,37 +100,37 @@ export const facilitiesData = [
     id: 1,
     name: "Classrooms",
     description: "35 spacious, well-ventilated classrooms designed for effective learning from Nursery to Class 12.",
-    image: "/images/School_Photos/School_Photo_2.jpg",
+    image: hqImages.classroom,
   },
   {
     id: 2,
     name: "Science Laboratory",
     description: "Well-equipped laboratory for Physics, Chemistry, and Biology practical work for senior secondary students.",
-    image: "/images/School_Photos/School_Photo_3.jpg",
+    image: hqImages.facilities,
   },
   {
     id: 3,
     name: "Transport Facility",
     description: "5 buses and 1 van covering routes to Ramgarh, Shimla, Kalasar, Mandi, Kheri, Bhalang, Singhwal, Sudkain, and other nearby villages.",
-    image: "/images/School_Photos/School_Photo_6.jpg",
+    image: hqImages.campus,
   },
   {
     id: 4,
     name: "Hostel Facility",
     description: "Hostel accommodation available for students requiring residential facilities.",
-    image: "/images/School_Photos/School_Photo_5.jpg",
+    image: hqImages.entrance,
   },
   {
     id: 5,
     name: "Playground",
     description: "Outdoor sports ground for physical education and recreational activities.",
-    image: "/images/School_Photos/School_Photo_6.jpg",
+    image: hqImages.campus,
   },
   {
     id: 6,
     name: "School Campus",
     description: "Safe and green campus environment for holistic student development.",
-    image: "/images/School_Photos/School_Photo_1.jpg",
+    image: hqImages.building,
   },
 ];
 

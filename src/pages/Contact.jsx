@@ -1,10 +1,15 @@
 import { motion } from "framer-motion";
-import { MapPin, Mail, Phone, Clock, Building2, GraduationCap, BookOpen, Award, Send, AlertCircle, CheckCircle, Loader2, ArrowRight } from "lucide-react";
+import { MapPin, Mail, Phone, Clock, Building2, GraduationCap, BookOpen, Award, Send, AlertCircle, CheckCircle, Loader2, ArrowRight, Navigation2, ExternalLink } from "lucide-react";
 import { schoolData } from "../data/schoolData";
 import { PageBanner } from "../components/PageBanner";
 import { SectionTitle } from "../components/SectionTitle";
 import { ScrollReveal, StaggerContainer } from "../components/ScrollReveal";
 import { ContactForm } from "../components/ContactForm";
+
+// Google Maps search URL for the school
+const GOOGLE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Shaheed+Bhagat+Singh+Senior+Secondary+School+Matour+Kaithal+Haryana";
+// Google Maps embed URL using the same search query
+const GOOGLE_MAPS_EMBED_URL = "https://www.google.com/maps/embed/v1/search?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Shaheed+Bhagat+Singh+Senior+Secondary+School+Matour+Kaithal+Haryana";
 
 export function Contact() {
   return (
@@ -140,22 +145,48 @@ export function Contact() {
           <ScrollReveal delay={0.2} className="mt-12">
             <div className="max-w-3xl mx-auto">
               <div className="p-8 rounded-card-lg bg-white border border-border-light shadow-soft">
-                <h3 className="text-heading-md font-semibold text-dark-900 mb-4 flex items-center gap-2">
+                <div className="flex items-center gap-2 mb-4">
                   <MapPin className="w-6 h-6 text-forest-600" />
-                  Location & Map
-                </h3>
-                <div className="aspect-video rounded-xl bg-forest-100 border border-border-light flex items-center justify-center">
-                  <div className="text-center p-4">
-                    <MapPin className="w-12 h-12 mx-auto mb-3 text-forest-300" />
-                    <p className="text-dark-600 mb-2">Map Integration Not Available</p>
-                    <p className="text-dark-500 text-sm">
-                      {schoolData.placeholderText}. A map showing the exact school location
-                      will be added when the precise coordinates are verified.
-                    </p>
-                    <p className="text-dark-500 text-sm mt-2">
-                      Address: {schoolData.location}
-                    </p>
-                  </div>
+                  <h3 className="text-heading-md font-semibold text-dark-900">Location & Directions</h3>
+                </div>
+                
+                {/* Google Maps Embed */}
+                <div className="aspect-video rounded-xl overflow-hidden border border-border-light bg-forest-100">
+                  <iframe
+                    title="S.B.S Sr.Sec. School Matour Kaithal location on Google Maps"
+                    src={GOOGLE_MAPS_EMBED_URL}
+                    className="w-full h-full border-0"
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                  />
+                </div>
+                
+                {/* Map fallback and Get Directions button */}
+                <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <a
+                    href={GOOGLE_MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary group inline-flex items-center gap-2"
+                  >
+                    <Navigation2 className="w-5 h-5" />
+                    Get Directions
+                    <ExternalLink className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                  <p className="text-sm text-dark-500 text-center sm:text-left">
+                    Opens in Google Maps · Searches for "Shaheed Bhagat Singh Senior Secondary School Matour Kaithal Haryana"
+                  </p>
+                </div>
+                
+                <div className="mt-6 p-4 rounded-lg bg-cream-100 border border-border-light">
+                  <p className="text-dark-600 text-sm leading-relaxed">
+                    <strong>Address:</strong> {schoolData.location}<br />
+                    <strong>Note:</strong> The map above uses Google Maps search to locate the school. 
+                    If the exact position isn't precise, use the "Get Directions" button to open the full Google Maps page 
+                    with the verified school name.
+                  </p>
                 </div>
               </div>
             </div>
@@ -199,6 +230,10 @@ export function Contact() {
                 {
                   q: "Where can I find examination results?",
                   a: schoolData.placeholderText + " Verified results will be published when available."
+                },
+                {
+                  q: "How do I get to the school?",
+                  a: `The school is located at ${schoolData.location}. Use the "Get Directions" button on our Contact page to open Google Maps with the verified school name: "Shaheed Bhagat Singh Senior Secondary School Matour Kaithal Haryana".`
                 },
               ].map((faq, index) => (
                 <details key={index} className="group rounded-xl bg-cream-100 border border-border-light overflow-hidden">
