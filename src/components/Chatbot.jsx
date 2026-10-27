@@ -146,7 +146,7 @@ export function Chatbot() {
       {/* Chat Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-forest-800 text-white flex items-center justify-center shadow-lg transition-all duration-300 hover:bg-forest-900 hover:scale-105 ${isOpen ? "rotate-45" : ""}`}
+        className={`fixed bottom-4 right-4 z-[60] flex h-14 w-14 items-center justify-center rounded-full bg-forest-800 text-white shadow-lg transition-colors duration-300 hover:bg-forest-900 sm:bottom-6 sm:right-6`}
         aria-label={isOpen ? "Close chat" : "Open chat"}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
@@ -162,7 +162,7 @@ export function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="fixed bottom-6 right-6 z-50 w-full max-w-sm md:max-w-md lg:max-w-lg h-[500px] bg-white rounded-2xl shadow-2xl border border-border-light overflow-hidden flex flex-col"
+            className="fixed bottom-20 left-3 right-3 z-[55] flex h-[70vh] max-h-[calc(100dvh-9.5rem)] w-auto flex-col overflow-hidden rounded-2xl border border-border-light bg-white shadow-2xl sm:bottom-24 sm:left-auto sm:right-6 sm:h-[500px] sm:max-h-[calc(100dvh-6rem)] sm:w-[380px]"
             role="dialog"
             aria-label="School chatbot"
           >
@@ -246,20 +246,20 @@ export function Chatbot() {
 
             {/* Input */}
             <form onSubmit={handleSend} className="p-4 border-t border-border-light bg-white">
-              <div className="flex gap-2">
+              <div className="flex min-w-0 gap-2">
                 <input
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask about admissions, facilities, transport..."
-                  className="flex-1 px-4 py-2.5 bg-cream-100 border border-border-light rounded-xl text-dark-900 placeholder:text-dark-400 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent transition-all"
+                  className="min-w-0 flex-1 px-4 py-2.5 bg-cream-100 border border-border-light rounded-xl text-dark-900 placeholder:text-dark-400 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent transition-all"
                   disabled={isLoading}
                   aria-label="Type your question"
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || isLoading}
-                  className="px-5 py-2.5 bg-forest-800 text-white rounded-xl hover:bg-forest-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
+                  className="shrink-0 px-5 py-2.5 bg-forest-800 text-white rounded-xl hover:bg-forest-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
                   aria-label="Send message"
                 >
                   <Send className="w-5 h-5" />

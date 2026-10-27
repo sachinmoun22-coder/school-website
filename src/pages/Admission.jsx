@@ -79,7 +79,7 @@ export function Admission() {
           />
           <ScrollReveal delay={0.1}>
             <div className="max-w-3xl mx-auto">
-              <StaggerContainer staggerDelay={0.05}>
+              <StaggerContainer staggerDelay={0.05} className="space-y-3">
                 {admissionInfo.checklist.map((item, index) => (
                   <motion.div
                     key={index}

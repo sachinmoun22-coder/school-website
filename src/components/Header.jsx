@@ -13,7 +13,7 @@ export function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -22,80 +22,84 @@ export function Header() {
   }, [location]);
 
   return (
-    <>
+    <header className="fixed top-0 left-0 right-0 z-50">
       {/* Top Information Strip */}
-      <div className="bg-forest-900 text-cream-100 py-2 px-6 sm:px-8 lg:px-10 xl:px-12 hidden sm:block">
-        <div className="max-w-[1280px] mx-auto flex items-center justify-between text-sm">
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1.5">
-              <MapPin className="w-4 h-4 text-accent-400" />
-              <span>{schoolData.location}</span>
-            </span>
-            <span className="text-forest-300 hidden md:inline">|</span>
-            <span className="flex items-center gap-1.5 text-forest-300">
+      <div className="hidden sm:block bg-forest-900 text-cream-100">
+        <div className="container-custom">
+          <div className="flex items-center justify-between gap-4 py-2 text-xs md:text-sm">
+            <div className="flex min-w-0 items-center gap-4 md:gap-6">
+              <span className="flex min-w-0 items-center gap-1.5">
+                <MapPin className="w-4 h-4 shrink-0 text-accent-400" />
+                <span className="truncate">{schoolData.location}</span>
+              </span>
+              <span className="hidden shrink-0 text-forest-300 md:inline">|</span>
+              <a
+                href={`mailto:${schoolData.email}`}
+                className="hidden min-w-0 items-center gap-1.5 text-forest-300 transition-colors hover:text-accent-400 md:flex"
+              >
+                <Mail className="w-4 h-4 shrink-0" />
+                <span className="truncate">{schoolData.email}</span>
+              </a>
+            </div>
+            <span className="hidden shrink-0 items-center gap-1.5 whitespace-nowrap text-forest-300 lg:flex">
               <Phone className="w-4 h-4" />
               <span>{schoolData.phoneVerified ? schoolData.phone : "Contact number verification pending"}</span>
             </span>
-            <span className="text-forest-300 hidden md:inline">|</span>
-            <a
-              href={`mailto:${schoolData.email}`}
-              className="flex items-center gap-1.5 text-forest-300 hover:text-accent-400 transition-colors"
-            >
-              <Mail className="w-4 h-4" />
-              {schoolData.email}
-            </a>
           </div>
         </div>
       </div>
 
       {/* Main Navigation Header */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`transition-all duration-300 ${
           isScrolled
             ? "bg-white/98 backdrop-blur-md shadow-nav border-b border-border-light"
             : "bg-white border-b border-border-light"
         }`}
       >
         <div className="container-custom">
-          <div className="flex items-center justify-between h-16 sm:h-18">
-            <Link to="/" className="flex items-center gap-3" aria-label="Go to homepage">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-forest-700 to-forest-900 flex items-center justify-center shadow-soft">
-                <BookOpen className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+          <div className="flex h-16 items-center justify-between gap-3 sm:h-[4.5rem]">
+            <Link to="/" className="flex min-w-0 items-center gap-2 sm:gap-3" aria-label="Go to homepage">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-forest-700 to-forest-900 shadow-soft sm:h-12 sm:w-12">
+                <BookOpen className="h-6 w-6 text-white sm:h-7 sm:w-7" />
               </div>
-              <div className="hidden sm:block">
-                <h1 className="text-xl sm:text-2xl font-heading font-semibold text-dark-900 leading-tight">
+              <div className="min-w-0">
+                <h1 className="truncate text-base font-heading font-semibold leading-tight text-dark-900 sm:text-lg xl:text-xl">
                   {schoolData.shortName}
                 </h1>
-                <p className="text-xs text-dark-400 leading-none">{schoolData.tagline}</p>
+                <p className="truncate text-[10px] leading-none text-dark-400 sm:text-xs">{schoolData.tagline}</p>
               </div>
             </Link>
 
-            <div className="hidden lg:flex items-center gap-10">
+            <div className="hidden items-center gap-3 xl:flex 2xl:gap-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`nav-link ${location.pathname === link.path ? "nav-link-active" : ""}`}
+                  className={`nav-link whitespace-nowrap text-[13px] ${location.pathname === link.path ? "nav-link-active" : ""}`}
                 >
                   {link.label}
                 </Link>
               ))}
             </div>
 
-            <div className="hidden lg:flex items-center gap-4">
-              <Link to="/admissions" className="btn-primary">
+            <div className="hidden items-center xl:flex">
+              <Link
+                to="/admissions"
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-btn bg-forest-800 px-5 py-2.5 text-sm font-medium text-white shadow-soft transition-colors hover:bg-forest-900"
+              >
                 Admission Enquiry
               </Link>
             </div>
 
             <button
-              className="lg:hidden p-2 rounded-lg text-dark-600 hover:bg-cream-100 transition-colors"
+              className="shrink-0 rounded-lg p-2 text-dark-600 transition-colors hover:bg-cream-100 xl:hidden"
               onClick={() => setIsOpen(!isOpen)}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
               aria-label={isOpen ? "Close menu" : "Open menu"}
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
@@ -108,14 +112,14 @@ export function Header() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden overflow-hidden bg-white border-t border-border-light"
+              className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border-light bg-white sm:max-h-[calc(100dvh-6.5rem)] md:max-h-[calc(100dvh-6.75rem)] xl:hidden"
             >
-              <div className="container-custom py-6 space-y-4">
+              <div className="container-custom py-6 space-y-2">
                 {navLinks.map((link) => (
                   <Link
                     key={link.path}
                     to={link.path}
-                    className={`block px-4 py-3 rounded-btn text-base font-medium transition-colors ${
+                    className={`block rounded-btn px-4 py-3 text-base font-medium transition-colors ${
                       location.pathname === link.path
                         ? "bg-forest-50 text-forest-700"
                         : "text-dark-600 hover:bg-cream-100 hover:text-forest-700"
@@ -134,6 +138,6 @@ export function Header() {
           )}
         </AnimatePresence>
       </nav>
-    </>
+    </header>
   );
 }

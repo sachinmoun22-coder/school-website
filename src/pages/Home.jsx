@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, BookOpen, GraduationCap, Award, Users, Building2, Target, Palette, Briefcase, Microscope, Heart, Shield, Bus, Home as HomeIcon, Bed, FlaskConical } from "lucide-react";
-import { schoolData, streamsData, highlightsData, whyChooseData, facilitiesData, transportRoutes } from "../data/schoolData";
+import { schoolData, streamsData, highlightsData, whyChooseData, facilitiesData, transportRoutes, hqImages } from "../data/schoolData";
 import { Hero } from "../components/Hero";
 import { SectionTitle } from "../components/SectionTitle";
 import { ScrollReveal, StaggerContainer } from "../components/ScrollReveal";
@@ -18,24 +18,24 @@ function WelcomeSection() {
           <ScrollReveal delay={0.1} direction="left">
             <div className="relative aspect-[4/3] rounded-card-lg overflow-hidden bg-forest-100">
               <img
-                src="/images/School_Photos/School_Photo_3.jpg"
+                src={hqImages.campus}
                 alt="S.B.S School Campus View"
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-forest-700/10 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6">
+              <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  className="p-5 bg-white/95 backdrop-blur-sm rounded-xl shadow-card border border-border-light"
+                  className="rounded-xl border border-border-light bg-white/95 p-3 shadow-card backdrop-blur-sm sm:p-5"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-forest-100 text-forest-700">
-                      <GraduationCap className="w-6 h-6" />
+                  <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
+                    <div className="shrink-0 rounded-xl bg-forest-100 p-2.5 text-forest-700 sm:p-3">
+                      <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
-                    <div>
-                      <p className="text-2xl font-heading font-semibold text-dark-900">Nursery to 12th</p>
-                      <p className="text-sm text-dark-500">Complete Schooling</p>
+                    <div className="min-w-0">
+                      <p className="text-lg font-heading font-semibold text-dark-900 sm:text-2xl">Nursery to 12th</p>
+                      <p className="text-xs text-dark-500 sm:text-sm">Complete Schooling</p>
                     </div>
                   </div>
                 </motion.div>
@@ -214,7 +214,7 @@ function WhyChooseSection() {
   return (
     <section className="section-padding bg-forest-800 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(33,77,59,0.3)_0%,_transparent_70%)]" />
-      <div className="absolute inset-0 bg-[url('/images/School_Photos/School_Photo_5.jpg')] bg-cover bg-center opacity-5" />
+      <div className="absolute inset-0 bg-[url('/images/1000041461.jpg')] bg-cover bg-center opacity-5" />
       
       <div className="relative z-10 container-custom">
         <SectionTitle
@@ -341,25 +341,25 @@ function GalleryPreviewSection() {
           />
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          <div className="lg:col-span-2 lg:row-span-2 relative aspect-[4/3] rounded-card-lg overflow-hidden group">
+          <div className="group relative col-span-2 aspect-[16/10] overflow-hidden rounded-card-lg lg:col-span-2 lg:row-span-2 lg:aspect-[4/3]">
             <img
-              src="/images/School_Photos/School_Photo_1.jpg"
+              src={hqImages.building}
               alt="School building exterior view"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               loading="eager"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-forest-900/60 via-transparent to-transparent flex items-end p-6">
-              <div className="text-white">
-                <h4 className="text-heading-md font-semibold">School Campus</h4>
-                <p className="text-forest-100 text-sm">Main Building & Grounds</p>
+            <div className="absolute inset-0 flex items-end bg-gradient-to-t from-forest-900/60 via-transparent to-transparent p-4 sm:p-6">
+              <div className="min-w-0 text-white">
+                <h4 className="text-heading-sm font-semibold sm:text-heading-md">School Campus</h4>
+                <p className="text-sm text-forest-100">Main Building & Grounds</p>
               </div>
             </div>
           </div>
           <div className="relative aspect-square rounded-card-lg overflow-hidden group">
             <img
-              src="/images/School_Photos/School_Photo_2.jpg"
+              src={hqImages.classroom}
               alt="Classroom environment"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-forest-900/60 via-transparent to-transparent flex items-end p-4">
@@ -368,9 +368,9 @@ function GalleryPreviewSection() {
           </div>
           <div className="relative aspect-square rounded-card-lg overflow-hidden group">
             <img
-              src="/images/School_Photos/School_Photo_3.jpg"
+              src={hqImages.campus}
               alt="School campus and grounds"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-forest-900/60 via-transparent to-transparent flex items-end p-4">

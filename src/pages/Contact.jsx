@@ -8,8 +8,8 @@ import { ContactForm } from "../components/ContactForm";
 
 // Google Maps search URL for the school
 const GOOGLE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Shaheed+Bhagat+Singh+Senior+Secondary+School+Matour+Kaithal+Haryana";
-// Google Maps embed URL using the same search query
-const GOOGLE_MAPS_EMBED_URL = "https://www.google.com/maps/embed/v1/search?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Shaheed+Bhagat+Singh+Senior+Secondary+School+Matour+Kaithal+Haryana";
+// Keyless embed URL using the same search query (works without an API key)
+const GOOGLE_MAPS_EMBED_URL = "https://maps.google.com/maps?q=Shaheed%20Bhagat%20Singh%20Senior%20Secondary%20School%20Matour%20Kaithal%20Haryana&t=&z=15&ie=UTF8&iwloc=&output=embed";
 
 export function Contact() {
   return (
@@ -105,7 +105,7 @@ export function Contact() {
                   </div>
                 </div>
 
-                <div className="lg:sticky lg:top-24">
+                <div className="lg:sticky lg:top-28">
                   <div className="p-6 lg:p-8 rounded-card-lg bg-white border border-border-light shadow-soft">
                     <h3 className="text-heading-md font-semibold text-dark-900 mb-6">Send Us a Message</h3>
                     <ContactForm />
@@ -151,15 +151,14 @@ export function Contact() {
                 </div>
                 
                 {/* Google Maps Embed */}
-                <div className="aspect-video rounded-xl overflow-hidden border border-border-light bg-forest-100">
+                <div className="aspect-[4/3] overflow-hidden rounded-xl border border-border-light bg-forest-100 sm:aspect-video">
                   <iframe
                     title="S.B.S Sr.Sec. School Matour Kaithal location on Google Maps"
                     src={GOOGLE_MAPS_EMBED_URL}
-                    className="w-full h-full border-0"
+                    className="h-full w-full border-0"
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
                   />
                 </div>
                 

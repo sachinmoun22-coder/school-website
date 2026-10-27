@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { BookOpen, GraduationCap, Building2, Target, Award, Users, MapPin, Mail, Phone, ArrowRight, Heart, Shield, Palette, User } from "lucide-react";
-import { schoolData } from "../data/schoolData";
+import { schoolData, hqImages } from "../data/schoolData";
 import { PageBanner } from "../components/PageBanner";
 import { SectionTitle } from "../components/SectionTitle";
 import { ScrollReveal, StaggerContainer } from "../components/ScrollReveal";
@@ -105,9 +105,9 @@ export function About() {
               <ScrollReveal delay={0.15} direction="right">
                 <div className="relative aspect-[4/3] rounded-card-lg overflow-hidden bg-forest-100">
                   <img
-                    src="/images/School_Photos/School_Photo_1.jpg"
+                    src={hqImages.building}
                     alt="School building exterior"
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-forest-900/60 via-transparent to-transparent" />

@@ -179,10 +179,10 @@ export function ContactForm() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="flex items-center gap-2 text-forest-600 text-sm"
+            className="flex items-start gap-2 text-sm text-forest-600"
           >
             <CheckCircle className="w-5 h-5 flex-shrink-0" />
-            <span>{submitMessage}</span>
+            <span className="min-w-0">{submitMessage}</span>
           </motion.div>
         )}
       </AnimatePresence>

@@ -10,7 +10,6 @@ import { Gallery } from "./pages/Gallery";
 import { Admission } from "./pages/Admission";
 import { News } from "./pages/News";
 import { Contact } from "./pages/Contact";
-import { ScrollReveal } from "./components/ScrollReveal";
 import { Chatbot } from "./components/Chatbot";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -43,7 +42,7 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen flex flex-col bg-cream-100">
         <Header />
-        <main className="flex-1">
+        <main className="flex-1 pt-[65px] sm:pt-[105px] md:pt-[109px]">
           <AnimatePresence mode="wait">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -61,11 +60,6 @@ function App() {
         </main>
         <Footer />
         <Chatbot />
-        <ScrollReveal as="a" href="#" className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-forest-800 text-white flex items-center justify-center shadow-lg hover:bg-forest-900 transition-colors opacity-0 pointer-events-none" style={{ display: 'none' }}>
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-          </svg>
-        </ScrollReveal>
       </div>
     </BrowserRouter>
   );

@@ -65,22 +65,22 @@ export function Achievements() {
               const CategoryIcon = categoryIcons[category.id];
               return (
                 <ScrollReveal key={category.id} delay={0.1 * index} className="mb-10 last:mb-0">
-                  <div className="card p-6 lg:p-8 overflow-hidden">
-                    <div className="flex items-start gap-6">
-                      <div className="w-16 h-16 flex-shrink-0 rounded-xl bg-gradient-to-br from-forest-100 to-forest-200 flex items-center justify-center">
-                        <CategoryIcon className="w-8 h-8 text-forest-600" />
+                  <div className="card p-5 sm:p-6 lg:p-8 overflow-hidden">
+                    <div className="flex flex-col items-start gap-4 sm:flex-row sm:gap-6">
+                      <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-forest-100 to-forest-200 sm:h-16 sm:w-16">
+                        <CategoryIcon className="h-7 w-7 text-forest-600 sm:h-8 sm:w-8" />
                       </div>
-                      <div className="flex-1">
-                        <h3 className="text-heading-lg font-semibold text-dark-900 mb-3">{category.title}</h3>
-                        <p className="text-dark-600 leading-relaxed mb-6">
+                      <div className="min-w-0 flex-1">
+                        <h3 className="mb-3 text-heading-md font-semibold text-dark-900 sm:text-heading-lg">{category.title}</h3>
+                        <p className="mb-6 text-dark-600 leading-relaxed">
                           {categoryDescriptions[category.id]}
                         </p>
-                        <div className="p-6 rounded-xl bg-cream-100 border border-border-light">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-accent-100 flex items-center justify-center">
+                        <div className="rounded-xl border border-border-light bg-cream-100 p-4 sm:p-6">
+                          <div className="flex items-start gap-3">
+                            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-accent-100">
                               <Award className="w-5 h-5 text-accent-600" />
                             </div>
-                            <div>
+                            <div className="min-w-0">
                               <h4 className="font-semibold text-dark-900">
                                 Coming Soon
                               </h4>

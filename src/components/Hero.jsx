@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import { ArrowRight, BookOpen, GraduationCap, Award } from "lucide-react";
-import { schoolData } from "../data/schoolData";
+import { schoolData, hqImages } from "../data/schoolData";
 import { ScrollReveal } from "./ScrollReveal";
 
 export function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-cream-100">
+    <section className="relative flex min-h-[90vh] items-center overflow-hidden bg-cream-100">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-hero-pattern" />
 
@@ -57,8 +57,8 @@ export function Hero() {
         />
       </div>
 
-      <div className="relative z-10 container-custom py-20 lg:py-28">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="container-custom relative z-10 py-12 sm:py-20 lg:py-28">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Left Column - Content */}
           <div className="space-y-8">
             <ScrollReveal delay={0.1} className="mb-4">
@@ -144,27 +144,27 @@ export function Hero() {
           <ScrollReveal delay={0.3} direction="right" className="relative">
             <div className="relative aspect-[4/3] rounded-card-lg overflow-hidden bg-forest-100">
               <img
-                src="/images/School_Photos/School_Photo_1.jpg"
+                src={hqImages.building}
                 alt="S.B.S Sr.Sec. School Matour Kaithal - School Building and Campus"
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
                 loading="eager"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-forest-900/30 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 text-white">
-                  <div className="p-3 rounded-xl bg-forest-700/80">
-                    <GraduationCap className="w-6 h-6" />
+              <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
+                <div className="flex min-w-0 items-center gap-2.5 rounded-lg border border-white/20 bg-white/10 p-3 text-white backdrop-blur-sm sm:gap-3 sm:p-4">
+                  <div className="shrink-0 rounded-xl bg-forest-700/80 p-2 sm:p-3">
+                    <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
-                  <div>
-                    <p className="text-lg font-semibold">{schoolData.shortName}</p>
-                    <p className="text-sm text-cream-100">{schoolData.location}</p>
+                  <div className="min-w-0">
+                    <p className="text-base font-semibold sm:text-lg">{schoolData.shortName}</p>
+                    <p className="text-xs text-cream-100 sm:text-sm">{schoolData.location}</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Decorative accent */}
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 rounded-2xl border-4 border-white/50 bg-gradient-to-br from-forest-600 to-forest-800 opacity-20" />
+            <div className="absolute -bottom-6 right-0 hidden h-32 w-32 rounded-2xl border-4 border-white/50 bg-gradient-to-br from-forest-600 to-forest-800 opacity-20 lg:block" />
           </ScrollReveal>
         </div>
       </div>
@@ -174,7 +174,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 md:block"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}

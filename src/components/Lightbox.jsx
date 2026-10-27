@@ -51,13 +51,13 @@ export function Lightbox({ images, currentIndex, onClose, onNavigate }) {
           >
             <button
               onClick={onClose}
-              className="absolute -top-14 right-0 z-10 p-2 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-colors"
+              className="absolute right-2 top-2 z-10 rounded-full bg-black/50 p-2 text-white backdrop-blur-sm transition-colors hover:bg-black/70"
               aria-label="Close lightbox"
             >
               <X className="w-6 h-6" />
             </button>
 
-            <div className="relative aspect-video max-h-[75vh] rounded-xl overflow-hidden">
+            <div className="relative aspect-video max-h-[65vh] overflow-hidden rounded-xl sm:max-h-[75vh]">
               <img
                 src={currentImage.src}
                 alt={currentImage.alt}
@@ -80,14 +80,14 @@ export function Lightbox({ images, currentIndex, onClose, onNavigate }) {
               <>
                 <button
                   onClick={() => onNavigate("prev")}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 p-3 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-colors"
+                  className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2.5 text-white backdrop-blur-sm transition-colors hover:bg-black/70 sm:left-3 sm:p-3"
                   aria-label="Previous image"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
                 <button
                   onClick={() => onNavigate("next")}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 p-3 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-colors"
+                  className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2.5 text-white backdrop-blur-sm transition-colors hover:bg-black/70 sm:right-3 sm:p-3"
                   aria-label="Next image"
                 >
                   <ChevronRight className="w-6 h-6" />
