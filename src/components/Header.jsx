@@ -126,7 +126,11 @@ export function Header() {
                   </Link>
                 ))}
                 <div className="pt-4 border-t border-border-light">
-                <Link to="/admissions" onClick={() => setIsOpen(false)} className="btn-primary w-full text-center">
+                  <Link
+                    to="/admissions"
+                    onClick={() => setIsOpen(false)}
+                    className="btn-primary w-full text-center"
+                  >
                     Admission Enquiry
                   </Link>
                 </div>
