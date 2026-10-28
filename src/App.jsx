@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Home } from "./pages/Home";
@@ -12,6 +13,16 @@ import { News } from "./pages/News";
 import { Contact } from "./pages/Contact";
 import { Chatbot } from "./components/Chatbot";
 import { motion, AnimatePresence } from "framer-motion";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function NotFound() {
   return (
@@ -40,9 +51,10 @@ function NotFound() {
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <div className="min-h-screen flex flex-col bg-cream-100">
         <Header />
-        <main className="flex-1 pt-[65px] sm:pt-[105px] md:pt-[109px]">
+        <main className="flex-1 pb-16 pt-[65px] sm:pt-[105px] md:pt-[109px]">
           <AnimatePresence mode="wait">
             <Routes>
               <Route path="/" element={<Home />} />

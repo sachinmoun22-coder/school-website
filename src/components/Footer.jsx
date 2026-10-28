@@ -5,7 +5,7 @@ import { schoolData, navLinks } from "../data/schoolData";
 export function Footer() {
   return (
     <footer className="bg-forest-900 text-cream-100">
-      <div className="container-custom py-16 lg:py-20">
+      <div className="container-custom pb-24 pt-16 lg:pb-28 lg:pt-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* School Info */}
           <div className="lg:col-span-1 space-y-6">

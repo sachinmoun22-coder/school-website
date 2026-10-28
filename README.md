@@ -36,6 +36,20 @@ cd school-website
 npm install
 ```
 
+### Environment Variables
+
+Create a `.env` file in the project root and add your Groq API key to enable the school chatbot:
+
+```bash
+VITE_GROQ_API_KEY=your_groq_api_key_here
+```
+
+You can copy the example file:
+
+```bash
+cp .env.example .env
+```
+
 ### Development
 
 ```bash

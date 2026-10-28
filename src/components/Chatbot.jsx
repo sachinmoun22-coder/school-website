@@ -4,6 +4,7 @@ import { Send, X, MessageSquare, Loader2, Bot, User } from "lucide-react";
 
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
+const hasGroqApiKey = Boolean(GROQ_API_KEY && GROQ_API_KEY.trim());
 
 const SCHOOL_CONTEXT = `
 You are a helpful assistant for S.B.S Sr.Sec. School Matour Kaithal. You ONLY answer questions related to this school.
@@ -98,6 +99,17 @@ export function Chatbot() {
       return;
     }
 
+    if (!hasGroqApiKey) {
+      const offlineMessage = {
+        id: Date.now() + 1,
+        role: "assistant",
+        content: "The AI chatbot is not configured yet. Please contact the school directly at sbsmatour@gmail.com for current information."
+      };
+      setMessages(prev => [...prev, offlineMessage]);
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const response = await fetch(GROQ_API_URL, {
         method: "POST",
@@ -116,9 +128,13 @@ export function Chatbot() {
         })
       });
 
+      if (!response.ok) {
+        throw new Error(`Groq API request failed with status ${response.status}`);
+      }
+
       const data = await response.json();
-      
-      if (data.choices && data.choices[0]) {
+
+      if (data.choices && data.choices[0]?.message?.content) {
         const botMessage = {
           id: Date.now() + 1,
           role: "assistant",
@@ -146,7 +162,7 @@ export function Chatbot() {
       {/* Chat Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-4 right-4 z-[60] flex h-14 w-14 items-center justify-center rounded-full bg-forest-800 text-white shadow-lg transition-colors duration-300 hover:bg-forest-900 sm:bottom-6 sm:right-6`}
+        className={`fixed bottom-4 right-4 z-[70] flex h-14 w-14 items-center justify-center rounded-full bg-forest-800 text-white shadow-lg transition-colors duration-300 hover:bg-forest-900 sm:bottom-6 sm:right-6`}
         aria-label={isOpen ? "Close chat" : "Open chat"}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}

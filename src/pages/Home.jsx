@@ -116,10 +116,30 @@ function KeyNumbersSection() {
     <section className="section-padding bg-forest-800 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(33,77,59,0.3)_0%,_transparent_70%)]" />
       <div className="relative z-10 container-custom">
-        <SectionTitle
-          title="Our Campus at a Glance"
-          subtitle="Key Numbers"
-        />
+        <ScrollReveal delay={0.1} className="text-center mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-3 mb-4"
+          >
+            <span className="w-10 h-0.5 bg-gradient-to-r from-accent-400 to-accent-300" />
+            <span className="text-xs font-medium uppercase tracking-widest text-accent-300">
+              Key Numbers
+            </span>
+            <span className="w-10 h-0.5 bg-gradient-to-r from-accent-300 to-accent-400" />
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="section-title text-white"
+          >
+            Our Campus at a Glance
+          </motion.h2>
+        </ScrollReveal>
         <StaggerContainer staggerDelay={0.1} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             { icon: HomeIcon, title: "35 Classrooms", desc: "Spacious, well-ventilated rooms for Nursery to 12th" },
@@ -129,11 +149,11 @@ function KeyNumbersSection() {
           ].map((item, index) => (
             <ScrollReveal key={index} delay={0.1 * index}>
               <div className="p-6 text-center">
-                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-forest-700/50 border border-forest-600 flex items-center justify-center">
+                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-forest-700/60 border border-forest-500/60 flex items-center justify-center">
                   <item.icon className="w-7 h-7 text-accent-400" />
                 </div>
                 <h3 className="text-heading-lg font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-forest-200 text-sm leading-relaxed">{item.desc}</p>
+                <p className="text-cream-100/80 text-sm leading-relaxed">{item.desc}</p>
               </div>
             </ScrollReveal>
           ))}
@@ -225,7 +245,7 @@ function WhyChooseSection() {
           {whyChooseData.map((item, index) => (
             <ScrollReveal key={item.id} delay={0.1 * index}>
               <div className="p-6 text-center">
-                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-forest-700/50 border border-forest-600 flex items-center justify-center">
+                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-forest-700/60 border border-forest-500/60 flex items-center justify-center">
                   {(() => {
                     switch (item.icon) {
                       case "GraduationCap": return <GraduationCap className="w-7 h-7 text-accent-400" />;
@@ -237,7 +257,7 @@ function WhyChooseSection() {
                   })()}
                 </div>
                 <h3 className="text-heading-sm font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-forest-200 text-sm leading-relaxed">{item.description}</p>
+                <p className="text-cream-100/80 text-sm leading-relaxed">{item.description}</p>
               </div>
             </ScrollReveal>
           ))}
