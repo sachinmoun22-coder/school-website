@@ -47,7 +47,7 @@ export function Footer() {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className="block text-forest-300 hover:text-accent-400 transition-colors text-sm"
+                  className="block rounded-sm text-forest-200 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-300 text-sm"
                 >
                   {link.label}
                 </Link>
@@ -84,7 +84,7 @@ export function Footer() {
                 <Mail className="w-5 h-5 flex-shrink-0" />
                 <a
                   href={`mailto:${schoolData.email}`}
-                  className="hover:text-accent-400 transition-colors"
+                  className="rounded-sm hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-300 transition-colors"
                 >
                   {schoolData.email}
                 </a>

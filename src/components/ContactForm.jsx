@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { AlertCircle, CheckCircle } from "lucide-react";
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -10,7 +10,6 @@ export function ContactForm() {
   });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle");
-  const [submitMessage, setSubmitMessage] = useState("");
 
   const validateForm = () => {
     const newErrors = {};
@@ -27,30 +26,17 @@ export function ContactForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    setStatus("submitting");
-    setSubmitMessage("");
-
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    console.log("Contact Form Submitted:", formData);
-
-    setStatus("success");
-    setSubmitMessage("Thank you for your inquiry! We will get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
-
-    setTimeout(() => {
-      setStatus("idle");
-      setSubmitMessage("");
-    }, 5000);
+    setStatus("not-connected");
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setStatus("idle");
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
@@ -72,7 +58,6 @@ export function ContactForm() {
           placeholder="Your full name"
           aria-invalid={errors.name ? "true" : "false"}
           aria-describedby={errors.name ? "name-error" : undefined}
-          disabled={status === "submitting"}
         />
         {errors.name && (
           <motion.p
@@ -101,7 +86,6 @@ export function ContactForm() {
           placeholder="your@email.com"
           aria-invalid={errors.email ? "true" : "false"}
           aria-describedby={errors.email ? "email-error" : undefined}
-          disabled={status === "submitting"}
         />
         {errors.email && (
           <motion.p
@@ -130,7 +114,6 @@ export function ContactForm() {
           placeholder="Your message..."
           aria-invalid={errors.message ? "true" : "false"}
           aria-describedby={errors.message ? "message-error" : undefined}
-          disabled={status === "submitting"}
         />
         {errors.message && (
           <motion.p
@@ -150,42 +133,25 @@ export function ContactForm() {
           <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-accent-500" />
           <span>
             <strong>Note:</strong> This is an inquiry form. Backend email delivery is not configured.
-            Your message will be logged to the console for demonstration purposes.
+            Messages entered here are not sent or stored. Please use the verified contact details on this page to reach the school.
           </span>
         </p>
       </div>
 
       <button
         type="submit"
-        disabled={status === "submitting"}
-        className="btn-primary w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
+        className="btn-primary w-full sm:w-auto"
       >
-        {status === "submitting" ? (
-          <>
-            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-            Sending...
-          </>
-        ) : (
-          <>
-            <Send className="w-5 h-5 mr-2" />
-            Send Message
-          </>
-        )}
+        <CheckCircle className="w-5 h-5 mr-2" />
+        Validate Message
       </button>
 
-      <AnimatePresence>
-        {status === "success" && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="flex items-start gap-2 text-sm text-forest-600"
-          >
-            <CheckCircle className="w-5 h-5 flex-shrink-0" />
-            <span className="min-w-0">{submitMessage}</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {status === "not-connected" && (
+        <div role="status" className="flex items-start gap-2 rounded-lg border border-accent-200 bg-accent-50 p-4 text-sm leading-relaxed text-dark-800">
+          <CheckCircle className="h-5 w-5 flex-shrink-0 text-forest-700" />
+          <span className="min-w-0">Your message passed validation, but it has not been sent. Please contact the school using the details shown on this page.</span>
+        </div>
+      )}
     </form>
   );
 }

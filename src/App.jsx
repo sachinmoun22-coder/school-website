@@ -8,18 +8,35 @@ import { Academics } from "./pages/Academics";
 import { Facilities } from "./pages/Facilities";
 import { Achievements } from "./pages/Achievements";
 import { Gallery } from "./pages/Gallery";
-import { Admission } from "./pages/Admission";
+import { AdmissionOverview } from "./pages/admissions/AdmissionOverview";
+import { AdmissionProcedure } from "./pages/admissions/AdmissionProcedure";
+import { EligibilityCriteria } from "./pages/admissions/EligibilityCriteria";
+import { FeeStructure } from "./pages/admissions/FeeStructure";
+import { DocumentsAndFAQs } from "./pages/admissions/DocumentsAndFAQs";
 import { News } from "./pages/News";
 import { Contact } from "./pages/Contact";
 import { Chatbot } from "./components/Chatbot";
 import { motion, AnimatePresence } from "framer-motion";
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    const frame = window.requestAnimationFrame(() => {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (hash) {
+        const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+        if (target) {
+          target.scrollIntoView({ behavior: reducedMotion ? "instant" : "smooth", block: "start" });
+          return;
+        }
+      }
+
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname, hash]);
 
   return null;
 }
@@ -53,8 +70,14 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       <div className="min-h-screen flex flex-col bg-cream-100">
+        <a
+          href="#main-content"
+          className="sr-only fixed left-4 top-4 z-[100] rounded-lg bg-white px-4 py-3 font-semibold text-forest-900 shadow-card focus:not-sr-only focus:outline-none focus:ring-2 focus:ring-forest-600"
+        >
+          Skip to main content
+        </a>
         <Header />
-        <main className="flex-1 pb-16 pt-[65px] sm:pt-[105px] md:pt-[109px]">
+        <main id="main-content" tabIndex="-1" className="flex-1 pb-16 pt-[65px] sm:pt-[105px] md:pt-[109px]">
           <AnimatePresence mode="wait">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -63,7 +86,11 @@ function App() {
               <Route path="/facilities" element={<Facilities />} />
               <Route path="/achievements" element={<Achievements />} />
               <Route path="/gallery" element={<Gallery />} />
-              <Route path="/admissions" element={<Admission />} />
+              <Route path="/admissions" element={<AdmissionOverview />} />
+              <Route path="/admissions/procedure" element={<AdmissionProcedure />} />
+              <Route path="/admissions/eligibility" element={<EligibilityCriteria />} />
+              <Route path="/admissions/fee-structure" element={<FeeStructure />} />
+              <Route path="/admissions/documents-faq" element={<DocumentsAndFAQs />} />
               <Route path="/news" element={<News />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="*" element={<NotFound />} />

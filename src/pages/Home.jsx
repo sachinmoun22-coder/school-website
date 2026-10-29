@@ -113,7 +113,7 @@ function HighlightsSection() {
 
 function KeyNumbersSection() {
   return (
-    <section className="section-padding bg-forest-800 relative overflow-hidden">
+    <section className="section-padding bg-forest-800 relative overflow-hidden section-dark">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(33,77,59,0.3)_0%,_transparent_70%)]" />
       <div className="relative z-10 container-custom">
         <ScrollReveal delay={0.1} className="text-center mb-12">
@@ -124,11 +124,11 @@ function KeyNumbersSection() {
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-3 mb-4"
           >
-            <span className="w-10 h-0.5 bg-gradient-to-r from-accent-400 to-accent-300" />
-            <span className="text-xs font-medium uppercase tracking-widest text-accent-300">
+            <span className="section-title-decoration w-10 h-0.5 bg-gradient-to-r from-accent-400 to-accent-300" />
+            <span className="section-title-label text-xs font-medium uppercase tracking-widest text-accent-300">
               Key Numbers
             </span>
-            <span className="w-10 h-0.5 bg-gradient-to-r from-accent-300 to-accent-400" />
+            <span className="section-title-decoration w-10 h-0.5 bg-gradient-to-r from-accent-300 to-accent-400" />
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -232,9 +232,9 @@ function AcademicProgramsSection() {
 
 function WhyChooseSection() {
   return (
-    <section className="section-padding bg-forest-800 relative overflow-hidden">
+    <section className="section-padding bg-forest-800 relative overflow-hidden section-dark">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(33,77,59,0.3)_0%,_transparent_70%)]" />
-      <div className="absolute inset-0 bg-[url('/images/1000041461.jpg')] bg-cover bg-center opacity-5" />
+      <div className="absolute inset-0 bg-[url('/images/1000041461.jpg')] bg-cover bg-center opacity-[0.15]" />
       
       <div className="relative z-10 container-custom">
         <SectionTitle

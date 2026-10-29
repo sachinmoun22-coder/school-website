@@ -162,7 +162,7 @@ export function Chatbot() {
       {/* Chat Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-4 right-4 z-[70] flex h-14 w-14 items-center justify-center rounded-full bg-forest-800 text-white shadow-lg transition-colors duration-300 hover:bg-forest-900 sm:bottom-6 sm:right-6`}
+        className={`chat-toggle fixed bottom-4 right-4 z-[70] flex h-14 w-14 items-center justify-center rounded-full bg-forest-800 text-white shadow-lg transition-colors duration-300 hover:bg-forest-900 sm:bottom-6 sm:right-6`}
         aria-label={isOpen ? "Close chat" : "Open chat"}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
@@ -178,7 +178,7 @@ export function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="fixed bottom-20 left-3 right-3 z-[55] flex h-[70vh] max-h-[calc(100dvh-9.5rem)] w-auto flex-col overflow-hidden rounded-2xl border border-border-light bg-white shadow-2xl sm:bottom-24 sm:left-auto sm:right-6 sm:h-[500px] sm:max-h-[calc(100dvh-6rem)] sm:w-[380px]"
+            className="chat-window fixed bottom-20 left-3 right-3 z-[55] flex h-[70vh] max-h-[calc(100dvh-9.5rem)] w-auto flex-col overflow-hidden rounded-2xl border border-border-light bg-white shadow-2xl sm:bottom-24 sm:left-auto sm:right-6 sm:h-[500px] sm:max-h-[calc(100dvh-6rem)] sm:w-[380px]"
             role="dialog"
             aria-label="School chatbot"
           >

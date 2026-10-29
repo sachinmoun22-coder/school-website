@@ -17,11 +17,11 @@ export function SectionTitle({
         transition={{ duration: 0.5 }}
         className="inline-flex items-center gap-3 mb-4"
       >
-        <span className="w-10 h-0.5 bg-gradient-to-r from-forest-500 to-forest-300" />
-        <span className="text-xs font-medium uppercase tracking-widest text-forest-600">
+        <span className="section-title-decoration w-10 h-0.5 bg-gradient-to-r from-forest-500 to-forest-300" />
+        <span className="section-title-label text-xs font-medium uppercase tracking-widest text-forest-600">
           {subtitle || "Overview"}
         </span>
-        <span className="w-10 h-0.5 bg-gradient-to-r from-forest-500 to-forest-300" />
+        <span className="section-title-decoration w-10 h-0.5 bg-gradient-to-r from-forest-500 to-forest-300" />
       </motion.div>
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
