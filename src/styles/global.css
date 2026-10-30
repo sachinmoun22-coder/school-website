@@ -209,19 +209,10 @@
     @apply text-display-sm sm:text-display-md lg:text-display-lg font-medium text-dark-900 relative inline-block;
   }
 
-  .section-title::after {
-    content: '';
-    @apply absolute bottom-0 left-0 w-1/2 h-1 bg-gradient-to-r from-forest-600 to-forest-400 rounded-full;
-  }
-
   .section-dark .section-title {
     color: #ffffff;
     background: none;
     -webkit-text-fill-color: #ffffff;
-  }
-
-  .section-dark .section-title::after {
-    background-image: linear-gradient(to right, #d4a84b, #e5bf85);
   }
 
   .section-dark .section-title-label {

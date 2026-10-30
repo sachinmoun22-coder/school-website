@@ -77,13 +77,8 @@ export function Contact() {
                         <div>
                           <h3 className="font-semibold text-dark-900 mb-1">Phone Number</h3>
                           <p className="text-dark-600">
-                            {schoolData.phoneVerified ? schoolData.phone : "Contact number verification pending"}
+                            {schoolData.phone}
                           </p>
-                          {!schoolData.phoneVerified && (
-                            <p className="text-dark-500 text-sm mt-1">
-                              The phone number has not been officially verified with the school.
-                            </p>
-                          )}
                         </div>
                       </div>
                     </div>
@@ -224,7 +219,7 @@ export function Contact() {
                 },
                 {
                   q: "Are the contact details verified?",
-                  a: "The email address is provided by the school. The phone number is currently marked as 'verification pending' until officially confirmed with the school administration."
+                  a: `You can call the school at +91 ${schoolData.phone} or email ${schoolData.email}.`
                 },
                 {
                   q: "Where can I find examination results?",

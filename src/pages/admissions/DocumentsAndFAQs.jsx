@@ -72,9 +72,6 @@ export function DocumentsAndFAQs() {
           <p className="mt-5 text-sm text-forest-100">
             Email listed on this website: <a className="underline underline-offset-4 hover:text-white" href={`mailto:${schoolData.email}`}>{schoolData.email}</a>
           </p>
-          {!schoolData.phoneVerified && (
-            <p className="mt-2 text-xs text-forest-200">The phone number is pending verification; please confirm it through the school before relying on it.</p>
-          )}
         </div>
       </section>
     </AdmissionsLayout>

@@ -239,7 +239,7 @@ export function Admission() {
                 </div>
                 <h4 className="font-semibold text-dark-900 mb-2">Call Us</h4>
                 <p className="text-dark-600">
-                  {schoolData.phoneVerified ? schoolData.phone : "Contact number verification pending"}
+                  {schoolData.phone}
                 </p>
               </div>
             </div>

@@ -142,7 +142,7 @@ export function About() {
                     </div>
                     <h4 className="font-semibold text-dark-900 mb-1">Phone</h4>
                     <p className="text-dark-600 text-sm">
-                      {schoolData.phoneVerified ? schoolData.phone : "Contact number verification pending"}
+                      {schoolData.phone}
                     </p>
                   </div>
                   <div className="p-5 rounded-xl bg-white shadow-soft border border-border-light card-hover">

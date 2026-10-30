@@ -275,6 +275,8 @@ function FacilitiesPreviewSection() {
           <SectionTitle
             title="Spaces That Inspire Learning"
             subtitle="Facilities"
+            titleClassName="leading-tight pb-1"
+            subtitleClassName="relative -top-1"
           />
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
@@ -318,7 +320,7 @@ function AchievementsPreviewSection() {
       <div className="container-custom">
         <SectionTitle
           title="Celebrating Our Students"
-          subtitle="Achievements"
+          titleClassName="leading-tight pb-1"
         />
         <ScrollReveal delay={0.1}>
           <div className="max-w-3xl mx-auto text-center">
@@ -357,7 +359,7 @@ function GalleryPreviewSection() {
         <div className="flex items-center justify-between mb-10">
           <SectionTitle
             title="A Glimpse Into School Life"
-            subtitle="Gallery"
+            titleClassName="leading-tight pb-1"
           />
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">

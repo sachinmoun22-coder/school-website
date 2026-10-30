@@ -16,6 +16,7 @@ import { DocumentsAndFAQs } from "./pages/admissions/DocumentsAndFAQs";
 import { News } from "./pages/News";
 import { Contact } from "./pages/Contact";
 import { Chatbot } from "./components/Chatbot";
+import { FloatingContactBar } from "./components/FloatingContactBar";
 import { motion, AnimatePresence } from "framer-motion";
 
 function ScrollToTop() {
@@ -99,6 +100,7 @@ function App() {
         </main>
         <Footer />
         <Chatbot />
+        <FloatingContactBar />
       </div>
     </BrowserRouter>
   );

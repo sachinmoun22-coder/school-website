@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, MapPin, Phone, Mail, BookOpen, ChevronDown } from "lucide-react";
+import { Menu, X, MapPin, Phone, Mail, ChevronDown } from "lucide-react";
 import { admissionPages } from "../data/admissions";
 import { navLinks, schoolData } from "../data/schoolData";
 
@@ -104,10 +104,14 @@ export function Header() {
                 <span className="truncate">{schoolData.email}</span>
               </a>
             </div>
-            <span className="hidden shrink-0 items-center gap-1.5 whitespace-nowrap text-forest-300 lg:flex">
+            <a
+              href={`tel:+91${schoolData.phone}`}
+              className="hidden shrink-0 items-center gap-1.5 whitespace-nowrap text-forest-300 transition-colors hover:text-accent-400 lg:flex"
+              aria-label={`Call the school at +91 ${schoolData.phone}`}
+            >
               <Phone className="w-4 h-4" />
-              <span>{schoolData.phoneVerified ? schoolData.phone : "Contact number verification pending"}</span>
-            </span>
+              <span>+91 {schoolData.phone}</span>
+            </a>
           </div>
         </div>
       </div>
@@ -124,8 +128,12 @@ export function Header() {
         <div className="container-custom">
           <div className="flex h-16 items-center justify-between gap-2 sm:h-[4.5rem] sm:gap-3">
             <Link to="/" className="flex shrink-0 items-center gap-2 sm:gap-3" aria-label="Go to homepage">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-forest-700 to-forest-900 shadow-soft sm:h-12 sm:w-12">
-                <BookOpen className="h-6 w-6 text-white sm:h-7 sm:w-7" />
+              <div className="h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-forest-900 shadow-soft sm:h-12 sm:w-12">
+                <img
+                  src="/images/website%20logo.png"
+                  alt={schoolData.shortName}
+                  className="h-full w-full object-contain"
+                />
               </div>
               <div className="hidden shrink-0 sm:block">
                 <h1 className="whitespace-nowrap text-base font-heading font-semibold leading-tight text-dark-900 sm:text-lg lg:text-xl">

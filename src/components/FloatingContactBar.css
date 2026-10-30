@@ -1,0 +1,237 @@
+.floating-contact {
+  position: fixed;
+  bottom: calc(1rem + 3.5rem + 2.5rem);
+  right: max(0.625rem, env(safe-area-inset-right));
+  z-index: 45;
+  pointer-events: none;
+}
+
+.floating-contact__inner {
+  pointer-events: auto;
+  padding: 6px;
+  animation: floatingContactEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.floating-contact__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.floating-contact__list li {
+  display: flex;
+}
+
+.floating-contact__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow:
+    0 2px 6px -1px rgba(26, 34, 29, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  transition:
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.22s ease,
+    filter 0.22s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.floating-contact__link:hover {
+  transform: translateY(-1px) scale(1.08);
+  box-shadow:
+    0 8px 18px -4px rgba(26, 34, 29, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32);
+  filter: saturate(1.08);
+}
+
+.floating-contact__link:active {
+  transform: scale(0.97);
+}
+
+.floating-contact__link:focus-visible {
+  outline: 3px solid #17392c;
+  outline-offset: 3px;
+  transform: scale(1.06);
+}
+
+.floating-contact__link--whatsapp {
+  background: #25d366;
+}
+
+.floating-contact__link--whatsapp:hover {
+  background: #20bd5a;
+}
+
+.floating-contact__link--instagram {
+  background: linear-gradient(
+    135deg,
+    #f58529 0%,
+    #feda77 18%,
+    #dd2a7b 48%,
+    #8134af 76%,
+    #515bd4 100%
+  );
+}
+
+.floating-contact__link--facebook {
+  background: #1877f2;
+}
+
+.floating-contact__link--facebook:hover {
+  background: #166fe5;
+}
+
+.floating-contact__icon {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+}
+
+.floating-contact__tooltip {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 12px);
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #17392c;
+  color: #ffffff;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(6px, -50%);
+  box-shadow: 0 8px 20px -8px rgba(13, 36, 26, 0.5);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    visibility 0.18s ease;
+}
+
+.floating-contact__tooltip::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid #17392c;
+  transform: translateY(-50%);
+}
+
+.floating-contact__link:hover .floating-contact__tooltip,
+.floating-contact__link:focus-visible .floating-contact__tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -50%);
+}
+
+body.mobile-menu-open .floating-contact {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes floatingContactEnter {
+  from {
+    opacity: 0;
+    transform: translateX(18px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@media (min-width: 640px) {
+  .floating-contact {
+    bottom: calc(1.5rem + 3.5rem + 3rem);
+    right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .floating-contact__inner {
+    padding: 7px;
+  }
+
+  .floating-contact__list {
+    gap: 10px;
+  }
+
+  .floating-contact__link {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+  }
+
+  .floating-contact__icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .floating-contact {
+    right: max(1.25rem, env(safe-area-inset-right));
+  }
+
+  .floating-contact__link {
+    width: 46px;
+    height: 46px;
+  }
+
+  .floating-contact__icon {
+    width: 21px;
+    height: 21px;
+  }
+}
+
+@media (max-height: 560px) {
+  .floating-contact__list {
+    gap: 6px;
+  }
+
+  .floating-contact__link {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+
+  .floating-contact__icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-contact__inner {
+    animation: none;
+  }
+
+  .floating-contact__link,
+  .floating-contact__tooltip {
+    transition: none;
+  }
+
+  .floating-contact__link:hover,
+  .floating-contact__link:focus-visible,
+  .floating-contact__link:active {
+    transform: none;
+  }
+}

@@ -20,7 +20,7 @@ SCHOOL INFORMATION:
 - Facilities: 35 classrooms, 1 science laboratory, transport (5 buses + 1 van), hostel facility, playground
 - Transport Routes: Ramgarh, Shimla, Kalasar, Mandi, Kheri, Bhalang, Singhwal, Sudkain, and other nearby villages
 - Email: sbsmatour@gmail.com
-- Phone: 7015056542 (verification pending)
+- Phone: +91 7015056542
 - Type: Co-educational Senior Secondary School
 
 RULES:

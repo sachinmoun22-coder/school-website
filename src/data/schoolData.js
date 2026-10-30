@@ -5,7 +5,6 @@ export const schoolData = {
   location: "Matour village, Kaithal, Haryana",
   email: "sbsmatour@gmail.com",
   phone: "7015056542",
-  phoneVerified: false,
   schoolCode: "10244",
   schoolType: "Senior Secondary School",
   educationLevel: "Nursery to 12th",
