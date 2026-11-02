@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, X, MessageSquare, Loader2, Bot, User } from "lucide-react";
+import { Send, X, Loader2, User } from "lucide-react";
+import { facilitiesData, schoolData, streamsData, transportRoutes } from "../data/schoolData";
 
+const CHATBOT_AVATAR = "/images/School_Photos/ChatGPT%20Image%20Nov%202,%202026,%2010_43_19%20AM.jpg";
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 const hasGroqApiKey = Boolean(GROQ_API_KEY && GROQ_API_KEY.trim());
@@ -26,10 +28,32 @@ SCHOOL INFORMATION:
 RULES:
 1. ONLY answer questions about this school (admissions, academics, facilities, contact, location, principal, transport, hostel, fees, timings, results, etc.)
 2. If asked about anything else (politics, other schools, general knowledge, coding, personal advice, etc.), politely decline and say you can only help with school-related queries
-3. For information not available (fees, exact admission dates, exam results, principal's message, school history), say "This information will be updated soon. Please contact the school directly for current details."
+3. Do not invent facts. For unconfirmed details such as current vacancies, approved fees, exact admission dates, or exam results, direct the user to the school office.
 4. Be polite, professional, and concise
 5. Always refer to the school as "S.B.S Sr.Sec. School Matour Kaithal"
+6. Answer in the language used by the user, including Hindi or Hinglish. Give a specific answer whenever the information is available; only direct them to the school for unconfirmed details.
+- Office hours: Monday to Saturday, 8:00 AM to 2:00 PM; Sunday closed.
+- Senior secondary streams: Arts, Commerce, and Science for Classes 11-12.
+- Potential Arts subject areas: Hindi, English, History, Political Science, Geography, Economics, Sociology, Physical Education, Home Science, Drawing / Fine Arts, Sanskrit.
+- Potential Commerce subject areas: Hindi, English, Accountancy, Business Studies, Economics, Mathematics, Physical Education, Computer Science / Informatics Practices.
+- Potential Science subject areas: Hindi, English, Physics, Chemistry, Biology, Mathematics, Physical Education, Computer Science / Informatics Practices.
+- Subject combinations listed on the website are potential options and should be confirmed with the school office.
+- Fee figures on the admissions page are indicative references only and are not confirmed approved fees.
+- Website fee references: Nursery-KG admission ₹5,000 and quarterly ₹6,500; Grades 1-5 admission ₹6,000 and quarterly ₹8,000; Grades 6-10 admission ₹7,500 and quarterly ₹10,000; Grades 11-12 admission ₹9,000 and quarterly ₹12,500.
 `;
+
+const streamSubjects = {
+  arts: "Hindi, English, History, Political Science, Geography, Economics, Sociology, Physical Education, Home Science, Drawing / Fine Arts, and Sanskrit",
+  commerce: "Hindi, English, Accountancy, Business Studies, Economics, Mathematics, Physical Education, and Computer Science / Informatics Practices",
+  science: "Hindi, English, Physics, Chemistry, Biology, Mathematics, Physical Education, and Computer Science / Informatics Practices",
+};
+
+const feeDetails = [
+  "Pre-Primary (Nursery-KG): admission ₹5,000; quarterly ₹6,500",
+  "Primary (Grades 1-5): admission ₹6,000; quarterly ₹8,000",
+  "Secondary (Grades 6-10): admission ₹7,500; quarterly ₹10,000",
+  "Senior Secondary (Grades 11-12): admission ₹9,000; quarterly ₹12,500",
+];
 
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,11 +87,80 @@ export function Chatbot() {
       'playground', 'laboratory', 'lab', 'classroom', 'teacher', 'staff', 'student',
       'curriculum', 'syllabus', 'timing', 'hour', 'schedule', 'calendar', 'event',
       'principal', 'message', 'vision', 'mission', 'history', 'established', 'code',
-      '10244', 'ramgarh', 'shimla', 'kalasar', 'mandi', 'kheri', 'bhalang', 'singhwal', 'sudkain'
+      '10244', 'ramgarh', 'shimla', 'kalasar', 'mandi', 'kheri', 'bhalang', 'singhwal', 'sudkain',
+      'website', 'site', 'subject', 'subjects', 'vishay', '11th', '12th', 'स्कूल', 'विद्यालय',
+      'फीस', 'दाखिला', 'समय', 'कक्षा', 'विषय', 'प्रवेश', 'संपर्क', 'पता', 'प्रधानाचार्य',
+      'छात्रावास', 'परिवहन', 'छुट्टी', 'परिणाम', 'सुविधा'
     ];
-    
-    const lowerQuestion = question.toLowerCase();
-    return schoolKeywords.some(keyword => lowerQuestion.includes(keyword));
+
+    const lowerQuestion = question.toLocaleLowerCase();
+    const hindiKeywords = [
+      'vidyalaya', 'school mein', 'school ka', 'school ki', 'hamare school',
+      'padhai', 'kaksha', 'vishay', 'vishayon', 'suvidha', 'shulk', 'pradhanacharya',
+      'pata', 'sampark', 'samay', 'chhutti', 'chhatravas', 'parivahan', 'pariksha',
+      'pravesh', 'kaun si class', 'kitni class', 'kahan hai', 'kab khulta', 'kab band',
+    ];
+
+    return [...schoolKeywords, ...hindiKeywords].some(keyword => lowerQuestion.includes(keyword));
+  };
+
+  const getOfflineSchoolAnswer = (question) => {
+    const query = question.toLocaleLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const hasAny = (...terms) => terms.some(term => query.includes(term));
+    const schoolName = schoolData.name;
+    const contact = `School office se ${schoolData.phone} par sampark karein ya ${schoolData.email} par email bhejein.`;
+
+    if (hasAny("email", "e-mail", "gmail", "ईमेल")) {
+      return `School ka email address ${schoolData.email} hai.`;
+    }
+    if (hasAny("phone", "mobile", "call", "number", "contact", "sampark", "फोन", "मोबाइल")) {
+      return `School ka contact number +91 ${schoolData.phone} hai aur email ${schoolData.email} hai.`;
+    }
+    if (hasAny("address", "location", "where", "kahan", "pata", "पता", "स्थान")) {
+      return `${schoolName}, Matour village, Kaithal, Haryana mein sthit hai.`;
+    }
+    if (hasAny("timing", "hours", "open", "close", "sunday", "samay", "kab khulta", "kab band", "समय")) {
+      return "Office hours Monday se Saturday, 8:00 AM se 2:00 PM hain. Sunday ko office band rehta hai.";
+    }
+    if (hasAny("principal", "pradhanacharya", "प्रधानाचार्य")) {
+      return `School ke principal ${schoolData.principalName} hain.`;
+    }
+    if (hasAny("about school", "tell me about", "school ke bare", "school ke baare", "school kya hai", "website par kya")) {
+      return `${schoolData.introduction} ${schoolData.schoolType} hai aur yahan ${schoolData.streams.join(", ")} streams available hain.`;
+    }
+    if (hasAny("fee", "fees", "shulk", "शुल्क")) {
+      return `Website par diye gaye indicative fee references:\n${feeDetails.join("\n")}\nYe approved/current fees ki pushti nahi hain; exact fees ke liye ${contact}`;
+    }
+    if (hasAny("subject", "vishay", "vishayon", "arts", "commerce", "science", "stream", "विषय")) {
+      const requestedStream = Object.keys(streamSubjects).find(stream => query.includes(stream));
+      if (requestedStream) {
+        return `${requestedStream[0].toUpperCase()}${requestedStream.slice(1)} Stream ke potential subject areas: ${streamSubjects[requestedStream]}. Subject combinations school office se confirm karein.`;
+      }
+      return `Classes 11-12 mein ${streamsData.map(stream => stream.name).join(", ")} streams hain. Aap kis stream ke subjects ke baare mein pooch rahe hain?`;
+    }
+    if (hasAny("class", "classes", "grade", "nursery", "lkg", "ukg", "kaksha", "कक्षा")) {
+      return `${schoolName} mein education Nursery se Class 12 tak hai.`;
+    }
+    if (hasAny("board", "bseh", "code", "affiliation", "बोर्ड")) {
+      return `${schoolName}, Board of School Education Haryana (BSEH) se affiliated hai. School code ${schoolData.schoolCode} hai.`;
+    }
+    if (hasAny("transport", "bus", "van", "route", "parivahan", "परिवहन")) {
+      return `School transport mein 5 buses aur 1 van hain. Listed routes: ${transportRoutes.join(", ")} aur aas-paas ke anya gaon. Exact pickup point aur timing ke liye school office se confirm karein.`;
+    }
+    if (hasAny("facility", "facilities", "suvidha", "सुविधा")) {
+      return `Website par listed facilities: ${facilitiesData.map(facility => facility.name).join(", ")}.`;
+    }
+    if (hasAny("hostel", "chhatravas", "छात्रावास")) {
+      return `School website par hostel facility listed hai. Availability aur details ke liye ${contact}`;
+    }
+    if (hasAny("admission", "admissions", "enrol", "pravesh", "प्रवेश")) {
+      return `Admissions Nursery se Class 12 tak ke liye hain. Eligibility, current vacancies aur required documents class aur session ke hisaab se badal sakte hain; latest details ke liye ${contact}`;
+    }
+    if (hasAny("result", "exam", "examination", "pariksha", "परिणाम", "परीक्षा")) {
+      return `Current exam schedule aur results ki confirmed details website par available nahi hain. Latest information ke liye ${contact}`;
+    }
+
+    return `School website par is sawal ki confirmed detail nahi mili. Aap admissions, classes, subjects, fees, facilities, transport ya contact details ke baare mein pooch sakte hain. Current confirmation ke liye ${contact}`;
   };
 
   const handleSend = async (e) => {
@@ -86,27 +179,19 @@ export function Chatbot() {
 
     setMessages(prev => [...prev, newUserMessage]);
 
-    if (!isSchoolRelated(userMessage)) {
+    if (!hasGroqApiKey) {
+      const content = isSchoolRelated(userMessage)
+        ? getOfflineSchoolAnswer(userMessage)
+        : "I'm here to help with questions about S.B.S Sr.Sec. School Matour Kaithal only. Please ask about admissions, academics, facilities, transport, or contact details.";
       setTimeout(() => {
         const botMessage = {
           id: Date.now() + 1,
           role: "assistant",
-          content: "I'm here to help with questions about S.B.S Sr.Sec. School Matour Kaithal only. I can't answer questions about other topics. Please ask me about admissions, academics, facilities, transport, hostel, contact details, or any other school-related information."
+          content
         };
         setMessages(prev => [...prev, botMessage]);
         setIsLoading(false);
       }, 500);
-      return;
-    }
-
-    if (!hasGroqApiKey) {
-      const offlineMessage = {
-        id: Date.now() + 1,
-        role: "assistant",
-        content: "The AI chatbot is not configured yet. Please contact the school directly at sbsmatour@gmail.com for current information."
-      };
-      setMessages(prev => [...prev, offlineMessage]);
-      setIsLoading(false);
       return;
     }
 
@@ -149,7 +234,9 @@ export function Chatbot() {
       const errorMessage = {
         id: Date.now() + 1,
         role: "assistant",
-        content: "Sorry, I'm having trouble connecting right now. Please try again later or contact the school directly at sbsmatour@gmail.com."
+        content: isSchoolRelated(userMessage)
+          ? getOfflineSchoolAnswer(userMessage)
+          : "Sorry, I'm having trouble connecting right now. Please try again later or contact the school directly at sbsmatour@gmail.com."
       };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
@@ -162,12 +249,18 @@ export function Chatbot() {
       {/* Chat Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className={`chat-toggle fixed bottom-4 right-4 z-[70] flex h-14 w-14 items-center justify-center rounded-full bg-forest-800 text-white shadow-lg transition-colors duration-300 hover:bg-forest-900 sm:bottom-6 sm:right-6`}
+        className="chat-toggle fixed bottom-4 right-4 z-[70] flex h-14 w-14 items-center justify-center overflow-hidden rounded-full bg-black shadow-lg ring-1 ring-gray-800 transition-all duration-300 hover:shadow-xl hover:ring-forest-300 sm:bottom-6 sm:right-6"
         aria-label={isOpen ? "Close chat" : "Open chat"}
+        animate={isOpen ? { y: 0 } : { y: [0, -4, 0] }}
+        transition={isOpen ? { duration: 0.2 } : { duration: 3, repeat: Infinity, ease: "easeInOut" }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
-        {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
+        {isOpen ? (
+          <X className="w-6 h-6 text-white" />
+        ) : (
+          <img src={CHATBOT_AVATAR} alt="" className="h-full w-full bg-black object-contain" />
+        )}
       </motion.button>
 
       {/* Chat Window */}
@@ -185,9 +278,7 @@ export function Chatbot() {
             {/* Header */}
             <div className="p-4 bg-forest-800 text-white flex items-center justify-between border-b border-forest-700">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-forest-600 to-forest-800 flex items-center justify-center">
-                  <Bot className="w-5 h-5" />
-                </div>
+                <img src={CHATBOT_AVATAR} alt="" className="w-10 h-10 rounded-lg bg-black object-contain" />
                 <div>
                   <h3 className="font-semibold text-sm">S.B.S School Assistant</h3>
                   <p className="text-xs text-forest-200">Online • School queries only</p>
@@ -221,9 +312,7 @@ export function Chatbot() {
                   }`}>
                     <div className="flex items-start gap-2">
                       {message.role === "assistant" && (
-                        <div className="w-6 h-6 rounded-full bg-forest-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Bot className="w-4 h-4 text-forest-600" />
-                        </div>
+                        <img src={CHATBOT_AVATAR} alt="" className="w-6 h-6 rounded-full bg-black object-contain flex-shrink-0 mt-0.5" />
                       )}
                       <div className="text-sm leading-relaxed whitespace-pre-wrap">
                         {message.content}
@@ -248,9 +337,7 @@ export function Chatbot() {
                 className="px-4 pb-2"
               >
                 <div className="flex items-start gap-2">
-                  <div className="w-6 h-6 rounded-full bg-forest-100 flex items-center justify-center flex-shrink-0">
-                    <Bot className="w-4 h-4 text-forest-600" />
-                  </div>
+                  <img src={CHATBOT_AVATAR} alt="" className="w-6 h-6 rounded-full bg-black object-contain flex-shrink-0" />
                   <div className="flex gap-1 py-2">
                     <Loader2 className="w-4 h-4 text-forest-400 animate-spin" />
                     <Loader2 className="w-4 h-4 text-forest-400 animate-spin" style={{ animationDelay: "100ms" }} />

@@ -12,6 +12,11 @@ const GOOGLE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Shaheed
 const GOOGLE_MAPS_EMBED_URL = "https://maps.google.com/maps?q=Shaheed%20Bhagat%20Singh%20Senior%20Secondary%20School%20Matour%20Kaithal%20Haryana&t=&z=15&ie=UTF8&iwloc=&output=embed";
 
 export function Contact() {
+  const officeHours = [
+    { label: "Monday se Saturday", time: "8:00 AM se 2:00 PM" },
+    { label: "Sunday", time: "Closed" },
+  ];
+
   return (
     <div className="min-h-screen">
       <PageBanner
@@ -90,10 +95,13 @@ export function Contact() {
                         </div>
                         <div>
                           <h3 className="font-semibold text-dark-900 mb-1">Office Hours</h3>
-                          <p className="text-dark-600">{schoolData.placeholderText}</p>
-                          <p className="text-dark-500 text-sm mt-1">
-                            School timings will be updated when officially confirmed.
-                          </p>
+                          <div className="space-y-1">
+                            {officeHours.map(({ label, time }) => (
+                              <p key={label} className="text-dark-600">
+                                <span className="font-medium text-dark-900">{label}:</span> {time}
+                              </p>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </div>

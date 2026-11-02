@@ -12,6 +12,57 @@ const streamIcons = {
   Microscope,
 };
 
+const artsSubjects = [
+  "Hindi",
+  "English",
+  "History",
+  "Political Science",
+  "Geography",
+  "Economics",
+  "Sociology",
+  "Physical Education",
+  "Home Science",
+  "Drawing / Fine Arts",
+  "Sanskrit",
+];
+
+const commerceSubjects = [
+  "Hindi",
+  "English",
+  "Accountancy",
+  "Business Studies",
+  "Economics",
+  "Mathematics",
+  "Physical Education",
+  "Computer Science / Informatics Practices",
+];
+
+const scienceSubjects = [
+  "Hindi",
+  "English",
+  "Physics",
+  "Chemistry",
+  "Biology",
+  "Mathematics",
+  "Physical Education",
+  "Computer Science / Informatics Practices",
+];
+
+const streamSubjectDetails = {
+  arts: {
+    subjects: artsSubjects,
+    note: "Students apni ruchi ke hisaab se in vishayon mein se chunav kar sakte hain. Hindi aur English sabhi ke liye anivarya hain.",
+  },
+  commerce: {
+    subjects: commerceSubjects,
+    note: "Students apni ruchi aur career goal ke hisaab se in vishayon mein se chunav kar sakte hain. Hindi aur English sabhi ke liye anivarya hain.",
+  },
+  science: {
+    subjects: scienceSubjects,
+    note: "Students apne career goal (Medical ya Non-Medical) ke hisaab se in vishayon mein se chunav kar sakte hain. Hindi aur English sabhi ke liye anivarya hain.",
+  },
+};
+
 function getStreamIcon(iconName) {
   return streamIcons[iconName] || BookOpen;
 }
@@ -104,6 +155,7 @@ export function Academics() {
           <StaggerContainer staggerDelay={0.15}>
             {streamsData.map((stream, index) => {
               const StreamIcon = getStreamIcon(stream.icon);
+              const subjectDetails = streamSubjectDetails[stream.id];
               return (
                 <ScrollReveal key={stream.id} delay={0.1 * index} className="mb-16 last:mb-0">
                   <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
@@ -132,12 +184,35 @@ export function Academics() {
                       <div className="space-y-3">
                         <h4 className="font-semibold text-dark-900">Potential Subject Areas:</h4>
                         <div className="p-4 rounded-lg bg-white border border-border-light">
-                          <p className="text-dark-600 text-sm italic">
-                            {schoolData.placeholderText}
-                          </p>
-                          <p className="text-dark-500 text-xs mt-2">
-                            Detailed subject combinations and curriculum information will be published when available from the school.
-                          </p>
+                          {subjectDetails ? (
+                            <>
+                              <div className="flex flex-wrap gap-2">
+                                {subjectDetails.subjects.map((subject) => (
+                                  <span key={subject} className="badge badge-forest">
+                                    {subject}
+                                  </span>
+                                ))}
+                              </div>
+                              <p className="text-dark-600 text-sm mt-3">
+                                {subjectDetails.note}
+                              </p>
+                              <p className="text-dark-500 text-xs mt-2">
+                                Subject combinations ke liye school office se sampark karein:{" "}
+                                <a className="text-forest-600 hover:text-forest-700" href="tel:+917015056542">
+                                  +91 7015056542
+                                </a>
+                              </p>
+                            </>
+                          ) : (
+                            <>
+                              <p className="text-dark-600 text-sm italic">
+                                {schoolData.placeholderText}
+                              </p>
+                              <p className="text-dark-500 text-xs mt-2">
+                                Detailed subject combinations and curriculum information will be published when available from the school.
+                              </p>
+                            </>
+                          )}
                         </div>
                       </div>
                       <div className="flex flex-wrap gap-3 pt-4">
