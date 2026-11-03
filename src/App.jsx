@@ -70,7 +70,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div className="min-h-screen flex flex-col bg-cream-100">
+      <div className="min-h-screen flex flex-col bg-gradient-to-b from-cream-50 via-white to-cream-50">
         <a
           href="#main-content"
           className="sr-only fixed left-4 top-4 z-[100] rounded-lg bg-white px-4 py-3 font-semibold text-forest-900 shadow-card focus:not-sr-only focus:outline-none focus:ring-2 focus:ring-forest-600"

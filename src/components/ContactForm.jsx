@@ -6,6 +6,7 @@ export function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     message: "",
   });
   const [errors, setErrors] = useState({});
@@ -17,6 +18,10 @@ export function ContactForm() {
     if (!formData.email.trim()) newErrors.email = "Email is required";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Please enter a valid email address";
+    }
+    if (!formData.phone.trim()) newErrors.phone = "Mobile number is required";
+    else if (!/^[6-9]\d{9}$/.test(formData.phone.trim())) {
+      newErrors.phone = "Please enter a valid 10-digit Indian mobile number";
     }
     if (!formData.message.trim()) newErrors.message = "Message is required";
     else if (formData.message.trim().length < 10) {
@@ -72,32 +77,65 @@ export function ContactForm() {
         )}
       </div>
 
-      <div>
-        <label htmlFor="email" className="label-field">
-          Email Address <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className={`input-field ${errors.email ? "border-red-500 focus:ring-red-500" : ""}`}
-          placeholder="your@email.com"
-          aria-invalid={errors.email ? "true" : "false"}
-          aria-describedby={errors.email ? "email-error" : undefined}
-        />
-        {errors.email && (
-          <motion.p
-            id="email-error"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-1.5 text-sm text-red-500 flex items-center gap-1"
-          >
-            <AlertCircle className="w-4 h-4" />
-            {errors.email}
-          </motion.p>
-        )}
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="email" className="label-field">
+            Email Address <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className={`input-field ${errors.email ? "border-red-500 focus:ring-red-500" : ""}`}
+            placeholder="your@email.com"
+            aria-invalid={errors.email ? "true" : "false"}
+            aria-describedby={errors.email ? "email-error" : undefined}
+          />
+          {errors.email && (
+            <motion.p
+              id="email-error"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-1.5 text-sm text-red-500 flex items-center gap-1"
+            >
+              <AlertCircle className="w-4 h-4" />
+              {errors.email}
+            </motion.p>
+          )}
+        </div>
+
+        <div>
+          <label htmlFor="phone" className="label-field">
+            Mobile Number <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            inputMode="numeric"
+            pattern="[6-9][0-9]{9}"
+            maxLength={10}
+            value={formData.phone}
+            onChange={handleChange}
+            className={`input-field ${errors.phone ? "border-red-500 focus:ring-red-500" : ""}`}
+            placeholder="10-digit mobile number"
+            aria-invalid={errors.phone ? "true" : "false"}
+            aria-describedby={errors.phone ? "phone-error" : undefined}
+          />
+          {errors.phone && (
+            <motion.p
+              id="phone-error"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-1.5 text-sm text-red-500 flex items-center gap-1"
+            >
+              <AlertCircle className="w-4 h-4" />
+              {errors.phone}
+            </motion.p>
+          )}
+        </div>
       </div>
 
       <div>

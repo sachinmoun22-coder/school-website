@@ -37,13 +37,15 @@ export function Hero() {
             transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="max-w-3xl"
           >
-            <p className="mb-5 inline-flex rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-forest-100 backdrop-blur-sm sm:text-sm">
+            <p className="mb-5 inline-flex rounded-full border border-white/30 bg-gradient-to-r from-white/15 to-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-forest-50 backdrop-blur-md shadow-lg sm:text-sm">
               {schoolData.name}
             </p>
-            <h1 className="font-heading text-4xl font-semibold leading-[1.12] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="font-heading text-4xl font-semibold leading-[1.08] tracking-[-0.02em] text-white sm:text-5xl md:text-6xl lg:text-7xl">
               Nurturing Minds.
               <br />
-              Building Futures.
+              <span className="bg-gradient-to-r from-white via-forest-50 to-accent-200 bg-clip-text text-transparent">
+                Building Futures.
+              </span>
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg lg:text-xl">
               Empowering students with quality education, knowledge, values, and the confidence to build a brighter future.

@@ -1,4 +1,5 @@
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa6";
+import { motion } from "framer-motion";
 import { schoolData } from "../data/schoolData";
 import "./FloatingContactBar.css";
 
@@ -34,28 +35,61 @@ const contactLinks = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0, x: 20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: 16, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 260,
+      damping: 20,
+    },
+  },
+};
+
 export function FloatingContactBar() {
   return (
     <aside className="floating-contact" aria-label="Quick contact and social links">
-      <div className="floating-contact__inner">
-        <ul className="floating-contact__list">
+      <motion.div
+        className="floating-contact__inner"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <motion.ul className="floating-contact__list" variants={containerVariants}>
           {contactLinks.map(({ id, label, href, ariaLabel, Icon, modifier, external }) => (
-            <li key={id}>
-              <a
+            <motion.li key={id} variants={itemVariants}>
+              <motion.a
                 href={href}
                 className={`floating-contact__link floating-contact__link--${modifier}`}
                 aria-label={ariaLabel}
+                whileHover={{ scale: 1.12, rotate: 5, y: -3 }}
+                whileTap={{ scale: 0.95, rotate: -2 }}
                 {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               >
                 <Icon className="floating-contact__icon" aria-hidden="true" focusable="false" />
                 <span className="floating-contact__tooltip" aria-hidden="true">
                   {label}
                 </span>
-              </a>
-            </li>
+              </motion.a>
+            </motion.li>
           ))}
-        </ul>
-      </div>
+        </motion.ul>
+      </motion.div>
     </aside>
   );
 }

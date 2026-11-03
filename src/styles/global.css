@@ -178,11 +178,11 @@
   }
 
   .btn-primary {
-    @apply inline-flex max-w-full items-center justify-center text-center px-5 sm:px-7 py-3 sm:py-3.5 text-sm sm:text-base font-medium text-white bg-forest-800 rounded-btn hover:bg-forest-900 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-2 transition-all duration-300 shadow-soft hover:shadow-card;
+    @apply inline-flex max-w-full items-center justify-center text-center px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-semibold tracking-wide text-white bg-gradient-to-r from-forest-800 via-forest-700 to-forest-900 rounded-btn hover:from-forest-900 hover:via-forest-800 hover:to-forest-950 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-2 transition-all duration-300 shadow-soft hover:shadow-card hover:-translate-y-0.5;
   }
 
   .btn-secondary {
-    @apply inline-flex max-w-full items-center justify-center text-center px-5 sm:px-7 py-3 sm:py-3.5 text-sm sm:text-base font-medium text-forest-800 bg-cream-100 border border-forest-200 rounded-btn hover:bg-forest-50 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-2 transition-all duration-300;
+    @apply inline-flex max-w-full items-center justify-center text-center px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-semibold tracking-wide text-forest-800 bg-cream-100 border border-forest-200 rounded-btn hover:bg-forest-50 hover:border-forest-300 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-2 transition-all duration-300 hover:-translate-y-0.5;
   }
 
   .btn-outline {
@@ -194,19 +194,35 @@
   }
 
   .card {
-    @apply bg-white rounded-card shadow-soft border border-border-light overflow-hidden transition-all duration-400 hover:shadow-card-hover hover:-translate-y-1;
+    @apply bg-white rounded-2xl shadow-soft border border-border-light/80 overflow-hidden transition-all duration-500 hover:shadow-card-hover hover:-translate-y-1 hover:border-forest-100;
   }
 
   .card-hover {
-    @apply transform transition-all duration-400 hover:-translate-y-1 hover:shadow-card-hover;
+    @apply transform transition-all duration-500 hover:-translate-y-1 hover:shadow-card-hover;
   }
 
   .section-label {
     @apply text-xs font-medium uppercase tracking-widest text-forest-600 mb-3 inline-block;
   }
 
+  .section-title-label {
+    @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold uppercase tracking-[0.28em] shadow-sm backdrop-blur-sm;
+    background: radial-gradient(circle at top left, rgba(212, 168, 75, 0.18), transparent 55%),
+      linear-gradient(90deg, rgba(33, 77, 59, 0.1) 0%, rgba(33, 77, 59, 0.06) 100%);
+    border: 1px solid rgba(33, 77, 59, 0.22);
+    color: #214d3b;
+  }
+
+  .section-title-label::before {
+    content: "";
+    @apply h-1.5 w-1.5 rounded-full;
+    background: radial-gradient(circle, #d4a84b 0%, #b88a2e 100%);
+    box-shadow: 0 0 0 4px rgba(212, 168, 75, 0.12);
+  }
+
   .section-title {
-    @apply text-display-sm sm:text-display-md lg:text-display-lg font-medium text-dark-900 relative inline-block;
+    @apply text-display-sm sm:text-display-md lg:text-display-lg font-semibold tracking-[-0.025em] text-dark-900 relative inline-block leading-[1.08] pb-1;
+    text-wrap: balance;
   }
 
   .section-dark .section-title {
@@ -216,11 +232,19 @@
   }
 
   .section-dark .section-title-label {
-    color: #a8c9a0;
+    background: radial-gradient(circle at top left, rgba(229, 191, 133, 0.28), transparent 55%),
+      linear-gradient(90deg, rgba(168, 201, 160, 0.22) 0%, rgba(168, 201, 160, 0.14) 100%);
+    border-color: rgba(212, 168, 75, 0.5);
+    color: #f5d9a6;
   }
 
-  .section-dark .section-title-decoration {
-    background-image: linear-gradient(to right, #d4a84b, #e5bf85);
+  .section-dark .section-title-label::before {
+    background: radial-gradient(circle, #f5d9a6 0%, #d4a84b 100%);
+    box-shadow: 0 0 0 4px rgba(212, 168, 75, 0.18);
+  }
+
+  .section-title-decoration {
+    @apply mx-auto mt-6 h-1 w-24 rounded-full bg-gradient-to-r from-forest-600 via-accent-500 to-forest-600 shadow-[0_4px_16px_rgba(33,77,59,0.18)];
   }
 
   .input-field {
@@ -252,7 +276,7 @@
   }
 
   .text-gradient-forest {
-    @apply bg-gradient-to-r from-forest-700 via-forest-800 to-dark-900 bg-clip-text text-transparent;
+    @apply bg-gradient-to-br from-forest-700 via-forest-800 to-forest-950 bg-clip-text text-transparent;
   }
 
   .text-gradient-accent {

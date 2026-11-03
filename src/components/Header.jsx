@@ -121,8 +121,8 @@ export function Header() {
         aria-label="Main navigation"
         className={`transition-all duration-300 ${
           isScrolled
-            ? "bg-white/98 backdrop-blur-md shadow-nav border-b border-border-light"
-            : "bg-white border-b border-border-light"
+            ? "bg-white/98 backdrop-blur-xl shadow-nav border-b border-border-light/80"
+            : "bg-white/95 backdrop-blur-lg border-b border-border-light/80"
         }`}
       >
         <div className="container-custom">

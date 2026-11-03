@@ -10,7 +10,7 @@ export function Footer() {
           {/* School Info */}
           <div className="lg:col-span-1 space-y-6">
             <Link to="/" className="flex items-center gap-3" aria-label="Go to homepage">
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-forest-600 to-forest-800 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-400 via-forest-600 to-forest-800 flex items-center justify-center shadow-lg shadow-forest-950/40">
                 <GraduationCap className="w-7 h-7 text-white" />
               </div>
               <div>
@@ -100,7 +100,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-forest-800 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="border-t border-forest-800/80 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-forest-400 text-sm">
             &copy; {schoolData.currentYear} {schoolData.name}. All rights reserved.
           </p>

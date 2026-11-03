@@ -122,23 +122,28 @@ function KeyNumbersSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-3 mb-4"
+            className="mb-4"
           >
-            <span className="section-title-decoration w-10 h-0.5 bg-gradient-to-r from-accent-400 to-accent-300" />
-            <span className="section-title-label text-xs font-medium uppercase tracking-widest text-accent-300">
+            <span className="section-title-label">
               Key Numbers
             </span>
-            <span className="section-title-decoration w-10 h-0.5 bg-gradient-to-r from-accent-300 to-accent-400" />
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="section-title text-white"
+            className="section-title text-white !bg-none !-webkit-text-fill-color-white leading-[1.08] pb-1"
           >
             Our Campus at a Glance
           </motion.h2>
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0.6 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-accent-400 via-accent-300 to-accent-400"
+          />
         </ScrollReveal>
         <StaggerContainer staggerDelay={0.1} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
