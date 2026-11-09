@@ -1,9 +1,15 @@
-import { useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 export function Lightbox({ images, currentIndex, onClose, onNavigate }) {
   const overlayRef = useRef(null);
+  const imageWrapperRef = useRef(null);
+  const x = useMotionValue(0);
+  const xSpring = useSpring(x, { stiffness: 400, damping: 32, mass: 0.9 });
+  const dragStart = useRef(0);
+  const isDragging = useRef(false);
+  const dragThreshold = 90;
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -20,6 +26,30 @@ export function Lightbox({ images, currentIndex, onClose, onNavigate }) {
       document.body.style.overflow = "";
     };
   }, [onClose, onNavigate]);
+
+  const onPointerDown = useCallback((e) => {
+    dragStart.current = e.touches ? e.touches[0].clientX : e.clientX;
+    isDragging.current = true;
+    x.set(0);
+  }, []);
+
+  const onPointerMove = useCallback((e) => {
+    if (!isDragging.current) return;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    x.set(clientX - dragStart.current);
+  }, []);
+
+  const onPointerUp = useCallback(() => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    const dx = x.get();
+    if (dx < -dragThreshold) {
+      onNavigate("next");
+    } else if (dx > dragThreshold) {
+      onNavigate("prev");
+    }
+    x.set(0);
+  }, [onNavigate]);
 
   const currentImage = images[currentIndex];
 
@@ -57,7 +87,15 @@ export function Lightbox({ images, currentIndex, onClose, onNavigate }) {
               <X className="w-6 h-6" />
             </button>
 
-            <div className="relative aspect-video max-h-[65vh] overflow-hidden rounded-xl sm:max-h-[75vh]">
+            <div
+              ref={imageWrapperRef}
+              onPointerDown={onPointerDown}
+              onPointerMove={onPointerMove}
+              onPointerUp={onPointerUp}
+              onPointerLeave={onPointerUp}
+              style={{ x: xSpring }}
+              className="relative aspect-video max-h-[65vh] overflow-hidden rounded-xl sm:max-h-[75vh] touch-none"
+            >
               <img
                 src={currentImage.src}
                 alt={currentImage.alt}

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { BookOpen, GraduationCap, Building2, Target, Award, Users, MapPin, Mail, Phone, ArrowRight, Heart, Shield, Palette, User } from "lucide-react";
+import { BookOpen, GraduationCap, Building2, Award, MapPin, Mail, Phone, ArrowRight, Heart, Shield, Palette, Quote } from "lucide-react";
 import { schoolData, hqImages } from "../data/schoolData";
 import { PageBanner } from "../components/PageBanner";
 import { SectionTitle } from "../components/SectionTitle";
@@ -159,38 +158,62 @@ export function About() {
         </div>
       </section>
 
-      <section className="section-padding bg-cream-100">
+      <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionTitle
-            title="Principal's Message"
+            title="MESSAGE FROM THE PRINCIPAL"
             subtitle="Leadership"
+            showDecoration={true}
           />
           <ScrollReveal delay={0.1}>
-            <div className="max-w-4xl mx-auto">
-              <div className="p-8 rounded-card-lg bg-white border border-border-light">
-                <div className="flex flex-col md:flex-row gap-8">
-                  <div className="md:w-48 flex-shrink-0">
-                    <div className="w-48 h-48 rounded-xl bg-forest-100 flex items-center justify-center mx-auto md:mx-0">
-                      <User className="w-16 h-16 text-forest-300" />
-                    </div>
-                  </div>
-                  <div className="flex-1 flex flex-col justify-center">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="p-3 rounded-xl bg-forest-100 text-forest-700">
-                        <GraduationCap className="w-6 h-6" />
+            <div className="max-w-7xl mx-auto">
+              <div className="relative rounded-3xl bg-navy-900 overflow-hidden shadow-card border border-navy-700/50">
+                <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-950" />
+                <div className="absolute inset-0 [mask-image:radial-gradient(circle_at_center,black_60%,transparent_100%)] [mask-composite:intersect] opacity-20" />
+                <div className="relative p-8 md:p-12">
+                  <div className="flex flex-col md:flex-row gap-10 items-start md:items-center">
+                    <div className="md:w-[420px] flex-shrink-0 relative z-10">
+                      <div className="relative rounded-2xl border border-white/20 shadow-card overflow-hidden group">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-gold-500/20 to-transparent" />
+                        <img
+                          src="/images/principal.png"
+                          alt={schoolData.principalName}
+                          className="w-full h-full object-cover [image-orientation:from-image]"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-navy-900 via-transparent to-transparent">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 backdrop-blur flex items-center justify-center">
+                              <GraduationCap className="w-5 h-5 text-gold-400" />
+                            </div>
+                            <div>
+                              <h3 className="text-white font-semibold text-lg leading-tight">{schoolData.principalName}</h3>
+                              <p className="text-gold-300 text-sm font-medium">Principal</p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-heading-lg font-semibold text-dark-900">{schoolData.principalName}</h3>
-                        <p className="text-forest-600 font-medium">Principal</p>
-                      </div>
                     </div>
-                    <div className="p-6 rounded-lg bg-cream-50 border border-border-light">
-                      <p className="text-dark-600 leading-relaxed italic">
-                        "Message from the Principal will be updated soon."
+                    <div className="flex-1 flex flex-col justify-center z-10 relative">
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400">
+                          <Quote className="w-5 h-5" />
+                        </div>
+                        <span className="text-gold-300 text-xs font-semibold uppercase tracking-wider">Message</span>
+                      </div>
+                      <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-8 font-light">
+                        At S.B.S Sr. Sec. School Matour Kaithal, we believe that education is not merely about acquiring knowledge, but about shaping character, building values, and empowering young minds to become responsible citizens of tomorrow. Our commitment is to provide a nurturing environment where every student can discover their potential, pursue excellence, and grow with confidence.
+                        <br /><br />
+                        With the support of our dedicated faculty, involved parents, and hardworking students, we continue to strive for academic excellence and holistic development. Together, we will build a brighter future for our children and our community.
                       </p>
-                      <p className="text-dark-500 text-sm mt-3">
-                        The Principal's message and vision for the school will be published here once received from the school administration.
-                      </p>
+                      <div className="flex items-end gap-2 pt-6 border-t border-white/10">
+                        <span className="text-gold-400 text-[12px] font-semibold tracking-wider italic">—</span>
+                        <div className="flex flex-col">
+                          <span className="text-white font-semibold text-sm">{schoolData.principalName}</span>
+                          <span className="text-gold-400 text-[11px] uppercase tracking-wider">Principal</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

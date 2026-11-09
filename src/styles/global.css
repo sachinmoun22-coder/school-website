@@ -42,6 +42,12 @@
   --color-accent-800: #6B4A24;
   --color-accent-900: #563D20;
   --color-accent-950: #332412;
+  --color-navy-900: #0F172A;
+  --color-navy-800: #1E293B;
+  --color-navy-950: #0A0F1C;
+  --color-gold-500: #D4AF37;
+  --color-gold-400: #E8C55B;
+  --color-gold-300: #F0DB8F;
   --color-dark-50: #F0F2F0;
   --color-dark-100: #DCE0DC;
   --color-dark-200: #B9C1B8;
@@ -161,6 +167,7 @@
 
   img {
     @apply max-w-full h-auto;
+    image-orientation: from-image;
   }
 }
 

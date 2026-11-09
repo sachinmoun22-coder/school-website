@@ -1,5 +1,4 @@
-import { useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { useState, useCallback, useMemo } from "react";
 import { schoolData, galleryImages } from "../data/schoolData";
 import { PageBanner } from "../components/PageBanner";
 import { SectionTitle } from "../components/SectionTitle";
@@ -7,14 +6,29 @@ import { GalleryGrid } from "../components/GalleryGrid";
 import { Lightbox } from "../components/Lightbox";
 import { ScrollReveal } from "../components/ScrollReveal";
 
+const FILTERS = [
+  { value: "all", label: "16 Images" },
+  { value: "campus", label: "Campus & Facilities" },
+  { value: "learning", label: "Learning Spaces" },
+];
+
 export function Gallery() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [activeFilter, setActiveFilter] = useState("all");
 
-  const openLightbox = useCallback((index) => {
-    setCurrentIndex(index);
-    setLightboxOpen(true);
-  }, []);
+  const filteredImages = useMemo(() => {
+    if (activeFilter === "all") return galleryImages;
+    return galleryImages.filter((img) => img.category === activeFilter);
+  }, [activeFilter]);
+
+  const openLightbox = useCallback(
+    (index) => {
+      setCurrentIndex(index);
+      setLightboxOpen(true);
+    },
+    [filteredImages]
+  );
 
   const closeLightbox = useCallback(() => {
     setLightboxOpen(false);
@@ -23,37 +37,46 @@ export function Gallery() {
   const navigate = useCallback((direction) => {
     setCurrentIndex((prev) => {
       if (direction === "prev") {
-        return prev === 0 ? galleryImages.length - 1 : prev - 1;
+        return prev === 0 ? filteredImages.length - 1 : prev - 1;
       }
-      return prev === galleryImages.length - 1 ? 0 : prev + 1;
+      return prev === filteredImages.length - 1 ? 0 : prev + 1;
     });
-  }, []);
+  }, [filteredImages]);
 
   return (
     <div className="min-h-screen">
       <PageBanner
-        title="School Gallery"
-        subtitle="Moments & Memories"
+        title="School Function & Achievement Gallery"
+        subtitle="Celebrating Excellence"
       >
-        A visual journey through our campus, facilities, and school life at S.B.S Sr.Sec. School.
+        Celebrating Excellence, Achievements and Memorable Moments of Our Students.
       </PageBanner>
 
       <section className="section-padding bg-white">
         <div className="container-custom">
           <ScrollReveal delay={0.1}>
             <div className="max-w-4xl mx-auto text-center mb-12">
-              <p className="text-body-lg text-dark-600 leading-relaxed mb-6">
-                Explore our school through photographs of the campus, classrooms, laboratories,
-                library, and various facilities. These images represent the learning environment
-                at S.B.S Sr.Sec. School Matour Kaithal.
+              <p className="text-body-lg text-dark-600 leading-relaxed mb-8">
+                A collection of photographs from school functions, celebrations,
+                award ceremonies, and student achievements at S.B.S Sr.Sec. School Matour Kaithal.
+                Relive the memorable moments of our students across academics, sports,
+                and co-curricular events.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-3">
-                <span className="badge badge-forest">
-                  <span className="w-4 h-4 mr-1 rounded-full bg-forest-500" />
-                  {galleryImages.length} Images
-                </span>
-                <span className="badge badge-sage">Campus & Facilities</span>
-                <span className="badge badge-cream">Learning Spaces</span>
+                {FILTERS.map((filter) => (
+                  <button
+                    key={filter.value}
+                    onClick={() => setActiveFilter(filter.value)}
+                    className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border ${
+                      activeFilter === filter.value
+                        ? "bg-forest-800 border-forest-800 text-white shadow-soft"
+                        : "border-border-light bg-white text-dark-600 hover:border-forest-200 hover:bg-cream-50"
+                    }`}
+                    aria-pressed={activeFilter === filter.value}
+                  >
+                    {filter.label}
+                  </button>
+                ))}
               </div>
             </div>
           </ScrollReveal>
@@ -78,7 +101,10 @@ export function Gallery() {
             </div>
           </ScrollReveal>
 
-          <GalleryGrid images={galleryImages} onOpenLightbox={openLightbox} />
+          <GalleryGrid
+            images={filteredImages}
+            onOpenLightbox={openLightbox}
+          />
         </div>
       </section>
 
@@ -124,7 +150,7 @@ export function Gallery() {
 
       {lightboxOpen && (
         <Lightbox
-          images={galleryImages}
+          images={filteredImages}
           currentIndex={currentIndex}
           onClose={closeLightbox}
           onNavigate={navigate}
