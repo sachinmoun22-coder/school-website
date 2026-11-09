@@ -249,50 +249,6 @@ export function About() {
         </div>
       </section>
 
-      <section className="section-padding bg-white">
-        <div className="container-custom">
-          <SectionTitle
-            title="Information Currently Unavailable"
-            subtitle="Notice"
-          />
-          <ScrollReveal delay={0.1}>
-            <div className="max-w-4xl mx-auto">
-              <div className="p-8 rounded-card-lg bg-white border border-border-light">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 flex-shrink-0 rounded-xl bg-accent-100 flex items-center justify-center">
-                    <Award className="w-6 h-6 text-accent-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-heading-md font-semibold text-dark-900 mb-3">
-                      Additional Information Not Currently Available
-                    </h3>
-                    <div className="space-y-3 text-dark-600">
-                      <p>
-                        The following information about the school is not currently available in our verified records:
-                      </p>
-                      <ul className="list-disc list-inside space-y-2 ml-4 grid sm:grid-cols-2 gap-2">
-                        <li>School establishment year and history</li>
-                        <li>School mission, vision, and motto</li>
-                        <li>Detailed facilities and infrastructure specifications</li>
-                        <li>School timings and academic calendar</li>
-                        <li>Fee structure</li>
-                        <li>Examination results and statistics</li>
-                        <li>Staff and student count</li>
-                        <li>Extracurricular activities and clubs</li>
-                        <li>Notable alumni and achievements</li>
-                      </ul>
-                      <p className="mt-4 font-medium text-forest-700">
-                        This information will be updated as soon as it is officially provided by the school administration.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
       <section className="section-padding bg-forest-50">
         <div className="container-custom text-center">
           <SectionTitle

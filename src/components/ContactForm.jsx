@@ -1,6 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { AlertCircle, CheckCircle } from "lucide-react";
+import { AlertCircle, CheckCircle, Loader2, Send } from "lucide-react";
+
+// Web3Forms access key - get your free key from https://web3forms.com
+// Add it to .env file: VITE_WEB3FORMS_ACCESS_KEY=your_key_here
+const WEB3FORMS_ACCESS_KEY =
+  import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "YOUR_ACCESS_KEY_HERE";
+
+// Optional reCAPTCHA v3 site key - add to .env: VITE_RECAPTCHA_SITE_KEY=your_key
+const RECAPTCHA_SITE_KEY =
+  import.meta.env.VITE_RECAPTCHA_SITE_KEY || "";
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -10,45 +19,159 @@ export function ContactForm() {
     message: "",
   });
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState("idle");
+  const [status, setStatus] = useState("idle"); // idle | submitting | success | error
+  const [serverMessage, setServerMessage] = useState("");
+  const [recaptchaToken, setRecaptchaToken] = useState("");
+  const honeypotRef = useRef(null);
+  const formRef = useRef(null);
+
+  // Load reCAPTCHA v3 and get token on mount
+  useEffect(() => {
+    if (!RECAPTCHA_SITE_KEY || RECAPTCHA_SITE_KEY === "your_recaptcha_key_here") return;
+
+    const script = document.createElement("script");
+    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      if (window.grecaptcha) {
+        window.grecaptcha.ready(() => {
+          window.grecaptcha
+            .execute(RECAPTCHA_SITE_KEY, { action: "contact" })
+            .then((token) => setRecaptchaToken(token));
+        });
+      }
+    };
+    document.head.appendChild(script);
+    return () => {
+      if (script.parentNode) script.parentNode.removeChild(script);
+    };
+  }, []);
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const phone = formData.phone.trim();
+    const message = formData.message.trim();
+
+    if (!name) newErrors.name = "Name is required";
+    else if (name.length < 3) newErrors.name = "Name must be at least 3 characters";
+
+    if (!email) newErrors.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       newErrors.email = "Please enter a valid email address";
     }
-    if (!formData.phone.trim()) newErrors.phone = "Mobile number is required";
-    else if (!/^[6-9]\d{9}$/.test(formData.phone.trim())) {
+
+    if (!phone) newErrors.phone = "Mobile number is required";
+    else if (!/^[6-9]\d{9}$/.test(phone)) {
       newErrors.phone = "Please enter a valid 10-digit Indian mobile number";
     }
-    if (!formData.message.trim()) newErrors.message = "Message is required";
-    else if (formData.message.trim().length < 10) {
+
+    if (!message) newErrors.message = "Message is required";
+    else if (message.length < 10) {
       newErrors.message = "Message must be at least 10 characters";
     }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-
-    setStatus("not-connected");
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     setStatus("idle");
+    setServerMessage("");
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    // Honeypot check - if filled, it's a bot
+    if (honeypotRef.current && honeypotRef.current.value.trim() !== "") {
+      setStatus("idle");
+      return;
+    }
+
+    setStatus("submitting");
+    setServerMessage("");
+
+    try {
+      const payload = new FormData();
+      payload.append("access_key", WEB3FORMS_ACCESS_KEY);
+      payload.append("name", formData.name.trim());
+      payload.append("email", formData.email.trim());
+      payload.append("phone", formData.phone.trim());
+      payload.append("message", formData.message.trim());
+      payload.append(
+        "subject",
+        "New Contact Form Inquiry - S.B.S Sr.Sec. School Matour Kaithal"
+      );
+      payload.append("reply_to", formData.email.trim());
+      payload.append("honeypot", "");
+      if (recaptchaToken) {
+        payload.append("recaptcha", recaptchaToken);
+      }
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: payload,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus("success");
+        setServerMessage(
+          "Thank you! Aapka message bhej diya gaya hai. Hum jaldi aapse sampark karenge."
+        );
+        formRef.current.reset();
+        setFormData({ name: "", email: "", phone: "", message: "" });
+
+        // Refresh reCAPTCHA token after success
+        if (
+          window.grecaptcha &&
+          RECAPTCHA_SITE_KEY &&
+          RECAPTCHA_SITE_KEY !== "your_recaptcha_key_here"
+        ) {
+          window.grecaptcha
+            .execute(RECAPTCHA_SITE_KEY, { action: "contact" })
+            .then((token) => setRecaptchaToken(token));
+        }
+      } else {
+        throw new Error(result.message || "Message send failed");
+      }
+    } catch (err) {
+      setStatus("error");
+      setServerMessage(
+        err.message ||
+          "Kuch galat hua. Kripya thoda der baad dobara koshish karein."
+      );
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+    <form ref={formRef} onSubmit={handleSubmit} className="space-y-5" noValidate>
+      {/* Honeypot field - hidden from humans, filled by bots */}
+      <div
+        style={{ display: "none", visibility: "hidden" }}
+        aria-hidden="true"
+      >
+        <label htmlFor="hp">Leave this field empty</label>
+        <input
+          id="hp"
+          name="honeypot"
+          type="text"
+          ref={honeypotRef}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       <div>
         <label htmlFor="name" className="label-field">
           Full Name <span className="text-red-500">*</span>
@@ -63,6 +186,7 @@ export function ContactForm() {
           placeholder="Your full name"
           aria-invalid={errors.name ? "true" : "false"}
           aria-describedby={errors.name ? "name-error" : undefined}
+          disabled={status === "submitting"}
         />
         {errors.name && (
           <motion.p
@@ -92,6 +216,7 @@ export function ContactForm() {
             placeholder="your@email.com"
             aria-invalid={errors.email ? "true" : "false"}
             aria-describedby={errors.email ? "email-error" : undefined}
+            disabled={status === "submitting"}
           />
           {errors.email && (
             <motion.p
@@ -123,6 +248,7 @@ export function ContactForm() {
             placeholder="10-digit mobile number"
             aria-invalid={errors.phone ? "true" : "false"}
             aria-describedby={errors.phone ? "phone-error" : undefined}
+            disabled={status === "submitting"}
           />
           {errors.phone && (
             <motion.p
@@ -152,6 +278,7 @@ export function ContactForm() {
           placeholder="Your message..."
           aria-invalid={errors.message ? "true" : "false"}
           aria-describedby={errors.message ? "message-error" : undefined}
+          disabled={status === "submitting"}
         />
         {errors.message && (
           <motion.p
@@ -166,30 +293,53 @@ export function ContactForm() {
         )}
       </div>
 
-      <div className="p-4 rounded-lg bg-cream-100 border border-border-light text-sm text-dark-600">
-        <p className="flex items-start gap-2">
-          <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-accent-500" />
-          <span>
-            <strong>Note:</strong> This is an inquiry form. Backend email delivery is not configured.
-            Messages entered here are not sent or stored. Please use the verified contact details on this page to reach the school.
-          </span>
-        </p>
-      </div>
+      {/* Success Message */}
+      {status === "success" && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          className="p-4 rounded-lg border border-forest-200 bg-forest-50 flex items-start gap-3 text-sm leading-relaxed text-forest-700"
+          role="status"
+          aria-live="polite"
+        >
+          <CheckCircle className="w-5 h-5 flex-shrink-0 text-forest-600 mt-0.5" />
+          <span className="min-w-0">{serverMessage}</span>
+        </motion.div>
+      )}
+
+      {/* Error Message */}
+      {status === "error" && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          className="p-4 rounded-lg border border-red-200 bg-red-50 flex items-start gap-3 text-sm leading-relaxed text-red-700"
+          role="status"
+          aria-live="polite"
+        >
+          <AlertCircle className="w-5 h-5 flex-shrink-0 text-red-500 mt-0.5" />
+          <span className="min-w-0">{serverMessage}</span>
+        </motion.div>
+      )}
 
       <button
         type="submit"
+        disabled={status === "submitting"}
         className="btn-primary w-full sm:w-auto"
       >
-        <CheckCircle className="w-5 h-5 mr-2" />
-        Validate Message
+        {status === "submitting" ? (
+          <>
+            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+            Sending...
+          </>
+        ) : (
+          <>
+            <Send className="w-5 h-5 mr-2" />
+            Send Message
+          </>
+        )}
       </button>
-
-      {status === "not-connected" && (
-        <div role="status" className="flex items-start gap-2 rounded-lg border border-accent-200 bg-accent-50 p-4 text-sm leading-relaxed text-dark-800">
-          <CheckCircle className="h-5 w-5 flex-shrink-0 text-forest-700" />
-          <span className="min-w-0">Your message passed validation, but it has not been sent. Please contact the school using the details shown on this page.</span>
-        </div>
-      )}
     </form>
   );
 }

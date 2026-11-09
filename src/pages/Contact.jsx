@@ -1,5 +1,7 @@
+import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Mail, Phone, Clock, Building2, GraduationCap, BookOpen, Award, Send, AlertCircle, CheckCircle, Loader2, ArrowRight, Navigation2, ExternalLink } from "lucide-react";
+import { MapPin, Mail, Phone, Clock, Building2, GraduationCap, BookOpen, Award, Send, AlertCircle, CheckCircle, Loader2, ArrowRight, Navigation2, ExternalLink, Copy } from "lucide-react";
+import { Link } from "react-router-dom";
 import { schoolData } from "../data/schoolData";
 import { PageBanner } from "../components/PageBanner";
 import { SectionTitle } from "../components/SectionTitle";
@@ -16,6 +18,46 @@ export function Contact() {
     { label: "Monday se Saturday", time: "8:00 AM se 2:00 PM" },
     { label: "Sunday", time: "Closed" },
   ];
+
+  const [toast, setToast] = useState({ message: "", type: "" });
+
+  const showToast = useCallback((message, type = "success") => {
+    setToast({ message, type });
+    setTimeout(() => setToast({ message: "", type: "" }), 3000);
+  }, []);
+
+  const mailtoLink = `mailto:${schoolData.email}?subject=${encodeURIComponent("Inquiry about S.B.S Sr.Sec. School")}&body=${encodeURIComponent("Namaste,\n\nMain aapke school ke baare me jaankari chahta/chahti hoon.\n\nNaam:\nMobile:\n")}`;
+
+  const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${schoolData.email}&su=${encodeURIComponent("Inquiry about School")}`;
+
+  const handleEmailClick = (e) => {
+    e.preventDefault();
+    try {
+      window.location.href = mailtoLink;
+      setTimeout(() => {
+        if (document.visibilityState === "visible") {
+          window.open(gmailLink, "_blank");
+        }
+      }, 1500);
+    } catch {
+      window.open(gmailLink, "_blank");
+    }
+  };
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(schoolData.email);
+      showToast(`Email address copy ho gaya: ${schoolData.email}`, "success");
+    } catch {
+      const textArea = document.createElement("textarea");
+      textArea.value = schoolData.email;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      showToast(`Email address copy ho gaya: ${schoolData.email}`, "success");
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -255,8 +297,8 @@ export function Contact() {
         </div>
       </section>
 
-      <section className="section-padding bg-forest-800">
-        <div className="container-custom text-center">
+      <section className="section-padding bg-forest-800 relative z-20">
+        <div className="container-custom text-center relative">
           <ScrollReveal delay={0.1}>
             <h2 className="text-heading-xl sm:text-display-sm font-medium text-white mb-4">
               Still Have Questions?
@@ -266,20 +308,43 @@ export function Contact() {
               about our school, admissions, academics, or other matters.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href={`mailto:${schoolData.email}`}
-                className="btn-accent group"
-              >
-                Email Us Directly
-                <Send className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a
-                href="/admissions"
+              <div className="relative inline-flex items-center gap-2">
+                <a
+                  href={mailtoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-accent group"
+                  style={{ backgroundColor: "#b8923a", color: "#1a221d" }}
+                  onClick={handleEmailClick}
+                >
+                  Email Us Directly
+                  <Send className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </a>
+                <button
+                  onClick={copyEmail}
+                  className="p-2 rounded-btn bg-white/10 text-white hover:bg-white/20 transition-colors"
+                  aria-label="Copy email address"
+                  title="Email address copy karein"
+                >
+                  <Copy className="w-4 h-4" />
+                </button>
+              </div>
+              <Link
+                to="/admissions"
                 className="border-2 border-white text-white hover:bg-white/10 px-7 py-3.5 rounded-btn font-medium transition-colors group inline-flex items-center gap-2"
               >
                 Admission Inquiries
-              </a>
+              </Link>
             </div>
+
+            {toast.message && (
+              <div
+                className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-forest-900 text-white text-sm shadow-lg border border-forest-600 animate-fade-in"
+              >
+                <CheckCircle className="w-4 h-4" />
+                <span>{toast.message}</span>
+              </div>
+            )}
           </ScrollReveal>
         </div>
       </section>
