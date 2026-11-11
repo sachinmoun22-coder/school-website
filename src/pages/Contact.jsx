@@ -206,24 +206,24 @@ export function Contact() {
                     referrerPolicy="no-referrer-when-downgrade"
                   />
                 </div>
-                
-                {/* Map fallback and Get Directions button */}
-                <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+{/*
+                  Map fallback and Get Directions button
+                */}
+                <div className="mt-4 directions-wrapper">
                   <a
                     href={GOOGLE_MAPS_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-primary group inline-flex items-center gap-2"
+                    className="get-directions-btn group inline-flex items-center"
                   >
                     <Navigation2 className="w-5 h-5" />
-                    Get Directions
+                    <span>Get Directions</span>
                     <ExternalLink className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                   </a>
                   <p className="text-sm text-dark-500 text-center sm:text-left">
                     Opens in Google Maps · Searches for "Shaheed Bhagat Singh Senior Secondary School Matour Kaithal Haryana"
                   </p>
                 </div>
-                
                 <div className="mt-6 p-4 rounded-lg bg-cream-100 border border-border-light">
                   <p className="text-dark-600 text-sm leading-relaxed">
                     <strong>Address:</strong> {schoolData.location}<br />

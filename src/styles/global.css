@@ -188,6 +188,200 @@
     @apply inline-flex max-w-full items-center justify-center text-center px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-semibold tracking-wide text-white bg-gradient-to-r from-forest-800 via-forest-700 to-forest-900 rounded-btn hover:from-forest-900 hover:via-forest-800 hover:to-forest-950 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-2 transition-all duration-300 shadow-soft hover:shadow-card hover:-translate-y-0.5;
   }
 
+  .get-directions-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+    width: auto;
+    min-width: max-content;
+    flex-shrink: 0;
+    padding: 14px 28px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    color: #fff;
+    background: linear-gradient(135deg, #214D3B 0%, #1a3326 100%);
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(33, 77, 59, 0.25);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .get-directions-btn:hover {
+    background: linear-gradient(135deg, #1a3326 0%, #14231c 100%);
+    box-shadow: 0 4px 16px rgba(33, 77, 59, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .get-directions-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(33, 77, 59, 0.3);
+  }
+
+  .directions-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-right {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .message-grid {
+      grid-template-columns: 1fr;
+    }
+    .principal-card {
+      height: 420px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .directions-wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .get-directions-btn {
+      width: 100%;
+    }
+  }
+
+  .school-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+  }
+
+  .school-image-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
+  }
+
+  .school-image-title {
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+    font-weight: 600;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    font-size: 1.25rem;
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+
+  .school-image-subtitle {
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .about-right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 110px;
+  }
+
+  .about-card {
+    background: #fff;
+    border: 1px solid #e5e5e0;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .cta-card {
+    background: #1f4d36;
+    color: #fff;
+    border-radius: 16px;
+    padding: 28px;
+  }
+
+  .message-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 48px;
+    align-items: stretch;
+  }
+
+  .principal-card {
+    position: relative;
+    height: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    border-radius: 24px;
+  }
+
+  .principal-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  .principal-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px 20px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0) 100%);
+  }
+
+  .principal-caption .principal-name,
+  .principal-caption .principal-role {
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  }
+
+  .principal-caption .principal-name {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .principal-caption .principal-role {
+    color: #f5d98b;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
   .btn-secondary {
     @apply inline-flex max-w-full items-center justify-center text-center px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-semibold tracking-wide text-forest-800 bg-cream-100 border border-forest-200 rounded-btn hover:bg-forest-50 hover:border-forest-300 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:ring-offset-2 transition-all duration-300 hover:-translate-y-0.5;
   }

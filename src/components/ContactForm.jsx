@@ -1,15 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { AlertCircle, CheckCircle, Loader2, Send } from "lucide-react";
-
-// Web3Forms access key - get your free key from https://web3forms.com
-// Add it to .env file: VITE_WEB3FORMS_ACCESS_KEY=your_key_here
-const WEB3FORMS_ACCESS_KEY =
-  import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "YOUR_ACCESS_KEY_HERE";
-
-// Optional reCAPTCHA v3 site key - add to .env: VITE_RECAPTCHA_SITE_KEY=your_key
-const RECAPTCHA_SITE_KEY =
-  import.meta.env.VITE_RECAPTCHA_SITE_KEY || "";
+import { schoolData } from "../data/schoolData";
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -21,32 +13,8 @@ export function ContactForm() {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
   const [serverMessage, setServerMessage] = useState("");
-  const [recaptchaToken, setRecaptchaToken] = useState("");
   const honeypotRef = useRef(null);
   const formRef = useRef(null);
-
-  // Load reCAPTCHA v3 and get token on mount
-  useEffect(() => {
-    if (!RECAPTCHA_SITE_KEY || RECAPTCHA_SITE_KEY === "your_recaptcha_key_here") return;
-
-    const script = document.createElement("script");
-    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
-    script.async = true;
-    script.defer = true;
-    script.onload = () => {
-      if (window.grecaptcha) {
-        window.grecaptcha.ready(() => {
-          window.grecaptcha
-            .execute(RECAPTCHA_SITE_KEY, { action: "contact" })
-            .then((token) => setRecaptchaToken(token));
-        });
-      }
-    };
-    document.head.appendChild(script);
-    return () => {
-      if (script.parentNode) script.parentNode.removeChild(script);
-    };
-  }, []);
 
   const validateForm = () => {
     const newErrors = {};
@@ -58,14 +26,21 @@ export function ContactForm() {
     if (!name) newErrors.name = "Name is required";
     else if (name.length < 3) newErrors.name = "Name must be at least 3 characters";
 
-    if (!email) newErrors.email = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    // At least one of email or phone is required
+    const hasEmail = email.length > 0;
+    const hasPhone = phone.length > 0;
+
+    if (hasEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       newErrors.email = "Please enter a valid email address";
     }
 
-    if (!phone) newErrors.phone = "Mobile number is required";
-    else if (!/^[6-9]\d{9}$/.test(phone)) {
+    if (hasPhone && !/^[6-9]\d{9}$/.test(phone)) {
       newErrors.phone = "Please enter a valid 10-digit Indian mobile number";
+    }
+
+    // Require at least email or phone
+    if (!hasEmail && !hasPhone) {
+      newErrors.contact = "Email address or mobile number is required";
     }
 
     if (!message) newErrors.message = "Message is required";
@@ -87,39 +62,44 @@ export function ContactForm() {
     }
   };
 
+  const buildMailtoLink = () => {
+    const subject = encodeURIComponent(
+      `New Contact Form Inquiry - S.B.S Sr.Sec. School Matour Kaithal`
+    );
+    const body = encodeURIComponent(
+      `Name: ${formData.name.trim()}\n` +
+      `Email: ${formData.email.trim() || "(not provided)"}\n` +
+      `Phone: ${formData.phone.trim() || "(not provided)"}\n\n` +
+      `Message:\n${formData.message.trim()}`
+    );
+    return `mailto:${schoolData.email}?subject=${subject}&body=${body}`;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     // Honeypot check - if filled, it's a bot
     if (honeypotRef.current && honeypotRef.current.value.trim() !== "") {
-      setStatus("idle");
       return;
     }
 
     setStatus("submitting");
     setServerMessage("");
 
-    try {
-      const payload = new FormData();
-      payload.append("access_key", WEB3FORMS_ACCESS_KEY);
-      payload.append("name", formData.name.trim());
-      payload.append("email", formData.email.trim());
-      payload.append("phone", formData.phone.trim());
-      payload.append("message", formData.message.trim());
-      payload.append(
-        "subject",
-        "New Contact Form Inquiry - S.B.S Sr.Sec. School Matour Kaithal"
-      );
-      payload.append("reply_to", formData.email.trim());
-      payload.append("honeypot", "");
-      if (recaptchaToken) {
-        payload.append("recaptcha", recaptchaToken);
-      }
+    let sentViaMailto = false;
 
-      const response = await fetch("https://api.web3forms.com/submit", {
+    try {
+      const response = await fetch("/api/contact", {
         method: "POST",
-        body: payload,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          message: formData.message.trim(),
+          honeypot: "",
+        }),
       });
 
       const result = await response.json();
@@ -127,31 +107,33 @@ export function ContactForm() {
       if (result.success) {
         setStatus("success");
         setServerMessage(
-          "Thank you! Aapka message bhej diya gaya hai. Hum jaldi aapse sampark karenge."
+          result.message ||
+            "Thank you! Aapka message bhej diya gaya hai. Hum jaldi aapse sampark karenge."
         );
-        formRef.current.reset();
-        setFormData({ name: "", email: "", phone: "", message: "" });
-
-        // Refresh reCAPTCHA token after success
-        if (
-          window.grecaptcha &&
-          RECAPTCHA_SITE_KEY &&
-          RECAPTCHA_SITE_KEY !== "your_recaptcha_key_here"
-        ) {
-          window.grecaptcha
-            .execute(RECAPTCHA_SITE_KEY, { action: "contact" })
-            .then((token) => setRecaptchaToken(token));
-        }
-      } else {
-        throw new Error(result.message || "Message send failed");
+        resetForm();
+        return;
       }
+
+      // Server returned error (e.g. 503 SMTP not configured) — fall back to mailto
+      sentViaMailto = true;
     } catch (err) {
-      setStatus("error");
-      setServerMessage(
-        err.message ||
-          "Kuch galat hua. Kripya thoda der baad dobara koshish karein."
-      );
+      // Network error — fall back to mailto
+      sentViaMailto = true;
     }
+
+    if (sentViaMailto) {
+      window.open(buildMailtoLink(), "_blank", "noopener");
+      setStatus("success");
+      setServerMessage(
+        "Message email ke through bhej diya gaya hai. Kripya apne email client ko check karein."
+      );
+      resetForm();
+    }
+  };
+
+  const resetForm = () => {
+    formRef.current.reset();
+    setFormData({ name: "", email: "", phone: "", message: "" });
   };
 
   return (
@@ -204,7 +186,7 @@ export function ContactForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="email" className="label-field">
-            Email Address <span className="text-red-500">*</span>
+            Email Address <span className="text-slate-400 text-xs font-normal">(optional)</span>
           </label>
           <input
             type="email"
@@ -233,7 +215,7 @@ export function ContactForm() {
 
         <div>
           <label htmlFor="phone" className="label-field">
-            Mobile Number <span className="text-red-500">*</span>
+            Mobile Number <span className="text-slate-400 text-xs font-normal">(optional)</span>
           </label>
           <input
             type="tel"
@@ -263,6 +245,23 @@ export function ContactForm() {
           )}
         </div>
       </div>
+
+      {/* Contact requirement note */}
+      <p className="mt-1 text-xs text-slate-500 -mb-4">
+        At least one of email or mobile number is required.
+      </p>
+
+      {/* Combined contact error */}
+      {errors.contact && (
+        <motion.p
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-1.5 text-sm text-red-500 flex items-center gap-1"
+        >
+          <AlertCircle className="w-4 h-4" />
+          {errors.contact}
+        </motion.p>
+      )}
 
       <div>
         <label htmlFor="message" className="label-field">
