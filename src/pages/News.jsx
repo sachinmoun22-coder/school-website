@@ -1,13 +1,21 @@
 import { motion } from "framer-motion";
 import { schoolData, newsData } from "../data/schoolData";
+import { getSEO } from "../data/seoConfig";
+import { SEOHead } from "../components/SEOHead";
 import { PageBanner } from "../components/PageBanner";
+import { Breadcrumb } from "../components/Breadcrumb";
 import { SectionTitle } from "../components/SectionTitle";
 import { ScrollReveal, StaggerContainer } from "../components/ScrollReveal";
 import { AlertCircle, FileText, Calendar, Mail, ArrowRight, Bell, GraduationCap } from "lucide-react";
 
 export function News() {
+  const { pathname } = useLocation();
+  const seo = getSEO(pathname);
+
   return (
     <div className="min-h-screen">
+      <SEOHead {...seo} />
+      <Breadcrumb pathname={pathname} />
       <PageBanner
         title="News & Notices"
         subtitle="Stay Informed"

@@ -1,9 +1,12 @@
 import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Mail, Phone, Clock, Building2, GraduationCap, BookOpen, Award, Send, AlertCircle, CheckCircle, Loader2, ArrowRight, Navigation2, ExternalLink, Copy } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { schoolData } from "../data/schoolData";
+import { getSEO } from "../data/seoConfig";
+import { SEOHead } from "../components/SEOHead";
 import { PageBanner } from "../components/PageBanner";
+import { Breadcrumb } from "../components/Breadcrumb";
 import { SectionTitle } from "../components/SectionTitle";
 import { ScrollReveal, StaggerContainer } from "../components/ScrollReveal";
 import { ContactForm } from "../components/ContactForm";
@@ -14,6 +17,8 @@ const GOOGLE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Shaheed
 const GOOGLE_MAPS_EMBED_URL = "https://maps.google.com/maps?q=Shaheed%20Bhagat%20Singh%20Senior%20Secondary%20School%20Matour%20Kaithal%20Haryana&t=&z=15&ie=UTF8&iwloc=&output=embed";
 
 export function Contact() {
+  const { pathname } = useLocation();
+  const seo = getSEO(pathname);
   const officeHours = [
     { label: "Monday se Saturday", time: "8:00 AM se 2:00 PM" },
     { label: "Sunday", time: "Closed" },
@@ -61,6 +66,8 @@ export function Contact() {
 
   return (
     <div className="min-h-screen">
+      <SEOHead {...seo} />
+      <Breadcrumb pathname={pathname} />
       <PageBanner
         title="Contact Us"
         subtitle="Get in Touch"

@@ -1,15 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { BookOpen, GraduationCap, Target, FileText, Calendar, User, Mail, Phone, MapPin, AlertCircle, CheckCircle, Clock, ArrowRight, Shield, Heart, Home, Bed, Bus, FlaskConical } from "lucide-react";
 import { schoolData, admissionInfo } from "../data/schoolData";
+import { getSEO } from "../data/seoConfig";
+import { SEOHead } from "../components/SEOHead";
 import { PageBanner } from "../components/PageBanner";
+import { Breadcrumb } from "../components/Breadcrumb";
 import { SectionTitle } from "../components/SectionTitle";
 import { ScrollReveal, StaggerContainer } from "../components/ScrollReveal";
 import { AdmissionForm } from "../components/AdmissionForm";
 
 export function Admission() {
+  const { pathname } = useLocation();
+  const seo = getSEO(pathname);
+
   return (
     <div className="min-h-screen">
+      <SEOHead {...seo} />
+      <Breadcrumb pathname={pathname} />
       <PageBanner
         title="Admissions"
         subtitle="Join Our Community"

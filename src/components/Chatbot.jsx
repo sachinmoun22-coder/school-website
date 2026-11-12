@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Send, X, Loader2, User } from "lucide-react";
 import { facilitiesData, schoolData, streamsData, transportRoutes } from "../data/schoolData";
 
-const CHATBOT_AVATAR = "/images/School_Photos/ChatGPT%20Image%20Nov%202,%202026,%2010_43_19%20AM.jpg";
+const CHATBOT_AVATAR = "/images/school-chatbot-avatar.webp";
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 const hasGroqApiKey = Boolean(GROQ_API_KEY && GROQ_API_KEY.trim());

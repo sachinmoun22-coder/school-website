@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import { Award, Trophy, Medal, Star, Target, BookOpen, Users, Zap, GraduationCap, Mail, ArrowRight } from "lucide-react";
 import { schoolData, achievementsCategories } from "../data/schoolData";
+import { getSEO } from "../data/seoConfig";
+import { SEOHead } from "../components/SEOHead";
 import { PageBanner } from "../components/PageBanner";
+import { Breadcrumb } from "../components/Breadcrumb";
 import { SectionTitle } from "../components/SectionTitle";
 import { ScrollReveal, StaggerContainer } from "../components/ScrollReveal";
 
@@ -20,8 +24,13 @@ const categoryDescriptions = {
 };
 
 export function Achievements() {
+  const { pathname } = useLocation();
+  const seo = getSEO(pathname);
+
   return (
     <div className="min-h-screen">
+      <SEOHead {...seo} />
+      <Breadcrumb pathname={pathname} />
       <PageBanner
         title="Achievements & Recognition"
         subtitle="Our Pride"

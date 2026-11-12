@@ -130,7 +130,7 @@ export function Header() {
             <Link to="/" className="flex shrink-0 items-center gap-2 sm:gap-3" aria-label="Go to homepage">
               <div className="h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-forest-900 shadow-soft sm:h-12 sm:w-12">
                 <img
-                  src="/images/website%20logo.png"
+                  src="/images/school-logo-matour-kaithal.webp"
                   alt={schoolData.shortName}
                   className="h-full w-full object-contain"
                 />

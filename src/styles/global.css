@@ -242,7 +242,7 @@
       grid-template-columns: 1fr;
     }
     .principal-card {
-      height: 420px;
+      min-height: 420px;
     }
   }
 
@@ -302,8 +302,15 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    position: sticky;
-    top: 110px;
+    position: static;
+    top: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .about-right {
+      position: sticky;
+      top: 110px;
+    }
   }
 
   .about-card {

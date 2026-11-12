@@ -1,6 +1,10 @@
 import { useState, useCallback, useMemo } from "react";
+import { useLocation } from "react-router-dom";
 import { schoolData, galleryImages } from "../data/schoolData";
+import { getSEO } from "../data/seoConfig";
+import { SEOHead } from "../components/SEOHead";
 import { PageBanner } from "../components/PageBanner";
+import { Breadcrumb } from "../components/Breadcrumb";
 import { SectionTitle } from "../components/SectionTitle";
 import { GalleryGrid } from "../components/GalleryGrid";
 import { Lightbox } from "../components/Lightbox";
@@ -13,6 +17,8 @@ const FILTERS = [
 ];
 
 export function Gallery() {
+  const { pathname } = useLocation();
+  const seo = getSEO(pathname);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeFilter, setActiveFilter] = useState("all");
@@ -45,6 +51,8 @@ export function Gallery() {
 
   return (
     <div className="min-h-screen">
+      <SEOHead {...seo} />
+      <Breadcrumb pathname={pathname} />
       <PageBanner
         title="School Function & Achievement Gallery"
         subtitle="Celebrating Excellence"

@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, BookOpen, GraduationCap, Award, Users, Building2, Target, Palette, Briefcase, Microscope, Heart, Shield, Bus, Home as HomeIcon, Bed, FlaskConical } from "lucide-react";
 import { schoolData, streamsData, highlightsData, whyChooseData, facilitiesData, transportRoutes, hqImages } from "../data/schoolData";
+import { getSEO } from "../data/seoConfig";
+import { SEOHead } from "../components/SEOHead";
 import { Hero } from "../components/Hero";
+import { Breadcrumb } from "../components/Breadcrumb";
 import { SectionTitle } from "../components/SectionTitle";
 import { ScrollReveal, StaggerContainer } from "../components/ScrollReveal";
 
@@ -239,7 +242,7 @@ function WhyChooseSection() {
   return (
     <section className="section-padding bg-forest-800 relative overflow-hidden section-dark">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(33,77,59,0.3)_0%,_transparent_70%)]" />
-      <div className="absolute inset-0 bg-[url('/images/1000041461.jpg')] bg-cover bg-center opacity-[0.15]" />
+      <div className="absolute inset-0 bg-[url('/images/school-entrance-matour-kaithal.webp')] bg-cover bg-center opacity-[0.15]" />
       
       <div className="relative z-10 container-custom">
         <SectionTitle
@@ -377,7 +380,7 @@ function GalleryPreviewSection() {
             />
             <div className="absolute inset-0 flex items-end bg-gradient-to-t from-forest-900/60 via-transparent to-transparent p-4 sm:p-6">
               <div className="min-w-0 text-white">
-                <h4 className="text-heading-sm font-semibold sm:text-heading-md">School Campus</h4>
+                <h3 className="text-heading-sm font-semibold sm:text-heading-md">School Campus</h3>
                 <p className="text-sm text-forest-100">Main Building & Grounds</p>
               </div>
             </div>
@@ -390,7 +393,7 @@ function GalleryPreviewSection() {
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-forest-900/60 via-transparent to-transparent flex items-end p-4">
-              <h4 className="text-white font-semibold">Classroom Learning</h4>
+              <h3 className="text-white font-semibold">Classroom Learning</h3>
             </div>
           </div>
           <div className="relative aspect-square rounded-card-lg overflow-hidden group">
@@ -401,7 +404,7 @@ function GalleryPreviewSection() {
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-forest-900/60 via-transparent to-transparent flex items-end p-4">
-              <h4 className="text-white font-semibold">Campus View</h4>
+              <h3 className="text-white font-semibold">Campus View</h3>
             </div>
           </div>
         </div>
@@ -457,8 +460,13 @@ function AdmissionCTASection() {
 }
 
 export function Home() {
+  const { pathname } = useLocation();
+  const seo = getSEO(pathname);
+
   return (
     <div className="min-h-screen">
+      <SEOHead {...seo} />
+      <Breadcrumb pathname={pathname} />
       <Hero />
       <WelcomeSection />
       <HighlightsSection />

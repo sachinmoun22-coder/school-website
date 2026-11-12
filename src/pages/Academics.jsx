@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { BookOpen, Palette, Briefcase, Microscope, ArrowRight, GraduationCap, Target, CheckCircle } from "lucide-react";
 import { schoolData, streamsData } from "../data/schoolData";
+import { getSEO } from "../data/seoConfig";
+import { SEOHead } from "../components/SEOHead";
 import { PageBanner } from "../components/PageBanner";
+import { Breadcrumb } from "../components/Breadcrumb";
 import { SectionTitle } from "../components/SectionTitle";
 import { ScrollReveal, StaggerContainer } from "../components/ScrollReveal";
 
@@ -68,8 +71,13 @@ function getStreamIcon(iconName) {
 }
 
 export function Academics() {
+  const { pathname } = useLocation();
+  const seo = getSEO(pathname);
+
   return (
     <div className="min-h-screen">
+      <SEOHead {...seo} />
+      <Breadcrumb pathname={pathname} />
       <PageBanner
         title="Academic Programs"
         subtitle="Curriculum Overview"

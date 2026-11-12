@@ -32,11 +32,11 @@ export const navLinks = [
 
 // High-quality photos from public/images/ (3-3.8MB each)
 export const hqImages = {
-  building: "/images/1000041512.png",
-  classroom: "/images/1000041517.png",
-  campus: "/images/1000041518.png",
-  facilities: "/images/1000041519.png",
-  entrance: "/images/1000041461.jpg",
+  building: "/images/school-building-matour-kaithal.webp",
+  classroom: "/images/school-classroom-matour-kaithal.webp",
+  campus: "/images/school-campus-matour-kaithal.webp",
+  facilities: "/images/school-facilities-matour-kaithal.webp",
+  entrance: "/images/school-entrance-matour-kaithal.webp",
 };
 
 export const streamsData = [
@@ -64,22 +64,22 @@ export const streamsData = [
 ];
 
 export const galleryImages = [
-  { id: 1, src: hqImages.building, alt: "School building exterior view", caption: "School Building", category: "campus" },
-  { id: 2, src: hqImages.classroom, alt: "Classroom learning environment", caption: "Classroom", category: "learning" },
-  { id: 3, src: hqImages.campus, alt: "School campus and grounds", caption: "Campus View", category: "campus" },
-  { id: 4, src: hqImages.facilities, alt: "School facilities", caption: "Facilities", category: "campus" },
-  { id: 5, src: hqImages.entrance, alt: "School entrance", caption: "Entrance", category: "campus" },
-  { id: 6, src: "/images/resize school photo/School_Function_Photo_01.jpg?v=2", alt: "Students celebrating Annual Day function", caption: "Annual Day Celebration", category: "learning" },
-  { id: 7, src: "/images/resize school photo/School_Function_Photo_02.jpg?v=2", alt: "Students at Sports Day event", caption: "Sports Day", category: "learning" },
-  { id: 8, src: "/images/resize school photo/School_Function_Photo_03.jpg?v=2", alt: "Cultural function performances", caption: "Cultural Function", category: "learning" },
-  { id: 9, src: "/images/resize school photo/School_Function_Photo_04.jpg?v=2", alt: "Students receiving awards", caption: "Award Ceremony", category: "learning" },
-  { id: 10, src: "/images/resize school photo/School_Function_Photo_05.jpg?v=2", alt: "Science exhibition projects", caption: "Science Exhibition", category: "learning" },
-  { id: 11, src: "/images/resize school photo/School_Function_Photo_06.jpg?v=2", alt: "Independence Day celebration", caption: "Independence Day", category: "learning" },
-  { id: 12, src: "/images/resize school photo/School_Function_Photo_07.jpg?v=2", alt: "Republic Day event", caption: "Republic Day", category: "learning" },
-  { id: 13, src: "/images/resize school photo/School_Function_Photo_08.jpg?v=2", alt: "Teachers Day celebration", caption: "Teachers Day", category: "learning" },
-  { id: 14, src: "/images/resize school photo/School_Function_Photo_09.jpg?v=2", alt: "Children's Day event", caption: "Children's Day", category: "learning" },
-  { id: 15, src: "/images/resize school photo/School_Function_Photo_10.jpg?v=2", alt: "Farewell ceremony for seniors", caption: "Farewell Ceremony", category: "learning" },
-  { id: 16, src: "/images/resize school photo/School_Function_Photo_11.jpg?v=2", alt: "Graduation day ceremony", caption: "Graduation Day", category: "learning" },
+  { id: 1, src: hqImages.building, alt: "School building exterior view Matour Kaithal", caption: "School Building", category: "campus" },
+  { id: 2, src: hqImages.classroom, alt: "Classroom learning environment Matour Kaithal", caption: "Classroom", category: "learning" },
+  { id: 3, src: hqImages.campus, alt: "School campus and grounds Matour Kaithal", caption: "Campus View", category: "campus" },
+  { id: 4, src: hqImages.facilities, alt: "School facilities Matour Kaithal", caption: "Facilities", category: "campus" },
+  { id: 5, src: hqImages.entrance, alt: "School entrance Matour Kaithal", caption: "Entrance", category: "campus" },
+  { id: 6, src: "/images/school-function-photo-01.webp", alt: "Students celebrating Annual Day function Matour Kaithal", caption: "Annual Day Celebration", category: "learning" },
+  { id: 7, src: "/images/school-function-photo-02.webp", alt: "Students at Sports Day event Matour Kaithal", caption: "Sports Day", category: "learning" },
+  { id: 8, src: "/images/school-function-photo-03.webp", alt: "Cultural function performances Matour Kaithal", caption: "Cultural Function", category: "learning" },
+  { id: 9, src: "/images/school-function-photo-04.webp", alt: "Students receiving awards Matour Kaithal", caption: "Award Ceremony", category: "learning" },
+  { id: 10, src: "/images/school-function-photo-05.webp", alt: "Science exhibition projects Matour Kaithal", caption: "Science Exhibition", category: "learning" },
+  { id: 11, src: "/images/school-function-photo-06.webp", alt: "Independence Day celebration Matour Kaithal", caption: "Independence Day", category: "learning" },
+  { id: 12, src: "/images/school-function-photo-07.webp", alt: "Republic Day event Matour Kaithal", caption: "Republic Day", category: "learning" },
+  { id: 13, src: "/images/school-function-photo-08.webp", alt: "Teachers Day celebration Matour Kaithal", caption: "Teachers Day", category: "learning" },
+  { id: 14, src: "/images/school-function-photo-09.webp", alt: "Children's Day event Matour Kaithal", caption: "Children's Day", category: "learning" },
+  { id: 15, src: "/images/school-function-photo-10.webp", alt: "Farewell ceremony for seniors Matour Kaithal", caption: "Farewell Ceremony", category: "learning" },
+  { id: 16, src: "/images/school-function-photo-11.webp", alt: "Graduation day ceremony Matour Kaithal", caption: "Graduation Day", category: "learning" },
 ];
 
 export const achievementsCategories = [

@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import { BookOpen, GraduationCap, Building2, Target, Award, Users, MapPin, Mail, Phone, ArrowRight, Heart, Shield, Palette, Microscope, Computer, Wifi, Dumbbell, Music, FlaskConical, Library, Home, Bus, Bed } from "lucide-react";
 import { schoolData, facilitiesData, transportRoutes } from "../data/schoolData";
+import { getSEO } from "../data/seoConfig";
+import { SEOHead } from "../components/SEOHead";
 import { PageBanner } from "../components/PageBanner";
+import { Breadcrumb } from "../components/Breadcrumb";
 import { SectionTitle } from "../components/SectionTitle";
 import { ScrollReveal, StaggerContainer } from "../components/ScrollReveal";
 
@@ -19,8 +23,13 @@ function getFacilityIcon(name) {
 }
 
 export function Facilities() {
+  const { pathname } = useLocation();
+  const seo = getSEO(pathname);
+
   return (
     <div className="min-h-screen">
+      <SEOHead {...seo} />
+      <Breadcrumb pathname={pathname} />
       <PageBanner
         title="School Facilities"
         subtitle="Our Campus"

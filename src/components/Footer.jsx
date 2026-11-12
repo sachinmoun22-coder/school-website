@@ -18,11 +18,11 @@ export function Footer() {
                 <p className="text-xs text-forest-300 leading-none">{schoolData.tagline}</p>
               </div>
             </Link>
-            <p className="text-forest-300 text-sm leading-relaxed">
+            <p className="text-cream-100 text-sm leading-relaxed">
               A senior secondary school providing quality education from Nursery to Class 12
               with Arts, Commerce, and Science streams at the senior secondary level.
             </p>
-            <div className="flex items-center gap-3 text-forest-300 text-sm">
+            <div className="flex items-center gap-3 text-cream-100 text-sm">
               <a
                 href={`mailto:${schoolData.email}`}
                 className="flex items-center gap-2 hover:text-accent-400 transition-colors"
@@ -31,7 +31,7 @@ export function Footer() {
                 {schoolData.email}
               </a>
             </div>
-            <div className="flex items-center gap-3 text-forest-300 text-sm">
+            <div className="flex items-center gap-3 text-cream-100 text-sm">
               <span className="flex items-center gap-2">
                 <MapPin className="w-5 h-5" />
                 {schoolData.location}
@@ -66,7 +66,7 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-            <div className="pt-4 border-t border-forest-800 space-y-2 text-forest-400 text-sm">
+            <div className="pt-4 border-t border-forest-800 space-y-2 text-cream-200 text-sm">
               <p>School Code: <span className="text-cream-100 font-medium">{schoolData.schoolCode}</span></p>
               <p>Board: <span className="text-cream-100 font-medium">{schoolData.board}</span></p>
             </div>
@@ -75,7 +75,7 @@ export function Footer() {
           {/* Contact */}
           <div className="space-y-4">
             <h4 className="text-white font-semibold text-lg">Contact Us</h4>
-            <address className="not-italic space-y-4 text-forest-300 text-sm">
+            <address className="not-italic space-y-4 text-cream-200 text-sm">
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0" />
                 <p className="leading-relaxed">{schoolData.location}</p>
@@ -101,10 +101,10 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-forest-800/80 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-forest-400 text-sm">
+          <p className="text-cream-200 text-sm">
             &copy; {schoolData.currentYear} {schoolData.name}. All rights reserved.
           </p>
-          <p className="text-forest-400 text-sm text-center md:text-right">
+          <p className="text-cream-200 text-sm text-center md:text-right">
             School Code: {schoolData.schoolCode} | {schoolData.schoolType}
           </p>
         </div>

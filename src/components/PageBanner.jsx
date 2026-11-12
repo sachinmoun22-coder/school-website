@@ -3,21 +3,22 @@ import { ScrollReveal } from "./ScrollReveal";
 
 export function PageBanner({ title, subtitle, children }) {
   return (
-    <section className="relative min-h-[40vh] sm:min-h-[50vh] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-forest-900 via-forest-800 to-forest-900" />
-      <div className="absolute inset-0 page-banner-bg" />
+    <section className="relative isolate flex min-h-[620px] items-center overflow-hidden bg-forest-950 sm:min-h-[650px] lg:min-h-[690px]">
       <div
-        className="absolute inset-0 bg-[url('/images/School_Photos/School_Photo_1.jpg')] bg-cover bg-center opacity-10"
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+        style={{ backgroundImage: "url('/images/school-building-matour-kaithal.webp')" }}
         role="presentation"
       />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-forest-950/90 via-forest-950/75 to-forest-900/45" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-forest-950/45 via-transparent to-forest-950/10" />
 
-      <div className="relative z-10 container-custom px-4 py-16">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="container-custom relative z-10 py-16 sm:py-20 lg:py-24">
+        <div className="max-w-3xl">
           <ScrollReveal delay={0.1} className="mb-4">
             <motion.span
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-accent-200 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.28em] border border-white/25 shadow-lg"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/30 bg-gradient-to-r from-white/15 to-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-forest-50 backdrop-blur-md shadow-lg sm:text-sm"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-accent-300 to-accent-500 shadow-[0_0_0_4px_rgba(212,168,75,0.16)]" />
               {subtitle}
@@ -29,26 +30,19 @@ export function PageBanner({ title, subtitle, children }) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="text-display-sm sm:text-display-md lg:text-display-lg xl:text-[4.5rem] font-semibold tracking-[-0.03em] text-white leading-[1.02] pb-2 text-balance drop-shadow-[0_40px_80px_rgba(12,31,22,0.5)]"
+              className="font-heading text-4xl font-semibold leading-[1.08] tracking-[-0.02em] text-white sm:text-5xl md:text-6xl lg:text-7xl"
             >
               {title}
             </motion.h1>
           </ScrollReveal>
 
-          <motion.div
-            initial={{ opacity: 0, scaleX: 0.6 }}
-            animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mx-auto mb-6 h-1 w-24 rounded-full bg-gradient-to-r from-accent-400 via-accent-300 to-accent-400"
-          />
-
           {children && (
-            <ScrollReveal delay={0.4}>
+            <ScrollReveal delay={0.3}>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-body-lg text-forest-100 leading-relaxed max-w-2xl mx-auto"
+                className="mt-6 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg lg:text-xl"
               >
                 {children}
               </motion.p>

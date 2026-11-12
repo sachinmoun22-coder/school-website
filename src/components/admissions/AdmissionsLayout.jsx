@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import { PageBanner } from "../PageBanner";
+import { getSEO } from "../../data/seoConfig";
+import { SEOHead } from "../SEOHead";
+import { Breadcrumb } from "../Breadcrumb";
 import { admissionPages } from "../../data/admissions";
 
 export function AdmissionsSubNavigation({ activePath }) {
@@ -26,8 +29,11 @@ export function AdmissionsSubNavigation({ activePath }) {
 }
 
 export function AdmissionsLayout({ title, subtitle, description, activePath, showBanner = true, children }) {
+  const seo = getSEO(activePath);
   return (
     <div className="min-h-screen">
+      <SEOHead {...seo} />
+      <Breadcrumb pathname={activePath} />
       {showBanner && <PageBanner title={title} subtitle={subtitle}>{description}</PageBanner>}
       <AdmissionsSubNavigation activePath={activePath} />
       {children}
