@@ -7,7 +7,7 @@ export const state = "Haryana";
 export const country = "IN";
 export const phone = "+917015056542";
 export const phoneDisplay = "+91 7015056542";
-export const email = "sbsmatour@gmail.com";
+export const email = "sachinmoun22@gmail.com";
 export const schoolCode = "10244";
 export const board = "Board of School Education Haryana (BSEH)";
 export const principal = "Shri Rambilash Sharma";
@@ -88,7 +88,7 @@ export const seoPages = {
   "/contact": {
     title: `Contact ${schoolShort} Matour Kaithal | Admission Inquiry`,
     description:
-      "Contact S.B.S Sr.Sec. School Matour Kaithal — Matour village, Kaithal, Haryana. Phone: +91 7015056542, Email: sbsmatour@gmail.com. Admission inquiry for Nursery to Class 12. BSEH School Code: 10244.",
+      "Contact S.B.S Sr.Sec. School Matour Kaithal — Matour village, Kaithal, Haryana. Phone: +91 7015056542, Email: sachinmoun22@gmail.com. Admission inquiry for Nursery to Class 12. BSEH School Code: 10244.",
     canonical: "/contact",
   },
 };

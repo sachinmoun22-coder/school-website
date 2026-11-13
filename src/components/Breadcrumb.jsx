@@ -1,41 +1,30 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
-
-const HOME = { label: "Home", path: "/" };
-
-const BREADCRUMBS = {
-  "/": [HOME],
-  "/about": [HOME, { label: "About Us", path: "/about" }],
-  "/academics": [HOME, { label: "Academics", path: "/academics" }],
-  "/facilities": [HOME, { label: "Facilities", path: "/facilities" }],
-  "/achievements": [HOME, { label: "Achievements", path: "/achievements" }],
-  "/gallery": [HOME, { label: "Gallery", path: "/gallery" }],
-  "/admissions": [HOME, { label: "Admissions", path: "/admissions" }],
-  "/admissions/procedure": [
-    HOME,
-    { label: "Admissions", path: "/admissions" },
-    { label: "Admission Procedure", path: "/admissions/procedure" },
-  ],
-  "/admissions/eligibility": [
-    HOME,
-    { label: "Admissions", path: "/admissions" },
-    { label: "Eligibility", path: "/admissions/eligibility" },
-  ],
-  "/admissions/fee-structure": [
-    HOME,
-    { label: "Admissions", path: "/admissions" },
-    { label: "Fee Structure", path: "/admissions/fee-structure" },
-  ],
-  "/admissions/documents-faq": [
-    HOME,
-    { label: "Admissions", path: "/admissions" },
-    { label: "Documents & FAQs", path: "/admissions/documents-faq" },
-  ],
-  "/news": [HOME, { label: "News & Notices", path: "/news" }],
-  "/contact": [HOME, { label: "Contact", path: "/contact" }],
-};
+import { useSiteText } from "../i18n/useSiteText";
 
 export function Breadcrumb({ pathname }) {
-  const items = BREADCRUMBS[pathname] || [HOME];
+  const t = useSiteText();
+  const items = useMemo(() => {
+    const b = t.breadcrumb;
+    const home = { label: b.home, path: "/" };
+    const map = {
+      "/": [home],
+      "/about": [home, { label: b.about, path: "/about" }],
+      "/academics": [home, { label: b.academics, path: "/academics" }],
+      "/facilities": [home, { label: b.facilities, path: "/facilities" }],
+      "/achievements": [home, { label: b.achievements, path: "/achievements" }],
+      "/gallery": [home, { label: b.gallery, path: "/gallery" }],
+      "/admissions": [home, { label: b.admissions, path: "/admissions" }],
+      "/admissions/procedure": [home, { label: b.admissions, path: "/admissions" }, { label: b.admissionProcedure, path: "/admissions/procedure" }],
+      "/admissions/eligibility": [home, { label: b.admissions, path: "/admissions" }, { label: b.eligibility, path: "/admissions/eligibility" }],
+      "/admissions/fee-structure": [home, { label: b.admissions, path: "/admissions" }, { label: b.feeStructure, path: "/admissions/fee-structure" }],
+      "/admissions/documents-faq": [home, { label: b.admissions, path: "/admissions" }, { label: b.documentsFaq, path: "/admissions/documents-faq" }],
+      "/news": [home, { label: b.news, path: "/news" }],
+      "/contact": [home, { label: b.contact, path: "/contact" }],
+    };
+    return map[pathname] || [home];
+  }, [pathname, t]);
+
   return (
     <nav
       aria-label="Breadcrumb"

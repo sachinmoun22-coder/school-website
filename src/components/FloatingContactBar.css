@@ -217,6 +217,18 @@ body.mobile-menu-open .floating-contact {
   }
 }
 
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  .floating-contact__inner,
+  .floating-contact__list li,
+  .floating-contact__link {
+    animation: none !important;
+  }
+
+  .floating-contact__link::before {
+    transition: none;
+  }
+}
+
 @keyframes floatingPulse {
   0%,
   100% {

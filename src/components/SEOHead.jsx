@@ -93,7 +93,7 @@ export function SEOHead({
       name: SCHOOL_NAME,
       url: SCHOOL_URL,
       telephone: "+917015056542",
-      email: "sbsmatour@gmail.com",
+      email: "sachinmoun22@gmail.com",
       address: {
         "@type": "PostalAddress",
         ...ADDRESS,

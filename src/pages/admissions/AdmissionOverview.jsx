@@ -35,7 +35,7 @@ export function AdmissionOverview() {
           fetchPriority="high"
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-forest-950/95 via-forest-900/85 to-forest-900/55" />
-        <div className="container-custom grid min-h-[560px] items-center gap-10 py-16 sm:min-h-[620px] sm:py-20 lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="container-custom grid min-h-0 items-center gap-8 py-14 sm:min-h-[620px] sm:gap-10 sm:py-20 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="max-w-3xl text-white">
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-accent-300">
               S.B.S Sr.Sec. School Matour Kaithal

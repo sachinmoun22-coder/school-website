@@ -3,7 +3,7 @@
 
 import nodemailer from "nodemailer";
 
-const RECIPIENT_EMAIL = process.env.CONTACT_EMAIL || "sbsmatour@gmail.com";
+const RECIPIENT_EMAIL = process.env.CONTACT_EMAIL || "sachinmoun22@gmail.com";
 const SMTP_HOST = process.env.SMTP_HOST || "";
 const SMTP_PORT = parseInt(process.env.SMTP_PORT || "587", 10);
 const SMTP_USER = process.env.SMTP_USER || "";

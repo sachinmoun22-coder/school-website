@@ -3,7 +3,7 @@ import { ScrollReveal } from "./ScrollReveal";
 
 export function PageBanner({ title, subtitle, children }) {
   return (
-    <section className="relative isolate flex min-h-[620px] items-center overflow-hidden bg-forest-950 sm:min-h-[650px] lg:min-h-[690px]">
+    <section className="relative isolate flex min-h-0 items-center overflow-hidden bg-forest-950 sm:min-h-[650px] lg:min-h-[690px]">
       <div
         className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
         style={{ backgroundImage: "url('/images/school-building-matour-kaithal.webp')" }}

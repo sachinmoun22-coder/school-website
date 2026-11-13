@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Play, X } from "lucide-react";
 import { hqImages, schoolData } from "../data/schoolData";
-import { homepageStatistics, homepageVideoUrl } from "../data/homepageContent";
+import { homepageVideoUrl } from "../data/homepageContent";
+import { useLocalizedData } from "../i18n/useLocalizedData";
 
 export function Hero() {
   const [isVideoDialogOpen, setIsVideoDialogOpen] = useState(false);
+  const { t, homepageStatistics } = useLocalizedData();
 
   useEffect(() => {
     if (!isVideoDialogOpen) return undefined;
@@ -19,14 +21,15 @@ export function Hero() {
 
   return (
     <section className="relative pb-10 sm:pb-12">
-      <div className="relative isolate flex min-h-[620px] items-center overflow-hidden bg-forest-950 sm:min-h-[650px] lg:min-h-[690px]">
-        <img
-          src={hqImages.building}
-          alt=""
-          aria-hidden="true"
-          fetchPriority="high"
-          className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
-        />
+      <div className="relative isolate flex min-h-0 items-center overflow-hidden bg-forest-950 sm:min-h-[650px] lg:min-h-[690px]">
+          <img
+            src={hqImages.building}
+            alt=""
+            aria-hidden="true"
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+          />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-forest-950/90 via-forest-950/75 to-forest-900/45" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-forest-950/45 via-transparent to-forest-950/10" />
 
@@ -41,14 +44,14 @@ export function Hero() {
               {schoolData.name}
             </p>
             <h1 className="font-heading text-4xl font-semibold leading-[1.08] tracking-[-0.02em] text-white sm:text-5xl md:text-6xl lg:text-7xl">
-              Nurturing Minds.
+              {t.hero.line1}
               <br />
               <span className="bg-gradient-to-r from-white via-forest-50 to-accent-200 bg-clip-text text-transparent">
-                Building Futures.
+                {t.hero.line2}
               </span>
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg lg:text-xl">
-              Empowering students with quality education, knowledge, values, and the confidence to build a brighter future.
+              {t.hero.subtitle}
             </p>
             <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
               <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
@@ -56,7 +59,7 @@ export function Hero() {
                   to="/admissions"
                   className="group inline-flex min-h-12 items-center justify-center rounded-btn bg-forest-100 px-6 py-3 font-semibold text-forest-900 shadow-soft transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
-                  Apply for Admission
+                  {t.common.applyNow}
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </motion.div>
@@ -71,7 +74,7 @@ export function Hero() {
                 <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/80">
                   <Play className="ml-0.5 h-3.5 w-3.5 fill-current" aria-hidden="true" />
                 </span>
-                Watch School Video
+                {t.common.watchVideo}
               </motion.button>
             </div>
           </motion.div>
@@ -89,7 +92,7 @@ export function Hero() {
           <div className="grid grid-cols-2 lg:grid-cols-4">
             {homepageStatistics.map((statistic, index) => (
               <motion.div
-                key={statistic.label}
+                key={index}
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
@@ -99,7 +102,6 @@ export function Hero() {
                 } ${index < 2 ? "border-b border-forest-100 lg:border-b-0" : ""} ${
                   index > 0 ? "lg:border-l lg:border-forest-100" : ""
                 }`}
-                aria-label={`${statistic.value} ${statistic.label}; reference figure, school confirmation pending`}
               >
                 <span className="font-heading text-3xl font-semibold leading-tight text-forest-800 sm:text-4xl lg:text-5xl">
                   {statistic.value}
@@ -108,13 +110,13 @@ export function Hero() {
                   {statistic.label}
                 </span>
                 <span className="mt-1.5 text-[10px] font-medium uppercase tracking-wide text-dark-400 sm:text-[11px]">
-                  Confirm with school
+                  {t.hero.confirm}
                 </span>
               </motion.div>
             ))}
           </div>
           <p className="border-t border-forest-100 bg-sage-50 px-4 py-2.5 text-center text-xs leading-relaxed text-forest-800 sm:text-sm">
-            Reference figures only — school confirmation pending.
+            {t.hero.statsNote}
           </p>
         </motion.div>
       </div>
@@ -141,12 +143,12 @@ export function Hero() {
             >
               <div className="flex items-center justify-between gap-4 border-b border-white/10 px-5 py-4">
                 <h2 id="school-video-title" className="font-heading text-xl font-semibold text-white">
-                  School Video
+                  {t.hero.videoTitle}
                 </h2>
                 <button
                   type="button"
                   onClick={() => setIsVideoDialogOpen(false)}
-                  aria-label="Close school video dialog"
+                  aria-label="Close"
                   className="rounded-lg p-2 text-white transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
                 >
                   <X className="h-5 w-5" />
@@ -164,9 +166,9 @@ export function Hero() {
               ) : (
                 <div className="px-6 py-12 text-center sm:px-12">
                   <Play className="mx-auto mb-4 h-10 w-10 text-forest-300" aria-hidden="true" />
-                  <p className="text-lg font-semibold text-white">School video coming soon</p>
+                  <p className="text-lg font-semibold text-white">{t.hero.videoSoon}</p>
                   <p className="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-forest-100">
-                    No school video is configured yet. An administrator can add the verified video file URL in the homepage content settings.
+                    {t.hero.videoSoonDesc}
                   </p>
                 </div>
               )}

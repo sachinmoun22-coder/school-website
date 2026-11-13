@@ -3,7 +3,7 @@ export const schoolData = {
   shortName: "S.B.S Sr.Sec. School",
   tagline: "Matour Kaithal",
   location: "Matour village, Kaithal, Haryana",
-  email: "sbsmatour@gmail.com",
+  email: "sachinmoun22@gmail.com",
   phone: "7015056542",
   schoolCode: "10244",
   schoolType: "Senior Secondary School",

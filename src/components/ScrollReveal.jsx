@@ -1,4 +1,23 @@
+import React from "react";
 import { motion } from "framer-motion";
+
+function useLightweightReveal() {
+  const [lightweight, setLightweight] = React.useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(max-width: 767px), (prefers-reduced-motion: reduce)").matches;
+  });
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const media = window.matchMedia("(max-width: 767px), (prefers-reduced-motion: reduce)");
+    const update = () => setLightweight(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  return lightweight;
+}
 
 export function ScrollReveal({
   children,
@@ -8,6 +27,17 @@ export function ScrollReveal({
   direction = "up",
   ...props
 }) {
+  const lightweight = useLightweightReveal();
+
+  if (lightweight) {
+    const { variants, initial, whileInView, viewport, transition, ...rest } = props;
+    return (
+      <div className={className} {...rest}>
+        {children}
+      </div>
+    );
+  }
+
   const variants = {
     hidden: {
       opacity: 0,
@@ -48,6 +78,17 @@ export function StaggerContainer({
   staggerDelay = 0.1,
   ...props
 }) {
+  const lightweight = useLightweightReveal();
+
+  if (lightweight) {
+    const { variants, initial, whileInView, viewport, transition, ...rest } = props;
+    return (
+      <div className={className} {...rest}>
+        {children}
+      </div>
+    );
+  }
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -80,10 +121,8 @@ export function StaggerContainer({
       {...props}
     >
       {React.Children.map(children, (child) =>
-        React.cloneElement(child, { variants: itemVariants })
+        React.isValidElement(child) ? React.cloneElement(child, { variants: itemVariants }) : child
       )}
     </motion.div>
   );
 }
-
-import React from "react";

@@ -1,0 +1,128 @@
+export const navPathKeys = {
+  "/": "home",
+  "/about": "about",
+  "/academics": "academics",
+  "/facilities": "facilities",
+  "/achievements": "achievements",
+  "/gallery": "gallery",
+  "/admissions": "admissions",
+  "/news": "news",
+  "/contact": "contact",
+};
+
+export const dataTranslations = {
+  hi: {
+    school: {
+      tagline: "मटौर, कैथल",
+      location: "मटौर गाँव, कैथल, हरियाणा",
+      schoolType: "वरिष्ठ माध्यमिक विद्यालय",
+      educationLevel: "नर्सरी से कक्षा 12",
+      board: "बीएसईएच",
+      introduction: "एस.बी.एस. सीनियर सेकेंडरी स्कूल, मटौर कैथल, हरियाणा में स्थित एक वरिष्ठ माध्यमिक विद्यालय है। यहाँ नर्सरी से कक्षा 12 तक शिक्षा प्रदान की जाती है तथा वरिष्ठ माध्यमिक स्तर पर कला, वाणिज्य और विज्ञान संकाय उपलब्ध हैं।",
+      about: "एस.बी.एस. सीनियर सेकेंडरी स्कूल मटौर गाँव, कैथल में स्थित है। विद्यालय नर्सरी से वरिष्ठ माध्यमिक स्तर तक गुणवत्तापूर्ण शिक्षा प्रदान करता है।",
+      principalName: "श्री रामबिलास शर्मा",
+    },
+    streams: {
+      arts: { name: "कला", description: "मानविकी, भाषाओं और रचनात्मक विषयों का अध्ययन करें। आलोचनात्मक सोच, संप्रेषण कौशल और सांस्कृतिक समझ विकसित करें।" },
+      commerce: { name: "वाणिज्य", description: "व्यवसाय, वित्त और अर्थशास्त्र की मजबूत नींव बनाएँ। लेखांकन, प्रबंधन और उद्यमिता के क्षेत्र में करियर के लिए तैयारी करें।" },
+      science: { name: "विज्ञान", description: "भौतिकी, रसायन और जीव विज्ञान के माध्यम से प्राकृतिक दुनिया को समझें। इंजीनियरिंग, चिकित्सा और शोध के करियर की नींव रखें।" },
+    },
+    highlights: {
+      1: { title: "शिक्षण एवं शैक्षणिक", description: "नर्सरी से कक्षा 12 तक बीएसईएच पाठ्यक्रम, वरिष्ठ माध्यमिक में तीन संकाय।" },
+      2: { title: "विद्यार्थी विकास", description: "व्यक्तिगत विकास, चरित्र निर्माण और भविष्य की चुनौतियों के लिए तैयारी पर ध्यान।" },
+      3: { title: "विद्यालय गतिविधियाँ", description: "संतुलित शिक्षा के लिए पाठ्यक्रम और सह-पाठ्यक्रम गतिविधियों का समन्वय।" },
+      4: { title: "सहायक वातावरण", description: "सम्मान, जिम्मेदारी और शैक्षणिक उत्कृष्टता को बढ़ावा देने वाला सुरक्षित परिसर।" },
+    },
+    whyChoose: {
+      1: { title: "शैक्षणिक शिक्षा", description: "नर्सरी से कक्षा 12 तक बीएसईएच पाठ्यक्रम के साथ मजबूत शैक्षणिक आधार, वरिष्ठ माध्यमिक में कला, वाणिज्य और विज्ञान संकाय।" },
+      2: { title: "सर्वांगीण विकास", description: "शिक्षा, चरित्र निर्माण और जीवन कौशल सहित विद्यार्थियों के समग्र विकास पर ध्यान।" },
+      3: { title: "रचनात्मकता एवं गतिविधियाँ", description: "पढ़ाई के साथ रचनात्मक अभिव्यक्ति और सह-पाठ्यक्रम गतिविधियों के अवसर।" },
+      4: { title: "मूल्य एवं अनुशासन", description: "सहायक वातावरण में अनुशासन, नैतिक मूल्यों और जिम्मेदार नागरिकता पर जोर।" },
+    },
+    facilities: {
+      1: { name: "कक्षाएँ", description: "नर्सरी से कक्षा 12 तक प्रभावी शिक्षण के लिए 35 हवादार और spacious कक्षाएँ।" },
+      2: { name: "विज्ञान प्रयोगशाला", description: "वरिष्ठ माध्यमिक विद्यार्थियों के लिए भौतिकी, रसायन और जीव विज्ञान की सुसज्जित प्रयोगशाला।" },
+      3: { name: "परिवहन सुविधा", description: "रामगढ़, शिमला, कलासर, मंडी, खेड़ी, भालंग, सिंघवाल, सुदकैन और आसपास के गाँवों के लिए 5 बसें और 1 वैन।" },
+      4: { name: "छात्रावास सुविधा", description: "आवासीय सुविधा की आवश्यकता वाले विद्यार्थियों के लिए छात्रावास उपलब्ध।" },
+      5: { name: "खेल का मैदान", description: "शारीरिक शिक्षा और मनोरंजक गतिविधियों के लिए खुला खेल मैदान।" },
+      6: { name: "विद्यालय परिसर", description: "विद्यार्थियों के सर्वांगीण विकास के लिए सुरक्षित और हरित परिसर वातावरण।" },
+    },
+    achievements: {
+      categories: {
+        awards: { title: "पुरस्कार एवं सम्मान", description: "शैक्षणिक प्राधिकरणों और संगठनों से विद्यालय को प्राप्त आधिकारिक पुरस्कार और सम्मान।" },
+        academic: { title: "शैक्षणिक उपलब्धियाँ", description: "बोर्ड परीक्षा परिणाम, मेरिट स्थान और विद्वतापूर्ण उपलब्धियाँ।" },
+        student: { title: "विद्यार्थी उपलब्धियाँ", description: "शिक्षा, प्रतियोगिताओं, ओलंपियाड और अन्य क्षेत्रों में विद्यार्थियों की व्यक्तिगत एवं सामूहिक उपलब्धियाँ।" },
+        sports: { title: "खेल एवं सह-पाठ्यक्रम", description: "खेल चैंपियनशिप, एथलेटिक उपलब्धियाँ और सह-पाठ्यक्रम प्रतियोगिताओं की जीत।" },
+      },
+    },
+    homepageStats: [
+      { value: "1,200+", label: "संतुष्ट विद्यार्थी" },
+      { value: "75+", label: "अनुभवी शिक्षक" },
+      { value: "25", label: "वर्षों की उत्कृष्टता" },
+      { value: "120+", label: "पुरस्कार एवं सम्मान" },
+    ],
+    admissionPages: {
+      "/admissions": "प्रवेश अवलोकन",
+      "/admissions/procedure": "प्रवेश प्रक्रिया",
+      "/admissions/fee-structure": "शुल्क संरचना",
+      "/admissions/documents-faq": "आवश्यक दस्तावेज़ एवं प्रश्नोत्तर",
+    },
+  },
+  en: {
+    school: {
+      tagline: "Matour Kaithal",
+      location: "Matour village, Kaithal, Haryana",
+      schoolType: "Senior Secondary School",
+      educationLevel: "Nursery to 12th",
+      board: "BSEH",
+      introduction: "S.B.S Sr.Sec. School Matour Kaithal is a senior secondary school in Kaithal, Haryana. The school provides education from Nursery to Class 12 and offers Arts, Commerce and Science streams at the senior secondary level.",
+      about: "S.B.S Sr.Sec. School is located in Matour village, Kaithal. The school provides quality school education from Nursery to the senior secondary level.",
+      principalName: "Shri Rambilash Sharma",
+    },
+    streams: {
+      arts: { name: "Arts", description: "Explore humanities, languages, and creative disciplines. Develop critical thinking, communication skills, and cultural awareness." },
+      commerce: { name: "Commerce", description: "Build foundations in business, finance, and economics. Prepare for careers in accounting, management, and entrepreneurship." },
+      science: { name: "Science", description: "Discover the natural world through physics, chemistry, and biology. Lay groundwork for engineering, medicine, and research careers." },
+    },
+    highlights: {
+      1: { title: "Learning & Academics", description: "BSEH-affiliated curriculum from Nursery to Class 12 with three streams at senior secondary level." },
+      2: { title: "Student Development", description: "Focus on individual growth, character building, and preparing young minds for future challenges." },
+      3: { title: "School Activities", description: "Balanced approach with curricular and co-curricular activities for well-rounded education." },
+      4: { title: "Supportive Environment", description: "Safe, disciplined campus fostering respect, responsibility, and academic excellence." },
+    },
+    whyChoose: {
+      1: { title: "Academic Learning", description: "Strong academic foundation with BSEH curriculum from Nursery to Class 12, including Arts, Commerce, and Science streams at senior secondary level." },
+      2: { title: "Holistic Development", description: "Focus on overall student growth including academics, character building, and life skills." },
+      3: { title: "Creativity & Activities", description: "Opportunities for creative expression and extracurricular engagement alongside studies." },
+      4: { title: "Values & Discipline", description: "Emphasis on discipline, moral values, and responsible citizenship in a supportive environment." },
+    },
+    facilities: {
+      1: { name: "Classrooms", description: "35 spacious, well-ventilated classrooms designed for effective learning from Nursery to Class 12." },
+      2: { name: "Science Laboratory", description: "Well-equipped laboratory for Physics, Chemistry, and Biology practical work for senior secondary students." },
+      3: { name: "Transport Facility", description: "5 buses and 1 van covering routes to Ramgarh, Shimla, Kalasar, Mandi, Kheri, Bhalang, Singhwal, Sudkain, and other nearby villages." },
+      4: { name: "Hostel Facility", description: "Hostel accommodation available for students requiring residential facilities." },
+      5: { name: "Playground", description: "Outdoor sports ground for physical education and recreational activities." },
+      6: { name: "School Campus", description: "Safe and green campus environment for holistic student development." },
+    },
+    achievements: {
+      categories: {
+        awards: { title: "Awards & Recognition", description: "Official awards, recognitions, and honors received by the school from educational authorities and organizations." },
+        academic: { title: "Academic Achievements", description: "Academic excellence achievements including board examination results, merit positions, and scholarly accomplishments." },
+        student: { title: "Student Achievements", description: "Individual and group achievements by students in academics, competitions, olympiads, and other areas." },
+        sports: { title: "Sports & Extracurricular", description: "Sports championships, athletic achievements, and extracurricular competition victories." },
+      },
+    },
+    homepageStats: [
+      { value: "1,200+", label: "Happy Students" },
+      { value: "75+", label: "Expert Teachers" },
+      { value: "25", label: "Years of Excellence" },
+      { value: "120+", label: "Awards & Honours" },
+    ],
+    admissionPages: {
+      "/admissions": "Admission Overview",
+      "/admissions/procedure": "Admission Procedure",
+      "/admissions/fee-structure": "Fee Structure",
+      "/admissions/documents-faq": "Required Documents & FAQs",
+    },
+  },
+};

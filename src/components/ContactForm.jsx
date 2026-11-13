@@ -1,7 +1,9 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { AlertCircle, CheckCircle, Loader2, Send } from "lucide-react";
-import { schoolData } from "../data/schoolData";
+
+const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+const WEB3FORMS_ACCESS_KEY = "5f6fe484-c896-4011-8b2e-70e5db9fdf28";
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -13,7 +15,6 @@ export function ContactForm() {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
   const [serverMessage, setServerMessage] = useState("");
-  const honeypotRef = useRef(null);
   const formRef = useRef(null);
 
   const validateForm = () => {
@@ -26,21 +27,14 @@ export function ContactForm() {
     if (!name) newErrors.name = "Name is required";
     else if (name.length < 3) newErrors.name = "Name must be at least 3 characters";
 
-    // At least one of email or phone is required
-    const hasEmail = email.length > 0;
-    const hasPhone = phone.length > 0;
-
-    if (hasEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!email) {
+      newErrors.email = "Email address is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       newErrors.email = "Please enter a valid email address";
     }
 
-    if (hasPhone && !/^[6-9]\d{9}$/.test(phone)) {
+    if (phone && !/^[6-9]\d{9}$/.test(phone.replace(/\D/g, ""))) {
       newErrors.phone = "Please enter a valid 10-digit Indian mobile number";
-    }
-
-    // Require at least email or phone
-    if (!hasEmail && !hasPhone) {
-      newErrors.contact = "Email address or mobile number is required";
     }
 
     if (!message) newErrors.message = "Message is required";
@@ -62,97 +56,70 @@ export function ContactForm() {
     }
   };
 
-  const buildMailtoLink = () => {
-    const subject = encodeURIComponent(
-      `New Contact Form Inquiry - S.B.S Sr.Sec. School Matour Kaithal`
-    );
-    const body = encodeURIComponent(
-      `Name: ${formData.name.trim()}\n` +
-      `Email: ${formData.email.trim() || "(not provided)"}\n` +
-      `Phone: ${formData.phone.trim() || "(not provided)"}\n\n` +
-      `Message:\n${formData.message.trim()}`
-    );
-    return `mailto:${schoolData.email}?subject=${subject}&body=${body}`;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    // Honeypot check - if filled, it's a bot
-    if (honeypotRef.current && honeypotRef.current.value.trim() !== "") {
+    const form = formRef.current;
+    if (form?.botcheck?.checked) {
       return;
     }
 
     setStatus("submitting");
     setServerMessage("");
 
-    let sentViaMailto = false;
-
     try {
-      const response = await fetch("/api/contact", {
+      const payload = {
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: "Website se naya message - SBS School",
+        from_name: "SBS School Website",
+        botcheck: "",
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        message: formData.message.trim(),
+      };
+
+      const response = await fetch(WEB3FORMS_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          phone: formData.phone.trim(),
-          message: formData.message.trim(),
-          honeypot: "",
-        }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
       });
 
       const result = await response.json();
 
       if (result.success) {
         setStatus("success");
-        setServerMessage(
-          result.message ||
-            "Thank you! Aapka message bhej diya gaya hai. Hum jaldi aapse sampark karenge."
-        );
-        resetForm();
-        return;
+        setServerMessage("Thank you! Aapka message bhej diya gaya hai. Hum jaldi aapse sampark karenge.");
+        setFormData({ name: "", email: "", phone: "", message: "" });
+        formRef.current?.reset();
+      } else {
+        setStatus("error");
+        setServerMessage(result.message || "Message bhejne me samasya aayi. Kripya thodi der baad dobara prayas karein.");
       }
-
-      // Server returned error (e.g. 503 SMTP not configured) — fall back to mailto
-      sentViaMailto = true;
-    } catch (err) {
-      // Network error — fall back to mailto
-      sentViaMailto = true;
+    } catch {
+      setStatus("error");
+      setServerMessage("Message bhejne me samasya aayi. Kripya apna internet connection check karein aur dobara prayas karein.");
     }
-
-    if (sentViaMailto) {
-      window.open(buildMailtoLink(), "_blank", "noopener");
-      setStatus("success");
-      setServerMessage(
-        "Message email ke through bhej diya gaya hai. Kripya apne email client ko check karein."
-      );
-      resetForm();
-    }
-  };
-
-  const resetForm = () => {
-    formRef.current.reset();
-    setFormData({ name: "", email: "", phone: "", message: "" });
   };
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-5" noValidate>
-      {/* Honeypot field - hidden from humans, filled by bots */}
-      <div
-        style={{ display: "none", visibility: "hidden" }}
+      <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+      <input type="hidden" name="subject" value="Website se naya message - SBS School" />
+      <input type="hidden" name="from_name" value="SBS School Website" />
+      <input
+        type="checkbox"
+        name="botcheck"
+        className="hidden"
+        style={{ display: "none" }}
+        tabIndex={-1}
+        autoComplete="off"
         aria-hidden="true"
-      >
-        <label htmlFor="hp">Leave this field empty</label>
-        <input
-          id="hp"
-          name="honeypot"
-          type="text"
-          ref={honeypotRef}
-          tabIndex={-1}
-          autoComplete="off"
-        />
-      </div>
+      />
 
       <div>
         <label htmlFor="name" className="label-field">
@@ -166,6 +133,7 @@ export function ContactForm() {
           onChange={handleChange}
           className={`input-field ${errors.name ? "border-red-500 focus:ring-red-500" : ""}`}
           placeholder="Your full name"
+          required
           aria-invalid={errors.name ? "true" : "false"}
           aria-describedby={errors.name ? "name-error" : undefined}
           disabled={status === "submitting"}
@@ -186,7 +154,7 @@ export function ContactForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="email" className="label-field">
-            Email Address <span className="text-slate-400 text-xs font-normal">(optional)</span>
+            Email Address <span className="text-red-500">*</span>
           </label>
           <input
             type="email"
@@ -196,6 +164,7 @@ export function ContactForm() {
             onChange={handleChange}
             className={`input-field ${errors.email ? "border-red-500 focus:ring-red-500" : ""}`}
             placeholder="your@email.com"
+            required
             aria-invalid={errors.email ? "true" : "false"}
             aria-describedby={errors.email ? "email-error" : undefined}
             disabled={status === "submitting"}
@@ -246,23 +215,6 @@ export function ContactForm() {
         </div>
       </div>
 
-      {/* Contact requirement note */}
-      <p className="mt-1 text-xs text-slate-500 -mb-4">
-        At least one of email or mobile number is required.
-      </p>
-
-      {/* Combined contact error */}
-      {errors.contact && (
-        <motion.p
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-1.5 text-sm text-red-500 flex items-center gap-1"
-        >
-          <AlertCircle className="w-4 h-4" />
-          {errors.contact}
-        </motion.p>
-      )}
-
       <div>
         <label htmlFor="message" className="label-field">
           Message <span className="text-red-500">*</span>
@@ -275,6 +227,7 @@ export function ContactForm() {
           rows={5}
           className={`input-field resize-y min-h-[120px] ${errors.message ? "border-red-500 focus:ring-red-500" : ""}`}
           placeholder="Your message..."
+          required
           aria-invalid={errors.message ? "true" : "false"}
           aria-describedby={errors.message ? "message-error" : undefined}
           disabled={status === "submitting"}
@@ -292,12 +245,10 @@ export function ContactForm() {
         )}
       </div>
 
-      {/* Success Message */}
       {status === "success" && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
           className="p-4 rounded-lg border border-forest-200 bg-forest-50 flex items-start gap-3 text-sm leading-relaxed text-forest-700"
           role="status"
           aria-live="polite"
@@ -307,14 +258,12 @@ export function ContactForm() {
         </motion.div>
       )}
 
-      {/* Error Message */}
       {status === "error" && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
           className="p-4 rounded-lg border border-red-200 bg-red-50 flex items-start gap-3 text-sm leading-relaxed text-red-700"
-          role="status"
+          role="alert"
           aria-live="polite"
         >
           <AlertCircle className="w-5 h-5 flex-shrink-0 text-red-500 mt-0.5" />
@@ -325,7 +274,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="btn-primary w-full sm:w-auto"
+        className="btn-primary w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {status === "submitting" ? (
           <>

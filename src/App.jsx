@@ -1,23 +1,23 @@
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import { Home } from "./pages/Home";
-import { About } from "./pages/About";
-import { Academics } from "./pages/Academics";
-import { Facilities } from "./pages/Facilities";
-import { Achievements } from "./pages/Achievements";
-import { Gallery } from "./pages/Gallery";
-import { AdmissionOverview } from "./pages/admissions/AdmissionOverview";
-import { AdmissionProcedure } from "./pages/admissions/AdmissionProcedure";
-import { EligibilityCriteria } from "./pages/admissions/EligibilityCriteria";
-import { FeeStructure } from "./pages/admissions/FeeStructure";
-import { DocumentsAndFAQs } from "./pages/admissions/DocumentsAndFAQs";
-import { News } from "./pages/News";
-import { Contact } from "./pages/Contact";
-import { Chatbot } from "./components/Chatbot";
-import { FloatingContactBar } from "./components/FloatingContactBar";
-import { motion, AnimatePresence } from "framer-motion";
+
+const Home = lazy(() => import("./pages/Home").then((m) => ({ default: m.Home })));
+const About = lazy(() => import("./pages/About").then((m) => ({ default: m.About })));
+const Academics = lazy(() => import("./pages/Academics").then((m) => ({ default: m.Academics })));
+const Facilities = lazy(() => import("./pages/Facilities").then((m) => ({ default: m.Facilities })));
+const Achievements = lazy(() => import("./pages/Achievements").then((m) => ({ default: m.Achievements })));
+const Gallery = lazy(() => import("./pages/Gallery").then((m) => ({ default: m.Gallery })));
+const AdmissionOverview = lazy(() => import("./pages/admissions/AdmissionOverview").then((m) => ({ default: m.AdmissionOverview })));
+const AdmissionProcedure = lazy(() => import("./pages/admissions/AdmissionProcedure").then((m) => ({ default: m.AdmissionProcedure })));
+const EligibilityCriteria = lazy(() => import("./pages/admissions/EligibilityCriteria").then((m) => ({ default: m.EligibilityCriteria })));
+const FeeStructure = lazy(() => import("./pages/admissions/FeeStructure").then((m) => ({ default: m.FeeStructure })));
+const DocumentsAndFAQs = lazy(() => import("./pages/admissions/DocumentsAndFAQs").then((m) => ({ default: m.DocumentsAndFAQs })));
+const News = lazy(() => import("./pages/News").then((m) => ({ default: m.News })));
+const Contact = lazy(() => import("./pages/Contact").then((m) => ({ default: m.Contact })));
+const Chatbot = lazy(() => import("./components/Chatbot").then((m) => ({ default: m.Chatbot })));
+const FloatingContactBar = lazy(() => import("./components/FloatingContactBar").then((m) => ({ default: m.FloatingContactBar })));
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -42,14 +42,18 @@ function ScrollToTop() {
   return null;
 }
 
+function RouteFallback() {
+  return (
+    <div className="flex min-h-[40vh] items-center justify-center px-4 py-16" aria-live="polite">
+      <div className="h-10 w-10 animate-spin rounded-full border-2 border-forest-200 border-t-forest-700" aria-label="Loading" />
+    </div>
+  );
+}
+
 function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-cream-100">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="text-center px-4"
-      >
+      <div className="text-center px-4">
         <h1 className="text-9xl font-heading font-bold text-forest-200 mb-4">404</h1>
         <h2 className="text-3xl font-heading font-semibold text-dark-900 mb-4">Page Not Found</h2>
         <p className="text-dark-600 mb-8 max-w-md mx-auto">
@@ -61,7 +65,7 @@ function NotFound() {
           </svg>
           Back to Home
         </a>
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -79,7 +83,7 @@ function App() {
         </a>
         <Header />
         <main id="main-content" tabIndex="-1" className="flex-1 pb-16 pt-[65px] sm:pt-[105px] md:pt-[109px]">
-          <AnimatePresence mode="wait">
+          <Suspense fallback={<RouteFallback />}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
@@ -97,11 +101,13 @@ function App() {
               <Route path="/admission" element={<Navigate to="/admissions" replace />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </AnimatePresence>
+          </Suspense>
         </main>
         <Footer />
-        <Chatbot />
-        <FloatingContactBar />
+        <Suspense fallback={null}>
+          <Chatbot />
+          <FloatingContactBar />
+        </Suspense>
       </div>
     </BrowserRouter>
   );

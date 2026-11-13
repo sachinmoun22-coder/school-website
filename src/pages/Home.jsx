@@ -378,10 +378,14 @@ function GalleryPreviewSection() {
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               loading="eager"
             />
-            <div className="absolute inset-0 flex items-end bg-gradient-to-t from-forest-900/60 via-transparent to-transparent p-4 sm:p-6">
-              <div className="min-w-0 text-white">
-                <h3 className="text-heading-sm font-semibold sm:text-heading-md">School Campus</h3>
-                <p className="text-sm text-forest-100">Main Building & Grounds</p>
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%] bg-[linear-gradient(to_top,rgba(0,0,0,0.65),transparent)]"
+              aria-hidden="true"
+            />
+            <div className="pointer-events-none absolute inset-0 z-10 flex items-end p-4 sm:p-6">
+              <div className="min-w-0 text-white [text-shadow:0_2px_6px_rgba(0,0,0,0.6)]">
+                <h3 className="text-heading-sm font-semibold text-white sm:text-heading-md">School Campus</h3>
+                <p className="text-sm text-white">Main Building & Grounds</p>
               </div>
             </div>
           </div>
@@ -392,8 +396,12 @@ function GalleryPreviewSection() {
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-forest-900/60 via-transparent to-transparent flex items-end p-4">
-              <h3 className="text-white font-semibold">Classroom Learning</h3>
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%] bg-[linear-gradient(to_top,rgba(0,0,0,0.65),transparent)]"
+              aria-hidden="true"
+            />
+            <div className="pointer-events-none absolute inset-0 z-10 flex items-end p-4">
+              <h3 className="font-semibold text-white [text-shadow:0_2px_6px_rgba(0,0,0,0.6)]">Classroom Learning</h3>
             </div>
           </div>
           <div className="relative aspect-square rounded-card-lg overflow-hidden group">
@@ -403,8 +411,12 @@ function GalleryPreviewSection() {
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-forest-900/60 via-transparent to-transparent flex items-end p-4">
-              <h3 className="text-white font-semibold">Campus View</h3>
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%] bg-[linear-gradient(to_top,rgba(0,0,0,0.65),transparent)]"
+              aria-hidden="true"
+            />
+            <div className="pointer-events-none absolute inset-0 z-10 flex items-end p-4">
+              <h3 className="font-semibold text-white [text-shadow:0_2px_6px_rgba(0,0,0,0.6)]">Campus View</h3>
             </div>
           </div>
         </div>

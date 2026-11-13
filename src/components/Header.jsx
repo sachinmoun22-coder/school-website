@@ -2,8 +2,11 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, MapPin, Phone, Mail, ChevronDown } from "lucide-react";
-import { admissionPages } from "../data/admissions";
 import { navLinks, schoolData } from "../data/schoolData";
+import { useLanguage } from "../context/LanguageContext";
+import { dataTranslations, navPathKeys } from "../i18n/dataTranslations";
+import { useSiteText } from "../i18n/useSiteText";
+import { useLocalizedData } from "../i18n/useLocalizedData";
 
 const hiddenNavPaths = new Set(["/achievements", "/news"]);
 const headerNavLinks = navLinks.filter((link) => !hiddenNavPaths.has(link.path));
@@ -11,6 +14,11 @@ const headerNavLinks = navLinks.filter((link) => !hiddenNavPaths.has(link.path))
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const { language, setLanguage } = useLanguage();
+  const t = useSiteText();
+  const { admissionPages } = useLocalizedData();
+  const schoolT = (dataTranslations[language] || dataTranslations.hi).school;
+  const getNavLabel = (path) => t.nav[navPathKeys[path]] || navLinks.find((l) => l.path === path)?.label || path;
   const [menuState, setMenuState] = useState({
     mobileOpen: false,
     admissionsOpen: false,
@@ -38,8 +46,10 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const next = window.scrollY > 20;
+      setIsScrolled((prev) => (prev === next ? prev : next));
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -93,7 +103,7 @@ export function Header() {
             <div className="flex min-w-0 items-center gap-4 md:gap-6">
               <span className="flex min-w-0 items-center gap-1.5">
                 <MapPin className="w-4 h-4 shrink-0 text-accent-400" />
-                <span className="truncate">{schoolData.location}</span>
+                <span className="truncate">{schoolT.location}</span>
               </span>
               <span className="hidden shrink-0 text-forest-300 md:inline">|</span>
               <a
@@ -119,10 +129,10 @@ export function Header() {
       {/* Main Navigation Header */}
       <nav
         aria-label="Main navigation"
-        className={`transition-all duration-300 ${
+        className={`transition-colors duration-300 ${
           isScrolled
-            ? "bg-white/98 backdrop-blur-xl shadow-nav border-b border-border-light/80"
-            : "bg-white/95 backdrop-blur-lg border-b border-border-light/80"
+            ? "bg-white/98 shadow-nav border-b border-border-light/80 sm:backdrop-blur-xl"
+            : "bg-white/95 border-b border-border-light/80 sm:backdrop-blur-lg"
         }`}
       >
         <div className="container-custom">
@@ -139,7 +149,7 @@ export function Header() {
                 <h1 className="whitespace-nowrap text-base font-heading font-semibold leading-tight text-dark-900 sm:text-lg lg:text-xl">
                   {schoolData.shortName}
                 </h1>
-                <p className="whitespace-nowrap text-[10px] leading-normal text-dark-400 sm:text-xs">{schoolData.tagline}</p>
+                <p className="whitespace-nowrap text-[10px] leading-normal text-dark-400 sm:text-xs">{schoolT.tagline}</p>
               </div>
             </Link>
 
@@ -160,7 +170,7 @@ export function Header() {
                       onClick={() => setAdmissionsOpen((open) => !open)}
                       className={`nav-link inline-flex items-center gap-1 whitespace-nowrap px-[clamp(0.125rem,0.2vw,0.375rem)] text-[clamp(0.75rem,0.85vw,0.875rem)] ${location.pathname.startsWith("/admissions") ? "nav-link-active" : ""}`}
                     >
-                      Admissions <ChevronDown className={`h-3.5 w-3.5 transition-transform ${admissionsOpen ? "rotate-180" : ""}`} />
+                      {getNavLabel("/admissions")} <ChevronDown className={`h-3.5 w-3.5 transition-transform ${admissionsOpen ? "rotate-180" : ""}`} />
                     </button>
                     <AnimatePresence>
                       {admissionsOpen && (
@@ -198,30 +208,76 @@ export function Header() {
                     aria-current={location.pathname === link.path ? "page" : undefined}
                     className={`nav-link whitespace-nowrap px-[clamp(0.125rem,0.2vw,0.375rem)] text-[clamp(0.75rem,0.85vw,0.875rem)] ${location.pathname === link.path ? "nav-link-active" : ""}`}
                   >
-                    {link.label}
+                    {getNavLabel(link.path)}
                   </Link>
                 )
               ))}
             </div>
 
-            <div className="hidden shrink-0 items-center lg:flex">
+            <div className="hidden shrink-0 items-center gap-2 lg:flex">
+              <div className="inline-flex items-center rounded-lg border border-border-light bg-cream-50 p-0.5" role="group" aria-label="Language switcher">
+                <button
+                  type="button"
+                  onClick={() => setLanguage("hi")}
+                  className={`rounded-md px-2.5 py-1.5 text-xs font-semibold transition-colors ${language === "hi" ? "bg-forest-800 text-white shadow-soft" : "text-dark-600 hover:bg-cream-100"}`}
+                  aria-pressed={language === "hi"}
+                >
+                  हिंदी
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLanguage("en")}
+                  className={`rounded-md px-2.5 py-1.5 text-xs font-semibold transition-colors ${language === "en" ? "bg-forest-800 text-white shadow-soft" : "text-dark-600 hover:bg-cream-100"}`}
+                  aria-pressed={language === "en"}
+                >
+                  EN
+                </button>
+              </div>
               <Link
                 to="/admissions"
                 className="inline-flex items-center justify-center whitespace-nowrap rounded-btn bg-forest-800 px-3 py-2 text-sm font-medium text-white shadow-soft transition-colors hover:bg-forest-900"
               >
-                Admission Enquiry
+                {t.nav.admissionEnquiry}
               </Link>
             </div>
 
-            <button
-              className="shrink-0 rounded-lg p-2 text-dark-600 transition-colors hover:bg-cream-100 lg:hidden"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-expanded={isOpen}
-              aria-controls="mobile-menu"
-              aria-label={isOpen ? "Close menu" : "Open menu"}
-            >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+            <div className="flex shrink-0 items-center gap-0.5 sm:gap-1.5 lg:hidden">
+              <div className="inline-flex items-center rounded-md border border-border-light bg-cream-50 p-0.5" role="group" aria-label="Language switcher">
+                <button
+                  type="button"
+                  onClick={() => setLanguage("hi")}
+                  className={`rounded px-1.5 py-1 text-[10px] font-semibold leading-none transition-colors min-[360px]:text-[11px] ${language === "hi" ? "bg-forest-800 text-white" : "text-dark-600"}`}
+                  aria-pressed={language === "hi"}
+                >
+                  हि
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLanguage("en")}
+                  className={`rounded px-1.5 py-1 text-[10px] font-semibold leading-none transition-colors min-[360px]:text-[11px] ${language === "en" ? "bg-forest-800 text-white" : "text-dark-600"}`}
+                  aria-pressed={language === "en"}
+                >
+                  EN
+                </button>
+              </div>
+              <a
+                href="tel:7015056542"
+                className="inline-flex shrink-0 items-center gap-1 rounded-md px-1 py-1.5 text-[12px] font-semibold text-forest-800 transition-colors hover:bg-cream-100 hover:text-forest-900 min-[360px]:text-[13px] sm:gap-1.5 sm:px-2 sm:text-sm"
+                aria-label="Call school at 7015056542"
+              >
+                <Phone className="h-3.5 w-3.5 shrink-0 text-forest-600 sm:h-4 sm:w-4" aria-hidden="true" />
+                <span className="whitespace-nowrap leading-none">7015056542</span>
+              </a>
+              <button
+                className="shrink-0 rounded-lg p-2 text-dark-600 transition-colors hover:bg-cream-100"
+                onClick={() => setIsOpen(!isOpen)}
+                aria-expanded={isOpen}
+                aria-controls="mobile-menu"
+                aria-label={isOpen ? "Close menu" : "Open menu"}
+              >
+                {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -250,7 +306,7 @@ export function Header() {
                             : "text-dark-600 hover:bg-cream-100 hover:text-forest-700"
                         }`}
                       >
-                        Admissions
+                        {getNavLabel("/admissions")}
                         <ChevronDown className={`h-5 w-5 transition-transform ${admissionsOpen ? "rotate-180" : ""}`} />
                       </button>
                       {admissionsOpen && (
@@ -288,7 +344,7 @@ export function Header() {
                           : "text-dark-600 hover:bg-cream-100 hover:text-forest-700"
                       }`}
                     >
-                      {link.label}
+                      {getNavLabel(link.path)}
                     </Link>
                   )
                 ))}
@@ -298,7 +354,7 @@ export function Header() {
                     onClick={() => setIsOpen(false)}
                     className="btn-primary w-full text-center"
                   >
-                    Admission Enquiry
+                    {t.nav.admissionEnquiry}
                   </Link>
                 </div>
               </div>

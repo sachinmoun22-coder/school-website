@@ -41,7 +41,7 @@ export function EligibilityCriteria() {
             <p className="mt-3 max-w-3xl text-dark-600">Grade ranges below reflect the school's listed education span, not a guarantee of current vacancies or admission. Confirm the applicable requirements for the exact class.</p>
           </div>
           <div className="overflow-x-auto rounded-2xl border border-border-light bg-white shadow-soft">
-            <table className="w-full min-w-[760px] border-collapse text-left text-sm">
+            <table className="w-full min-w-[640px] border-collapse text-left text-sm sm:min-w-[760px]">
               <thead className="bg-forest-800 text-white">
                 <tr>
                   <th scope="col" className="p-4 font-semibold">Class or Grade</th>

@@ -349,7 +349,15 @@
     border-radius: 24px;
   }
 
-  .principal-card img {
+  .principal-card-media {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+  }
+
+  .principal-card img,
+  .principal-photo {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -362,6 +370,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 2;
     padding: 24px 20px 20px;
     display: flex;
     align-items: center;
@@ -615,4 +624,156 @@
 body.mobile-menu-open .chat-toggle,
 body.mobile-menu-open .chat-window {
   display: none;
+}
+
+@media (max-width: 767px) {
+  html {
+    scroll-padding-top: 5rem;
+  }
+
+  .container-custom {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .section-padding {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .section-padding-sm {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 8vw, 2.25rem);
+    line-height: 1.15;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline,
+  .btn-accent {
+    width: 100%;
+    white-space: normal;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .about-right {
+    position: static;
+    top: auto;
+  }
+
+  .stats-grid {
+    gap: 0.75rem;
+  }
+
+  .about-card,
+  .cta-card {
+    padding: 1.25rem;
+  }
+
+  .school-image-wrapper {
+    padding: 1.5rem !important;
+  }
+
+  .school-image-caption {
+    padding: 1rem;
+  }
+
+  .message-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .principal-card {
+    height: auto;
+    min-height: 0;
+  }
+
+  .principal-card-media {
+    height: auto;
+    min-height: 0;
+  }
+
+  .principal-card img,
+  .principal-photo {
+    height: auto;
+    aspect-ratio: 3 / 4;
+    max-height: 70vh;
+    object-fit: contain;
+    background: #102a1f;
+  }
+
+  .principal-caption {
+    padding: 1rem 1rem 0.875rem;
+  }
+
+  .principal-caption .principal-name {
+    font-size: 1.125rem;
+  }
+
+  .principal-text p {
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  .get-directions-btn {
+    width: 100%;
+  }
+
+  .floating-contact {
+    right: max(0.5rem, env(safe-area-inset-right));
+    bottom: calc(0.75rem + 3.5rem + 1.5rem);
+  }
+
+  .floating-contact__inner {
+    padding: 4px;
+  }
+
+  .floating-contact__list {
+    gap: 6px;
+  }
+
+  .floating-contact__link {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+
+  .floating-contact__icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .chat-toggle {
+    right: max(0.75rem, env(safe-area-inset-right));
+    bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  }
+
+  .chat-window {
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: calc(4.75rem + env(safe-area-inset-bottom));
+    width: auto;
+    max-height: calc(100dvh - 7.5rem);
+  }
+
+  footer .container-custom {
+    padding-bottom: 6.5rem;
+  }
+
+  table {
+    font-size: 0.875rem;
+  }
+
+  th,
+  td {
+    padding: 0.625rem 0.5rem;
+  }
 }
