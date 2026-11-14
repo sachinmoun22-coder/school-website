@@ -1,11 +1,13 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { AlertCircle, CheckCircle, Loader2, Send } from "lucide-react";
+import { useSiteText } from "../i18n/useSiteText";
 
 const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 const WEB3FORMS_ACCESS_KEY = "5f6fe484-c896-4011-8b2e-70e5db9fdf28";
 
 export function ContactForm() {
+  const t = useSiteText();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,22 +26,22 @@ export function ContactForm() {
     const phone = formData.phone.trim();
     const message = formData.message.trim();
 
-    if (!name) newErrors.name = "Name is required";
-    else if (name.length < 3) newErrors.name = "Name must be at least 3 characters";
+    if (!name) newErrors.name = t.forms.requiredName;
+    else if (name.length < 3) newErrors.name = t.forms.nameMin;
 
     if (!email) {
-      newErrors.email = "Email address is required";
+      newErrors.email = t.forms.requiredEmail;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors.email = "Please enter a valid email address";
+      newErrors.email = t.forms.invalidEmail;
     }
 
     if (phone && !/^[6-9]\d{9}$/.test(phone.replace(/\D/g, ""))) {
-      newErrors.phone = "Please enter a valid 10-digit Indian mobile number";
+      newErrors.phone = t.forms.invalidPhone;
     }
 
-    if (!message) newErrors.message = "Message is required";
+    if (!message) newErrors.message = t.forms.requiredMessage;
     else if (message.length < 10) {
-      newErrors.message = "Message must be at least 10 characters";
+      newErrors.message = t.forms.messageMin;
     }
 
     setErrors(newErrors);
@@ -93,16 +95,16 @@ export function ContactForm() {
 
       if (result.success) {
         setStatus("success");
-        setServerMessage("Thank you! Aapka message bhej diya gaya hai. Hum jaldi aapse sampark karenge.");
+        setServerMessage(t.forms.successContact);
         setFormData({ name: "", email: "", phone: "", message: "" });
         formRef.current?.reset();
       } else {
         setStatus("error");
-        setServerMessage(result.message || "Message bhejne me samasya aayi. Kripya thodi der baad dobara prayas karein.");
+        setServerMessage(result.message || t.forms.errorGeneric);
       }
     } catch {
       setStatus("error");
-      setServerMessage("Message bhejne me samasya aayi. Kripya apna internet connection check karein aur dobara prayas karein.");
+      setServerMessage(t.forms.errorNetwork);
     }
   };
 
@@ -123,7 +125,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="name" className="label-field">
-          Full Name <span className="text-red-500">*</span>
+          {t.forms.name} <span className="text-red-500">*</span>
         </label>
         <input
           type="text"
@@ -132,7 +134,7 @@ export function ContactForm() {
           value={formData.name}
           onChange={handleChange}
           className={`input-field ${errors.name ? "border-red-500 focus:ring-red-500" : ""}`}
-          placeholder="Your full name"
+          placeholder={t.forms.namePlaceholder}
           required
           aria-invalid={errors.name ? "true" : "false"}
           aria-describedby={errors.name ? "name-error" : undefined}
@@ -154,7 +156,7 @@ export function ContactForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="email" className="label-field">
-            Email Address <span className="text-red-500">*</span>
+            {t.forms.email} <span className="text-red-500">*</span>
           </label>
           <input
             type="email"
@@ -163,7 +165,7 @@ export function ContactForm() {
             value={formData.email}
             onChange={handleChange}
             className={`input-field ${errors.email ? "border-red-500 focus:ring-red-500" : ""}`}
-            placeholder="your@email.com"
+            placeholder={t.forms.emailPlaceholder}
             required
             aria-invalid={errors.email ? "true" : "false"}
             aria-describedby={errors.email ? "email-error" : undefined}
@@ -184,7 +186,7 @@ export function ContactForm() {
 
         <div>
           <label htmlFor="phone" className="label-field">
-            Mobile Number <span className="text-slate-400 text-xs font-normal">(optional)</span>
+            {t.forms.phone} <span className="text-slate-400 text-xs font-normal">{t.forms.optional}</span>
           </label>
           <input
             type="tel"
@@ -196,7 +198,7 @@ export function ContactForm() {
             value={formData.phone}
             onChange={handleChange}
             className={`input-field ${errors.phone ? "border-red-500 focus:ring-red-500" : ""}`}
-            placeholder="10-digit mobile number"
+            placeholder={t.forms.phonePlaceholder}
             aria-invalid={errors.phone ? "true" : "false"}
             aria-describedby={errors.phone ? "phone-error" : undefined}
             disabled={status === "submitting"}
@@ -217,7 +219,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="message" className="label-field">
-          Message <span className="text-red-500">*</span>
+          {t.forms.message} <span className="text-red-500">*</span>
         </label>
         <textarea
           id="message"
@@ -226,7 +228,7 @@ export function ContactForm() {
           onChange={handleChange}
           rows={5}
           className={`input-field resize-y min-h-[120px] ${errors.message ? "border-red-500 focus:ring-red-500" : ""}`}
-          placeholder="Your message..."
+          placeholder={t.forms.messagePlaceholder}
           required
           aria-invalid={errors.message ? "true" : "false"}
           aria-describedby={errors.message ? "message-error" : undefined}
@@ -279,12 +281,12 @@ export function ContactForm() {
         {status === "submitting" ? (
           <>
             <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-            Sending...
+            {t.forms.sending}
           </>
         ) : (
           <>
             <Send className="w-5 h-5 mr-2" />
-            Send Message
+            {t.forms.send}
           </>
         )}
       </button>

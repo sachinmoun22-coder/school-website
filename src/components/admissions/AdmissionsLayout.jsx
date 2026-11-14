@@ -3,11 +3,12 @@ import { PageBanner } from "../PageBanner";
 import { getSEO } from "../../data/seoConfig";
 import { SEOHead } from "../SEOHead";
 import { Breadcrumb } from "../Breadcrumb";
-import { admissionPages } from "../../data/admissions";
+import { useLocalizedData } from "../../i18n/useLocalizedData";
 
 export function AdmissionsSubNavigation({ activePath }) {
+  const { t, admissionPages } = useLocalizedData();
   return (
-    <nav aria-label="Admissions pages" className="border-b border-border-light bg-white">
+    <nav aria-label={t.admissions.navLabel} className="border-b border-border-light bg-white">
       <div className="container-custom grid grid-cols-1 gap-2 py-4 sm:grid-cols-2 lg:grid-cols-5">
         {admissionPages.map((page) => (
           <Link
@@ -41,12 +42,13 @@ export function AdmissionsLayout({ title, subtitle, description, activePath, sho
   );
 }
 
-export function AdmissionNotice({ title = "Please confirm current details", children }) {
+export function AdmissionNotice({ title, children }) {
+  const { t } = useLocalizedData();
   return (
     <aside className="rounded-2xl border border-accent-200 bg-accent-50 p-5 sm:p-6" role="note">
       <h3 className="mb-2 flex items-start gap-2 font-semibold text-dark-900">
         <span aria-hidden="true" className="mt-0.5 text-accent-700">!</span>
-        {title}
+        {title || t.admissions.confirmNotice}
       </h3>
       <div className="text-sm leading-relaxed text-dark-700">{children}</div>
     </aside>
@@ -54,12 +56,13 @@ export function AdmissionNotice({ title = "Please confirm current details", chil
 }
 
 export function AdmissionsContactActions({ includeOverview = false }) {
+  const { t } = useLocalizedData();
   return (
     <div className="flex flex-col flex-wrap gap-3 sm:flex-row">
       {includeOverview && (
-        <Link to="/admissions" className="btn-secondary">Return to Admission Overview</Link>
+        <Link to="/admissions" className="btn-secondary">{t.admissions.returnOverview}</Link>
       )}
-      <Link to="/contact" className="btn-primary">Contact School</Link>
+      <Link to="/contact" className="btn-primary">{t.admissions.contactSchool}</Link>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import { schoolData, galleryImages } from "../data/schoolData";
+import { galleryImages } from "../data/schoolData";
 import { getSEO } from "../data/seoConfig";
 import { SEOHead } from "../components/SEOHead";
 import { PageBanner } from "../components/PageBanner";
@@ -9,42 +9,33 @@ import { SectionTitle } from "../components/SectionTitle";
 import { GalleryGrid } from "../components/GalleryGrid";
 import { Lightbox } from "../components/Lightbox";
 import { ScrollReveal } from "../components/ScrollReveal";
-
-const FILTERS = [
-  { value: "all", label: "16 Images" },
-  { value: "campus", label: "Campus & Facilities" },
-  { value: "learning", label: "Learning Spaces" },
-];
+import { useLocalizedData } from "../i18n/useLocalizedData";
 
 export function Gallery() {
   const { pathname } = useLocation();
   const seo = getSEO(pathname);
+  const { t, schoolData, language } = useLocalizedData();
+  const g = t.gallery;
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeFilter, setActiveFilter] = useState("all");
+
+  const filters = useMemo(() => [
+    { value: "all", label: g.filters.all },
+    { value: "campus", label: g.filters.campus },
+    { value: "learning", label: g.filters.learning },
+  ], [g, language]);
 
   const filteredImages = useMemo(() => {
     if (activeFilter === "all") return galleryImages;
     return galleryImages.filter((img) => img.category === activeFilter);
   }, [activeFilter]);
 
-  const openLightbox = useCallback(
-    (index) => {
-      setCurrentIndex(index);
-      setLightboxOpen(true);
-    },
-    [filteredImages]
-  );
-
-  const closeLightbox = useCallback(() => {
-    setLightboxOpen(false);
-  }, []);
-
+  const openLightbox = useCallback((index) => { setCurrentIndex(index); setLightboxOpen(true); }, []);
+  const closeLightbox = useCallback(() => setLightboxOpen(false), []);
   const navigate = useCallback((direction) => {
     setCurrentIndex((prev) => {
-      if (direction === "prev") {
-        return prev === 0 ? filteredImages.length - 1 : prev - 1;
-      }
+      if (direction === "prev") return prev === 0 ? filteredImages.length - 1 : prev - 1;
       return prev === filteredImages.length - 1 ? 0 : prev + 1;
     });
   }, [filteredImages]);
@@ -53,25 +44,17 @@ export function Gallery() {
     <div className="min-h-screen">
       <SEOHead {...seo} />
       <Breadcrumb pathname={pathname} />
-      <PageBanner
-        title="School Function & Achievement Gallery"
-        subtitle="Celebrating Excellence"
-      >
-        Celebrating Excellence, Achievements and Memorable Moments of Our Students.
+      <PageBanner title={g.bannerTitle} subtitle={g.bannerSubtitle}>
+        {g.bannerDesc}
       </PageBanner>
 
       <section className="section-padding bg-white">
         <div className="container-custom">
           <ScrollReveal delay={0.1}>
             <div className="max-w-4xl mx-auto text-center mb-12">
-              <p className="text-body-lg text-dark-600 leading-relaxed mb-8">
-                A collection of photographs from school functions, celebrations,
-                award ceremonies, and student achievements at S.B.S Sr.Sec. School Matour Kaithal.
-                Relive the memorable moments of our students across academics, sports,
-                and co-curricular events.
-              </p>
+              <p className="text-body-lg text-dark-600 leading-relaxed mb-8">{g.intro}</p>
               <div className="flex flex-wrap items-center justify-center gap-3">
-                {FILTERS.map((filter) => (
+                {filters.map((filter) => (
                   <button
                     key={filter.value}
                     onClick={() => setActiveFilter(filter.value)}
@@ -98,40 +81,25 @@ export function Gallery() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-dark-900 mb-1">Image Disclaimer</h4>
-                  <p className="text-dark-600 text-sm">
-                    The images displayed in this gallery are from the school's actual campus where available.
-                    Some images may be illustrative and represent typical educational environments.
-                    Authentic school photographs are used when provided by the school administration.
-                  </p>
+                  <h4 className="font-semibold text-dark-900 mb-1">{g.disclaimerTitle}</h4>
+                  <p className="text-dark-600 text-sm">{g.disclaimer}</p>
                 </div>
               </div>
             </div>
           </ScrollReveal>
 
-          <GalleryGrid
-            images={filteredImages}
-            onOpenLightbox={openLightbox}
-          />
+          <GalleryGrid images={filteredImages} onOpenLightbox={openLightbox} />
         </div>
       </section>
 
       <section className="section-padding bg-cream-100">
         <div className="container-custom">
-          <SectionTitle
-            title="Gallery Categories"
-            subtitle="Browse By Type"
-          />
+          <SectionTitle title={g.categoriesTitle} subtitle={g.categoriesSubtitle} />
           <ScrollReveal delay={0.1}>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { icon: "🏫", title: "Campus & Buildings", count: "Exterior & interior views" },
-                { icon: "📚", title: "Classrooms & Labs", count: "Learning environments" },
-                { icon: "📖", title: "Library & Study", count: "Reading & research spaces" },
-                { icon: "🏃", title: "Sports & Activities", count: "Playground & extracurricular" },
-              ].map((cat, index) => (
+              {g.cats.map((cat, index) => (
                 <div key={index} className="p-6 rounded-card-lg bg-white border border-border-light card-hover text-center">
-                  <div className="text-4xl mb-3">{cat.icon}</div>
+                  <div className="text-4xl mb-3">{["🏫","📚","📖","🏃"][index]}</div>
                   <h4 className="font-semibold text-dark-900 mb-1">{cat.title}</h4>
                   <p className="text-dark-500 text-sm">{cat.count}</p>
                 </div>
@@ -140,14 +108,9 @@ export function Gallery() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.2} className="mt-12 text-center">
-            <p className="text-dark-600 mb-4">
-              Have authentic school photographs you'd like to contribute?
-            </p>
-            <a
-              href={`mailto:${schoolData.email}`}
-              className="btn-primary inline-flex items-center gap-2"
-            >
-              Share Photos
+            <p className="text-dark-600 mb-4">{g.sharePhotos}</p>
+            <a href={`mailto:${schoolData.email}`} className="btn-primary inline-flex items-center gap-2">
+              {g.shareBtn}
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
               </svg>
@@ -157,12 +120,7 @@ export function Gallery() {
       </section>
 
       {lightboxOpen && (
-        <Lightbox
-          images={filteredImages}
-          currentIndex={currentIndex}
-          onClose={closeLightbox}
-          onNavigate={navigate}
-        />
+        <Lightbox images={filteredImages} currentIndex={currentIndex} onClose={closeLightbox} onNavigate={navigate} />
       )}
     </div>
   );

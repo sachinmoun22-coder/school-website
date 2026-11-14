@@ -42,7 +42,7 @@ export const dataTranslations = {
     facilities: {
       1: { name: "कक्षाएँ", description: "नर्सरी से कक्षा 12 तक प्रभावी शिक्षण के लिए 35 हवादार और spacious कक्षाएँ।" },
       2: { name: "विज्ञान प्रयोगशाला", description: "वरिष्ठ माध्यमिक विद्यार्थियों के लिए भौतिकी, रसायन और जीव विज्ञान की सुसज्जित प्रयोगशाला।" },
-      3: { name: "परिवहन सुविधा", description: "रामगढ़, शिमला, कलासर, मंडी, खेड़ी, भालंग, सिंघवाल, सुदकैन और आसपास के गाँवों के लिए 5 बसें और 1 वैन।" },
+      3: { name: "परिवहन सुविधा", description: "मटौर, कला शेर, भालंग, खेड़ी शेर खान, मंडी कलां, लोढर, सुदकैन खुर्द, सिंघवाल, सिमला, पिंजूपुरा, बडसीकरी कलां, कमालपुर, चौशाला, बालू और आसपास के गाँवों के लिए 5 बसें और 1 वैन।" },
       4: { name: "छात्रावास सुविधा", description: "आवासीय सुविधा की आवश्यकता वाले विद्यार्थियों के लिए छात्रावास उपलब्ध।" },
       5: { name: "खेल का मैदान", description: "शारीरिक शिक्षा और मनोरंजक गतिविधियों के लिए खुला खेल मैदान।" },
       6: { name: "विद्यालय परिसर", description: "विद्यार्थियों के सर्वांगीण विकास के लिए सुरक्षित और हरित परिसर वातावरण।" },
@@ -99,7 +99,7 @@ export const dataTranslations = {
     facilities: {
       1: { name: "Classrooms", description: "35 spacious, well-ventilated classrooms designed for effective learning from Nursery to Class 12." },
       2: { name: "Science Laboratory", description: "Well-equipped laboratory for Physics, Chemistry, and Biology practical work for senior secondary students." },
-      3: { name: "Transport Facility", description: "5 buses and 1 van covering routes to Ramgarh, Shimla, Kalasar, Mandi, Kheri, Bhalang, Singhwal, Sudkain, and other nearby villages." },
+      3: { name: "Transport Facility", description: "5 buses and 1 van covering routes to Matour, Kala Sher, Bhalang, Kheri Sher Khan, Mandi Kalan, Lodhar, Sudkan Khurad, Sighwal, Simla, Pinjupura, Badsikri Kalan, Kamalpur, Chausala, Balu, and other nearby villages." },
       4: { name: "Hostel Facility", description: "Hostel accommodation available for students requiring residential facilities." },
       5: { name: "Playground", description: "Outdoor sports ground for physical education and recreational activities." },
       6: { name: "School Campus", description: "Safe and green campus environment for holistic student development." },
@@ -124,5 +124,15 @@ export const dataTranslations = {
       "/admissions/fee-structure": "Fee Structure",
       "/admissions/documents-faq": "Required Documents & FAQs",
     },
+    admissionDocs: [
+      "Completed admission application form",
+      "Proof of the student's date of birth",
+      "Previous class report card, where applicable",
+      "Transfer certificate, where applicable",
+      "Passport-size photographs, if requested",
+      "Parent or guardian contact details",
+      "Address proof, if requested",
+      "Any other documents specifically requested by the school",
+    ],
   },
 };

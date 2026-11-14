@@ -86,6 +86,7 @@ export function useLocalizedData() {
       navLinks,
       admissionPages,
       transportRoutes: baseRoutes,
+      admissionDocs: dt.admissionDocs || [],
     };
   }, [lang, dt, t]);
 }

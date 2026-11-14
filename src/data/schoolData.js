@@ -121,7 +121,7 @@ export const facilitiesData = [
   {
     id: 3,
     name: "Transport Facility",
-    description: "5 buses and 1 van covering routes to Ramgarh, Shimla, Kalasar, Mandi, Kheri, Bhalang, Singhwal, Sudkain, and other nearby villages.",
+    description: "5 buses and 1 van covering routes to Matour, Kala Sher, Bhalang, Kheri Sher Khan, Mandi Kalan, Lodhar, Sudkan Khurad, Sighwal, Simla, Pinjupura, Badsikri Kalan, Kamalpur, Chausala, Balu, and other nearby villages.",
     image: hqImages.campus,
   },
   {
@@ -199,7 +199,20 @@ export const highlightsData = [
 ];
 
 export const transportRoutes = [
-  "Ramgarh", "Shimla", "Kalasar", "Mandi", "Kheri", "Bhalang", "Singhwal", "Sudkain"
+  "Matour",
+  "Kala Sher",
+  "Bhalang",
+  "Kheri Sher Khan",
+  "Mandi Kalan",
+  "Lodhar",
+  "Sudkan Khurad",
+  "Sighwal",
+  "Simla",
+  "Pinjupura",
+  "Badsikri Kalan",
+  "Kamalpur",
+  "Chausala",
+  "Balu",
 ];
 
 export const admissionInfo = {

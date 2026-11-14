@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
+import { useSiteText } from "../../i18n/useSiteText";
 
 const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 const WEB3FORMS_ACCESS_KEY = "5f6fe484-c896-4011-8b2e-70e5db9fdf28";
@@ -21,6 +22,7 @@ const initialForm = {
 };
 
 export function AdmissionEnquiryForm() {
+  const t = useSiteText();
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle | invalid | submitting | success | error
@@ -38,21 +40,21 @@ export function AdmissionEnquiryForm() {
   async function handleSubmit(event) {
     event.preventDefault();
     const nextErrors = {};
-    if (!form.name.trim()) nextErrors.name = "Enter a parent or guardian name.";
-    if (!form.studentName.trim()) nextErrors.studentName = "Enter the student's name.";
-    if (!form.classApplyingFor) nextErrors.classApplyingFor = "Select the class you are enquiring about.";
+    if (!form.name.trim()) nextErrors.name = t.forms.requiredParentName;
+    if (!form.studentName.trim()) nextErrors.studentName = t.forms.requiredStudentName;
+    if (!form.classApplyingFor) nextErrors.classApplyingFor = t.forms.requiredClass;
     if (!form.email.trim()) {
-      nextErrors.email = "Enter an email address.";
+      nextErrors.email = t.forms.requiredEmail;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
-      nextErrors.email = "Enter a valid email address.";
+      nextErrors.email = t.forms.invalidEmail;
     }
     if (form.phone.trim() && !/^(?:\+?91[\s-]?)?[6-9]\d{9}$/.test(form.phone.trim())) {
-      nextErrors.phone = "Enter a valid 10-digit Indian mobile number or leave it blank.";
+      nextErrors.phone = t.forms.invalidPhone;
     }
     if (!form.message.trim()) {
-      nextErrors.message = "Enter your message or question.";
+      nextErrors.message = t.forms.requiredQuestion;
     } else if (form.message.trim().length < 10) {
-      nextErrors.message = "Message must be at least 10 characters.";
+      nextErrors.message = t.forms.questionMin;
     }
 
     setErrors(nextErrors);
@@ -95,16 +97,16 @@ export function AdmissionEnquiryForm() {
 
       if (result.success) {
         setStatus("success");
-        setServerMessage("Thank you! Aapki admission enquiry bhej di gayi hai. Hum jaldi aapse sampark karenge.");
+        setServerMessage(t.forms.enquirySuccess);
         setForm(initialForm);
         formRef.current?.reset();
       } else {
         setStatus("error");
-        setServerMessage(result.message || "Enquiry bhejne me samasya aayi. Kripya thodi der baad dobara prayas karein.");
+        setServerMessage(result.message || t.forms.errorGeneric);
       }
     } catch {
       setStatus("error");
-      setServerMessage("Enquiry bhejne me samasya aayi. Kripya apna internet connection check karein aur dobara prayas karein.");
+      setServerMessage(t.forms.errorNetwork);
     }
   }
 
@@ -126,7 +128,7 @@ export function AdmissionEnquiryForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="admission-name" className="label-field">
-            Parent/Guardian Name <span aria-hidden="true">*</span>
+            {t.forms.parentName} <span aria-hidden="true">*</span>
           </label>
           <input
             id="admission-name"
@@ -146,7 +148,7 @@ export function AdmissionEnquiryForm() {
 
         <div>
           <label htmlFor="admission-studentName" className="label-field">
-            Student Name <span aria-hidden="true">*</span>
+            {t.forms.studentName} <span aria-hidden="true">*</span>
           </label>
           <input
             id="admission-studentName"
@@ -166,7 +168,7 @@ export function AdmissionEnquiryForm() {
 
         <div>
           <label htmlFor="classApplyingFor" className="label-field">
-            Class Applying For <span aria-hidden="true">*</span>
+            {t.forms.classApplying} <span aria-hidden="true">*</span>
           </label>
           <select
             id="classApplyingFor"
@@ -179,7 +181,7 @@ export function AdmissionEnquiryForm() {
             required
             disabled={status === "submitting"}
           >
-            <option value="">Select a class</option>
+            <option value="">{t.forms.selectClass}</option>
             {classOptions.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -191,7 +193,7 @@ export function AdmissionEnquiryForm() {
 
         <div>
           <label htmlFor="admission-email" className="label-field">
-            Email Address <span aria-hidden="true">*</span>
+            {t.forms.email} <span aria-hidden="true">*</span>
           </label>
           <input
             id="admission-email"
@@ -211,7 +213,7 @@ export function AdmissionEnquiryForm() {
 
         <div className="sm:col-span-2">
           <label htmlFor="admission-phone" className="label-field">
-            Mobile Number <span className="text-slate-400 text-xs font-normal">(optional)</span>
+            {t.forms.phone} <span className="text-slate-400 text-xs font-normal">{t.forms.optional}</span>
           </label>
           <input
             id="admission-phone"
@@ -226,7 +228,7 @@ export function AdmissionEnquiryForm() {
             aria-describedby={errors.phone ? "admission-phone-error" : undefined}
             className="input-field"
             disabled={status === "submitting"}
-            placeholder="10-digit mobile number"
+            placeholder={t.forms.phonePlaceholder}
           />
           {errors.phone && <FieldError id="admission-phone-error">{errors.phone}</FieldError>}
         </div>
@@ -234,7 +236,7 @@ export function AdmissionEnquiryForm() {
 
       <div>
         <label htmlFor="admissionMessage" className="label-field">
-          Message or Question <span aria-hidden="true">*</span>
+          {t.forms.message} <span aria-hidden="true">*</span>
         </label>
         <textarea
           id="admissionMessage"
@@ -243,7 +245,7 @@ export function AdmissionEnquiryForm() {
           onChange={handleChange}
           rows={4}
           className="input-field"
-          placeholder="Share any question you would like the school to address."
+          placeholder={t.forms.messagePlaceholder}
           required
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? "admission-message-error" : undefined}
@@ -255,17 +257,17 @@ export function AdmissionEnquiryForm() {
       <button type="submit" className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed" disabled={status === "submitting"}>
         {status === "submitting" ? (
           <span className="inline-flex items-center gap-2">
-            <Loader2 className="h-4 w-4 animate-spin" /> Sending...
+            <Loader2 className="h-4 w-4 animate-spin" /> {t.forms.sending}
           </span>
         ) : (
-          "Send Enquiry"
+          t.common.submitEnquiry
         )}
       </button>
 
       {status === "invalid" && (
         <p role="alert" className="flex items-start gap-2 rounded-xl bg-red-50 p-4 text-sm text-red-800">
           <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
-          Please review the highlighted fields.
+          {t.forms.reviewFields}
         </p>
       )}
 

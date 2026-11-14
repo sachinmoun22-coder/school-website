@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, Send, Sparkles, X, User } from "lucide-react";
 import { facilitiesData, schoolData, streamsData, transportRoutes } from "../data/schoolData";
-import { useLanguage } from "../context/LanguageContext";
 
 const CHATBOT_AVATAR = "/images/school-chatbot-avatar.webp";
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
@@ -39,7 +38,7 @@ function buildSchoolContext(language) {
   const langRule =
     language === "en"
       ? "6. Always reply in clear, polite English only. Do not use Hinglish or mixed language."
-      : "6. हमेशा केवल शुद्ध और स्पष्ट हिंदी में उत्तर दें। हिंग्लिश, रोमन हिंदी या मिली-जुली भाषा का उपयोग न करें।";
+      : "6. हमेशा केवल शुद्ध और स्पष्ट हिंदी में उत्तर दें। हिंग्लिश, रोमन हिंदी या मिली-जुली भाषा का उपयोग न करें। हर प्रश्न का उत्तर केवल हिंदी में ही दें।";
 
   return `You are a helpful assistant for S.B.S Sr.Sec. School Matour Kaithal. You ONLY answer questions related to this school.
 
@@ -118,8 +117,8 @@ function TypingDots() {
 }
 
 export function Chatbot() {
-  const { language } = useLanguage();
-  const t = uiText[language] || uiText.hi;
+  const [chatLang, setChatLang] = useState("hi");
+  const t = uiText[chatLang] || uiText.hi;
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState(() => [
     { id: 1, role: "assistant", content: uiText.hi.greeting },
@@ -127,19 +126,19 @@ export function Chatbot() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
-  const prevLang = useRef(language);
+  const prevLang = useRef(chatLang);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isLoading, isOpen]);
 
   useEffect(() => {
-    if (prevLang.current === language) return;
-    prevLang.current = language;
-    setMessages([{ id: Date.now(), role: "assistant", content: (uiText[language] || uiText.hi).greeting }]);
-  }, [language]);
+    if (prevLang.current === chatLang) return;
+    prevLang.current = chatLang;
+    setMessages([{ id: Date.now(), role: "assistant", content: (uiText[chatLang] || uiText.hi).greeting }]);
+  }, [chatLang]);
 
-  const schoolContext = useMemo(() => buildSchoolContext(language), [language]);
+  const schoolContext = useMemo(() => buildSchoolContext(chatLang), [chatLang]);
 
   const isSchoolRelated = (question) => {
     const schoolKeywords = [
@@ -151,11 +150,12 @@ export function Chatbot() {
       "playground", "laboratory", "lab", "classroom", "teacher", "staff", "student",
       "curriculum", "syllabus", "timing", "hour", "schedule", "calendar", "event",
       "vision", "mission", "history", "established", "code", "subject", "subjects",
-      "10244", "ramgarh", "shimla", "kalasar", "mandi", "kheri", "bhalang", "singhwal", "sudkain",
       "website", "site", "11th", "12th", "vidyalaya", "padhai", "kaksha", "vishay", "suvidha",
       "shulk", "pradhanacharya", "pata", "sampark", "samay", "chhutti", "chhatravas", "parivahan",
       "pariksha", "pravesh", "स्कूल", "विद्यालय", "फीस", "दाखिला", "समय", "कक्षा", "विषय",
       "प्रवेश", "संपर्क", "पता", "प्रधानाचार्य", "छात्रावास", "परिवहन", "छुट्टी", "परिणाम", "सुविधा",
+      "kala sher", "kheri sher khan", "mandi kalan", "lodhar", "sudkan khurad", "sighwal",
+      "simla", "pinjupura", "badsikri", "kamalpur", "chausala", "balu",
     ];
     const lowerQuestion = question.toLocaleLowerCase();
     return schoolKeywords.some((keyword) => lowerQuestion.includes(keyword));
@@ -164,7 +164,7 @@ export function Chatbot() {
   const getOfflineSchoolAnswer = (question) => {
     const query = question.toLocaleLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     const hasAny = (...terms) => terms.some((term) => query.includes(term));
-    const hi = language === "hi";
+    const hi = chatLang === "hi";
     const schoolName = schoolData.name;
     const contactHi = `अधिक जानकारी के लिए कृपया विद्यालय कार्यालय से ${schoolData.phone} पर संपर्क करें या ${schoolData.email} पर ईमेल करें।`;
     const contactEn = `For more information, please contact the school office at ${schoolData.phone} or email ${schoolData.email}.`;
@@ -387,6 +387,24 @@ export function Chatbot() {
                   <X className="h-5 w-5" />
                 </motion.button>
               </div>
+              <div className="relative mt-3 flex w-fit items-center gap-1 rounded-lg bg-white/10 p-1">
+                <button
+                  type="button"
+                  onClick={() => setChatLang("hi")}
+                  className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${chatLang === "hi" ? "bg-white text-forest-900" : "text-white/90 hover:bg-white/10"}`}
+                  aria-pressed={chatLang === "hi"}
+                >
+                  हिंदी
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setChatLang("en")}
+                  className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${chatLang === "en" ? "bg-white text-forest-900" : "text-white/90 hover:bg-white/10"}`}
+                  aria-pressed={chatLang === "en"}
+                >
+                  English
+                </button>
+              </div>
             </motion.div>
 
             <div className="flex-1 space-y-4 overflow-y-auto bg-gradient-to-b from-cream-50/60 to-white p-4">
@@ -451,7 +469,7 @@ export function Chatbot() {
                   type="submit"
                   disabled={!input.trim() || isLoading}
                   className="flex shrink-0 items-center justify-center rounded-xl bg-forest-800 px-4 py-2.5 text-white transition-colors hover:bg-forest-900 disabled:cursor-not-allowed disabled:opacity-50"
-                  aria-label={language === "hi" ? "संदेश भेजें" : "Send message"}
+                  aria-label={chatLang === "hi" ? "संदेश भेजें" : "Send message"}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.96 }}
                 >

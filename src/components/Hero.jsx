@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Play, X } from "lucide-react";
-import { hqImages, schoolData } from "../data/schoolData";
+import { hqImages } from "../data/schoolData";
 import { homepageVideoUrl } from "../data/homepageContent";
 import { useLocalizedData } from "../i18n/useLocalizedData";
 
 export function Hero() {
   const [isVideoDialogOpen, setIsVideoDialogOpen] = useState(false);
-  const { t, homepageStatistics } = useLocalizedData();
+  const { t, homepageStatistics, schoolData } = useLocalizedData();
 
   useEffect(() => {
     if (!isVideoDialogOpen) return undefined;

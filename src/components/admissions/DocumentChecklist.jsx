@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { RotateCcw } from "lucide-react";
-import { documentExamples } from "../../data/admissions";
+import { useLocalizedData } from "../../i18n/useLocalizedData";
 
 export function DocumentChecklist() {
+  const { t, admissionDocs } = useLocalizedData();
   const [checked, setChecked] = useState([]);
   const toggleItem = (item) => {
     setChecked((current) => current.includes(item)
@@ -14,14 +15,14 @@ export function DocumentChecklist() {
     <div>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm text-dark-600" aria-live="polite">
-          {checked.length} of {documentExamples.length} items checked
+          {t.admissions.docsChecked.replace("{checked}", checked.length).replace("{total}", admissionDocs.length)}
         </p>
         <button type="button" onClick={() => setChecked([])} className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-forest-800 hover:bg-forest-50 focus-visible:outline">
-          <RotateCcw className="h-4 w-4" /> Reset checklist
+          <RotateCcw className="h-4 w-4" /> {t.admissions.resetChecklist}
         </button>
       </div>
       <ul className="space-y-3">
-        {documentExamples.map((item, index) => {
+        {admissionDocs.map((item, index) => {
           const id = `document-check-${index}`;
           return (
             <li key={item} className="rounded-xl border border-border-light bg-white p-4 transition-colors hover:border-forest-200">

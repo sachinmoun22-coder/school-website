@@ -1,34 +1,23 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, CircleHelp } from "lucide-react";
 import { AdmissionNotice, AdmissionsLayout } from "../../components/admissions/AdmissionsLayout";
-
-const gradeGroups = [
-  ["Nursery, LKG & UKG", "Eligibility and age criteria are set by the school for the relevant session.", "Ask which date-of-birth proof and other records are required.", "Confirm with the school office"],
-  ["Classes 1–5", "Class placement depends on the class applied for and the school's current policy.", "Previous-school details and records may be requested where applicable.", "Confirm with the school office"],
-  ["Classes 6–8", "Eligibility depends on the student's previous education and current school policy.", "Previous class records or transfer documentation may be requested.", "Confirm with the school office"],
-  ["Classes 9–10", "Class placement and continuation requirements must be checked with the school.", "Previous-school records and other documents may be applicable.", "Confirm with the school office"],
-  ["Classes 11–12", "Subject/stream availability and entry requirements are determined by current school policy.", "Previous class results and transfer documents may be requested where applicable.", "Confirm with the school office"],
-];
+import { useLocalizedData } from "../../i18n/useLocalizedData";
 
 export function EligibilityCriteria() {
+  const { t } = useLocalizedData();
+  const e = t.admissions.eligibility;
+
   return (
-    <AdmissionsLayout
-      title="Eligibility & Age Criteria"
-      subtitle="Class Placement"
-      description="Understand the factors that may affect eligibility, then confirm the current criteria directly with the school."
-      activePath="/admissions/eligibility"
-    >
+    <AdmissionsLayout title={e.pageTitle} subtitle={e.pageSubtitle} description={e.pageDesc} activePath="/admissions/eligibility">
       <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="mx-auto mb-10 max-w-3xl text-center">
-            <span className="section-label">Before You Apply</span>
-            <h2 className="mb-4 text-heading-xl font-medium text-dark-900 sm:text-display-sm">General Eligibility</h2>
-            <p className="text-body-lg leading-relaxed text-dark-600">
-              Eligibility depends on the class applied for, the student's previous educational record where applicable, available seats, and the school's current admission policy. The school currently lists education from Nursery to Class 12; class-wise vacancies and requirements must still be confirmed.
-            </p>
+            <span className="section-label">{e.beforeLabel}</span>
+            <h2 className="mb-4 text-heading-xl font-medium text-dark-900 sm:text-display-sm">{e.generalTitle}</h2>
+            <p className="text-body-lg leading-relaxed text-dark-600">{e.generalText}</p>
           </div>
-          <AdmissionNotice title="Age criteria must be confirmed">
-            <p>Age requirements may differ by class and academic session. We do not publish unverified minimum ages, cutoff dates, or class-wise age limits here. Please obtain the current official age criteria from the school office before applying.</p>
+          <AdmissionNotice title={e.ageNoticeTitle}>
+            <p>{e.ageNoticeText}</p>
           </AdmissionNotice>
         </div>
       </section>
@@ -36,33 +25,30 @@ export function EligibilityCriteria() {
       <section className="section-padding bg-cream-100">
         <div className="container-custom">
           <div className="mb-8">
-            <span className="section-label">Class Selection</span>
-            <h2 className="text-heading-xl font-medium text-dark-900 sm:text-display-sm">General Class Guidance</h2>
-            <p className="mt-3 max-w-3xl text-dark-600">Grade ranges below reflect the school's listed education span, not a guarantee of current vacancies or admission. Confirm the applicable requirements for the exact class.</p>
+            <span className="section-label">{e.classLabel}</span>
+            <h2 className="text-heading-xl font-medium text-dark-900 sm:text-display-sm">{e.classTitle}</h2>
+            <p className="mt-3 max-w-3xl text-dark-600">{e.classDesc}</p>
           </div>
           <div className="overflow-x-auto rounded-2xl border border-border-light bg-white shadow-soft">
             <table className="w-full min-w-[640px] border-collapse text-left text-sm sm:min-w-[760px]">
               <thead className="bg-forest-800 text-white">
                 <tr>
-                  <th scope="col" className="p-4 font-semibold">Class or Grade</th>
-                  <th scope="col" className="p-4 font-semibold">General Eligibility Information</th>
-                  <th scope="col" className="p-4 font-semibold">Documents or Previous-School Requirements</th>
-                  <th scope="col" className="p-4 font-semibold">Confirmation Required</th>
+                  {(e.tableHeaders || []).map((h, i) => <th key={i} scope="col" className="p-4 font-semibold">{h}</th>)}
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-light">
-                {gradeGroups.map(([grade, eligibility, documents, confirmation]) => (
-                  <tr key={grade} className="align-top even:bg-cream-50">
-                    <th scope="row" className="p-4 font-semibold text-dark-900">{grade}</th>
-                    <td className="p-4 leading-relaxed text-dark-600">{eligibility}</td>
-                    <td className="p-4 leading-relaxed text-dark-600">{documents}</td>
-                    <td className="p-4 font-medium text-forest-800">{confirmation}</td>
+                {(e.rows || []).map((row, i) => (
+                  <tr key={i} className="align-top even:bg-cream-50">
+                    <th scope="row" className="p-4 font-semibold text-dark-900">{row[0]}</th>
+                    <td className="p-4 leading-relaxed text-dark-600">{row[1]}</td>
+                    <td className="p-4 leading-relaxed text-dark-600">{row[2]}</td>
+                    <td className="p-4 font-medium text-forest-800">{row[3]}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="mt-3 text-sm text-dark-500">On narrow screens, scroll horizontally to read all table columns.</p>
+          <p className="mt-3 text-sm text-dark-500">{e.scrollHint}</p>
         </div>
       </section>
 
@@ -70,16 +56,13 @@ export function EligibilityCriteria() {
         <div className="container-custom grid gap-8 lg:grid-cols-2">
           <div className="rounded-2xl border border-border-light bg-white p-6 shadow-soft sm:p-8">
             <CircleHelp className="mb-4 h-9 w-9 text-forest-700" aria-hidden="true" />
-            <h2 className="mb-3 text-heading-lg font-semibold text-dark-900">Previous Education</h2>
-            <p className="leading-relaxed text-dark-600">Students applying to higher classes may need previous-class records, transfer documentation, or other information as applicable. Ask the school which records to provide and whether originals need to be presented for verification.</p>
+            <h2 className="mb-3 text-heading-lg font-semibold text-dark-900">{e.prevEduTitle}</h2>
+            <p className="leading-relaxed text-dark-600">{e.prevEduText}</p>
           </div>
           <div className="rounded-2xl border border-border-light bg-white p-6 shadow-soft sm:p-8">
-            <h2 className="mb-4 text-heading-lg font-semibold text-dark-900">Important Eligibility Notes</h2>
+            <h2 className="mb-4 text-heading-lg font-semibold text-dark-900">{e.notesTitle}</h2>
             <ul className="list-disc space-y-3 pl-5 leading-relaxed text-dark-600">
-              <li>Admission depends on current school policy and available seats.</li>
-              <li>All documents and information must be accurate and verifiable.</li>
-              <li>An entrance assessment or interaction applies only if required by the school.</li>
-              <li>Final eligibility must be confirmed by the school administration.</li>
+              {(e.notes || []).map((n, i) => <li key={i}>{n}</li>)}
             </ul>
           </div>
         </div>
@@ -88,10 +71,10 @@ export function EligibilityCriteria() {
       <section className="bg-forest-800 py-14">
         <div className="container-custom flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
           <div>
-            <h2 className="mb-2 text-heading-lg font-semibold text-white">Need confirmation for a particular class?</h2>
-            <p className="text-forest-100">Contact the school office for current age criteria, eligibility, and vacancies.</p>
+            <h2 className="mb-2 text-heading-lg font-semibold text-white">{e.ctaTitle}</h2>
+            <p className="text-forest-100">{e.ctaText}</p>
           </div>
-          <Link to="/contact" className="btn-accent">Contact School for Eligibility Confirmation <ArrowRight className="ml-2 h-5 w-5" /></Link>
+          <Link to="/contact" className="btn-accent">{e.ctaBtn} <ArrowRight className="ml-2 h-5 w-5" /></Link>
         </div>
       </section>
     </AdmissionsLayout>

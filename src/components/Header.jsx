@@ -114,11 +114,11 @@ export function Header() {
                 <span className="truncate">{schoolData.email}</span>
               </a>
             </div>
-            <a
-              href={`tel:+91${schoolData.phone}`}
-              className="hidden shrink-0 items-center gap-1.5 whitespace-nowrap text-forest-300 transition-colors hover:text-accent-400 lg:flex"
-              aria-label={`Call the school at +91 ${schoolData.phone}`}
-            >
+              <a
+                href={`tel:+91${schoolData.phone}`}
+                className="hidden shrink-0 items-center gap-1.5 whitespace-nowrap text-forest-300 transition-colors hover:text-accent-400 lg:flex"
+                aria-label={`${t.common.call} +91 ${schoolData.phone}`}
+              >
               <Phone className="w-4 h-4" />
               <span>+91 {schoolData.phone}</span>
             </a>
@@ -128,7 +128,7 @@ export function Header() {
 
       {/* Main Navigation Header */}
       <nav
-        aria-label="Main navigation"
+        aria-label={t.common.mainNav}
         className={`transition-colors duration-300 ${
           isScrolled
             ? "bg-white/98 shadow-nav border-b border-border-light/80 sm:backdrop-blur-xl"
@@ -137,7 +137,7 @@ export function Header() {
       >
         <div className="container-custom">
           <div className="flex h-16 items-center justify-between gap-2 sm:h-[4.5rem] sm:gap-3">
-            <Link to="/" className="flex shrink-0 items-center gap-2 sm:gap-3" aria-label="Go to homepage">
+            <Link to="/" className="flex shrink-0 items-center gap-2 sm:gap-3" aria-label={t.nav.home}>
               <div className="h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-forest-900 shadow-soft sm:h-12 sm:w-12">
                 <img
                   src="/images/school-logo-matour-kaithal.webp"
@@ -215,7 +215,7 @@ export function Header() {
             </div>
 
             <div className="hidden shrink-0 items-center gap-2 lg:flex">
-              <div className="inline-flex items-center rounded-lg border border-border-light bg-cream-50 p-0.5" role="group" aria-label="Language switcher">
+              <div className="inline-flex items-center rounded-lg border border-border-light bg-cream-50 p-0.5" role="group" aria-label={t.common.languageSwitcher}>
                 <button
                   type="button"
                   onClick={() => setLanguage("hi")}
@@ -242,7 +242,7 @@ export function Header() {
             </div>
 
             <div className="flex shrink-0 items-center gap-0.5 sm:gap-1.5 lg:hidden">
-              <div className="inline-flex items-center rounded-md border border-border-light bg-cream-50 p-0.5" role="group" aria-label="Language switcher">
+              <div className="inline-flex items-center rounded-md border border-border-light bg-cream-50 p-0.5" role="group" aria-label={t.common.languageSwitcher}>
                 <button
                   type="button"
                   onClick={() => setLanguage("hi")}
@@ -263,7 +263,7 @@ export function Header() {
               <a
                 href="tel:7015056542"
                 className="inline-flex shrink-0 items-center gap-1 rounded-md px-1 py-1.5 text-[12px] font-semibold text-forest-800 transition-colors hover:bg-cream-100 hover:text-forest-900 min-[360px]:text-[13px] sm:gap-1.5 sm:px-2 sm:text-sm"
-                aria-label="Call school at 7015056542"
+                aria-label={`${t.common.call} 7015056542`}
               >
                 <Phone className="h-3.5 w-3.5 shrink-0 text-forest-600 sm:h-4 sm:w-4" aria-hidden="true" />
                 <span className="whitespace-nowrap leading-none">7015056542</span>
@@ -273,7 +273,7 @@ export function Header() {
                 onClick={() => setIsOpen(!isOpen)}
                 aria-expanded={isOpen}
                 aria-controls="mobile-menu"
-                aria-label={isOpen ? "Close menu" : "Open menu"}
+                aria-label={isOpen ? t.common.closeMenu : t.common.openMenu}
               >
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
