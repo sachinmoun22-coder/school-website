@@ -54,11 +54,11 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.28);
   transition:
     transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.25s ease,
+    opacity 0.25s ease,
     filter 0.25s ease;
   -webkit-tap-highlight-color: transparent;
   overflow: hidden;
-  animation: floatingPulse 3s ease-in-out infinite;
+  will-change: transform;
 }
 
 .floating-contact__link::before {
