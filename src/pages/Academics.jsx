@@ -125,7 +125,6 @@ export function Academics() {
           <StaggerContainer staggerDelay={0.15}>
             {streamsData.map((stream, index) => {
               const StreamIcon = getStreamIcon(stream.icon);
-              const subjectDetails = streamSubjectDetails[stream.id];
               return (
                 <ScrollReveal key={stream.id} delay={0.1 * index} className="mb-16 last:mb-0">
                   <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">

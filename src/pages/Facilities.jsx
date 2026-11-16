@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { GraduationCap, Building2, Target, Award, ArrowRight, FlaskConical, Home, Bus, Bed } from "lucide-react";
+import { GraduationCap, Building2, Target, Award, ArrowRight, FlaskConical, Home, Bus, Bed, Dumbbell } from "lucide-react";
 import { getSEO } from "../data/seoConfig";
 import { SEOHead } from "../components/SEOHead";
 import { PageBanner } from "../components/PageBanner";

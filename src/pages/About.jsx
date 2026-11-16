@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { BookOpen, GraduationCap, Building2, Award, MapPin, Mail, Phone, ArrowRight, CheckCircle } from "lucide-react";
+import { BookOpen, GraduationCap, Building2, Award, MapPin, Mail, Phone, ArrowRight, CheckCircle, Quote } from "lucide-react";
 import { hqImages } from "../data/schoolData";
 import { PageBanner } from "../components/PageBanner";
 import { Breadcrumb } from "../components/Breadcrumb";
@@ -236,14 +236,46 @@ export function About() {
               <div className="relative rounded-3xl bg-navy-900 overflow-hidden shadow-card border border-navy-700/50">
                 <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-950" />
                 <div className="relative p-5 sm:p-8 md:p-12">
-                  <div className="grid gap-8 md:gap-12 items-stretch">
-                    <div className="flex flex-col justify-center z-10 relative">
+                  <div className="message-grid grid gap-8 md:gap-12 items-stretch">
+                    <div className="principal-card border border-white/20 shadow-card">
+                      <div className="principal-card-media relative">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-gold-500/20 to-transparent pointer-events-none z-[1]" />
+                        <img
+                          src="/images/principal.png"
+                          alt={schoolData.principalName}
+                          width="1448"
+                          height="1086"
+                          className="principal-photo w-full h-full object-cover block"
+                          style={{ objectPosition: "center top" }}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <div className="principal-caption">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 backdrop-blur flex items-center justify-center flex-shrink-0">
+                              <GraduationCap className="w-5 h-5 text-gold-400" />
+                            </div>
+                            <div className="flex flex-col">
+                              <span className="principal-name">{schoolData.principalName}</span>
+                              <span className="principal-role">{a.principalRole}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="principal-text flex flex-col justify-center z-10 relative">
+                      <div className="flex items-center gap-3 mb-5 md:mb-6">
+                        <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400">
+                          <Quote className="w-5 h-5" />
+                        </div>
+                        <span className="text-gold-300 text-xs font-semibold uppercase tracking-wider">{a.principalSubtitle}</span>
+                      </div>
                       <p className="text-white/90 text-base sm:text-lg leading-relaxed mb-6 md:mb-8 font-light">
                         {a.principalMsg1}
                         <br /><br />
                         {a.principalMsg2}
                       </p>
-                      <div className="flex items-end gap-2 pt-5 md:pt-6 border-t border-white/10">
+                      <div className="principal-signature flex items-end gap-2 pt-5 md:pt-6 border-t border-white/10">
                         <span className="text-gold-400 text-[12px] font-semibold tracking-wider italic">—</span>
                         <div className="flex flex-col">
                           <span className="text-white font-semibold text-sm">{schoolData.principalName}</span>
