@@ -22,6 +22,8 @@ export function GalleryGrid({ images, onOpenLightbox }) {
             <img
               src={image.src}
               alt={image.alt}
+              width="1200"
+              height="900"
               className="w-full h-full object-cover [image-orientation:from-image] transition-transform duration-800 group-hover:scale-105"
               loading="lazy"
               decoding="async"

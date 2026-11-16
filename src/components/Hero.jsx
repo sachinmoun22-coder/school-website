@@ -27,7 +27,11 @@ export function Hero() {
             alt=""
             aria-hidden="true"
             fetchPriority="high"
+            loading="eager"
             decoding="async"
+            width="1482"
+            height="1061"
+            sizes="100vw"
             className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
           />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-forest-950/90 via-forest-950/75 to-forest-900/45" />

@@ -15,7 +15,7 @@ export function AdmissionOverview() {
   return (
     <div className="min-h-screen">
       <section className="relative isolate overflow-hidden bg-forest-950">
-        <img src={hqImages.building} alt={schoolData.name} className="absolute inset-0 -z-20 h-full w-full object-cover" fetchPriority="high" />
+        <img src={hqImages.building} alt={schoolData.name} width="1482" height="1061" decoding="async" className="absolute inset-0 -z-20 h-full w-full object-cover" fetchPriority="high" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-forest-950/95 via-forest-900/85 to-forest-900/55" />
         <div className="container-custom grid min-h-0 items-center gap-8 py-14 sm:min-h-[620px] sm:gap-10 sm:py-20 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="max-w-3xl text-white">

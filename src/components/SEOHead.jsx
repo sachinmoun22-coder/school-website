@@ -53,6 +53,15 @@ function setJsonLd(scriptId, data) {
   document.head.appendChild(el);
 }
 
+function getAbsoluteUrl(path) {
+  if (!path) return "";
+  if (/^https?:\/\//i.test(path)) return path;
+  const base = typeof window !== "undefined" ? window.location.origin : "";
+  if (!base) return path;
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return `${base}${normalized}`;
+}
+
 export function SEOHead({
   title,
   description,
@@ -62,36 +71,38 @@ export function SEOHead({
   noIndex = false,
 }) {
   useEffect(() => {
+    const canonicalUrl = getAbsoluteUrl(canonical);
+    const imageUrl = getAbsoluteUrl(ogImage);
     if (title) document.title = title;
 
     setMeta({ name: "description", content: description });
     setMeta({ property: "og:title", content: title || SITE_NAME });
     setMeta({ property: "og:description", content: description });
     setMeta({ property: "og:type", content: ogType });
-    setMeta({ property: "og:image", content: ogImage });
+    setMeta({ property: "og:image", content: imageUrl || ogImage });
     setMeta({ property: "og:site_name", content: SITE_NAME });
+    setMeta({ property: "og:locale", content: "en_IN" });
+    if (canonicalUrl) setMeta({ property: "og:url", content: canonicalUrl });
     setMeta({ name: "twitter:title", content: title || SITE_NAME });
     setMeta({ name: "twitter:description", content: description });
     setMeta({ name: "twitter:card", content: "summary_large_image" });
-    setMeta({ name: "twitter:image", content: ogImage });
+    setMeta({ name: "twitter:image", content: imageUrl || ogImage });
+    if (canonicalUrl) setMeta({ name: "twitter:url", content: canonicalUrl });
 
-    if (canonical) setLink({ rel: "canonical", href: canonical });
+    if (canonicalUrl) setLink({ rel: "canonical", href: canonicalUrl });
 
     if (noIndex) {
       setMeta({ name: "robots", content: "noindex,nofollow" });
     } else {
-      const existingRobots = document.querySelector('meta[name="robots"]');
-      if (!existingRobots) {
-        setMeta({ name: "robots", content: "index,follow" });
-      }
+      setMeta({ name: "robots", content: "index,follow,max-image-preview:large" });
     }
 
     const schoolSchema = {
       "@context": "https://schema.org",
       "@type": "School",
-      "@id": SCHOOL_URL + "#school",
+      "@id": `${getAbsoluteUrl("/") || SCHOOL_URL}#school`,
       name: SCHOOL_NAME,
-      url: SCHOOL_URL,
+      url: getAbsoluteUrl("/") || SCHOOL_URL,
       telephone: "+917015056542",
       email: "sachinmoun22@gmail.com",
       address: {
@@ -100,15 +111,8 @@ export function SEOHead({
       },
       description:
         "S.B.S Sr.Sec. School Matour Kaithal is a BSEH-affiliated co-educational senior secondary school in Matour village, Kaithal, Haryana, India. Offers education from Nursery to Class 12 with Arts, Commerce and Science streams. School Code: 10244.",
-      educationalOrganization: {
-        "@type": "EducationalOrganization",
-        name: SCHOOL_NAME,
-      },
-      founder: {},
-      alumni: [],
-      sameAs: [],
-      logo: "/images/school-logo-matour-kaithal.webp",
-      image: "/images/school-main-matour-kaithal.webp",
+      logo: getAbsoluteUrl("/images/school-logo-matour-kaithal.webp"),
+      image: getAbsoluteUrl("/images/school-main-matour-kaithal.webp"),
       areaServed: [
         {
           "@type": "City",
@@ -119,7 +123,7 @@ export function SEOHead({
           name: "Matour",
         },
         {
-          "@type": "City",
+          "@type": "State",
           name: "Haryana",
         },
       ],

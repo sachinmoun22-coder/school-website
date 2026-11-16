@@ -83,6 +83,9 @@ export function Academics() {
                       <img
                         src={stream.image}
                         alt={`${stream.name} stream learning environment`}
+                        width="1482"
+                        height="1061"
+                        decoding="async"
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                       />
@@ -130,6 +133,9 @@ export function Academics() {
                       <img
                         src={stream.image}
                         alt={`${stream.name} stream educational environment`}
+                        width="1482"
+                        height="1061"
+                        decoding="async"
                         className="w-full h-full object-cover"
                         loading="lazy"
                       />

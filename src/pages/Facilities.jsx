@@ -72,6 +72,9 @@ export function Facilities() {
                     <img
                       src={facility.image}
                       alt={facility.name}
+                      width="1483"
+                      height="1061"
+                      decoding="async"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />

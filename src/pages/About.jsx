@@ -106,6 +106,9 @@ export function About() {
                   <img
                     src="/images/website logo.png"
                     alt="S.B.S Sr.Sec. School Logo"
+                    width="1156"
+                    height="1360"
+                    decoding="async"
                     className="max-w-full max-h-full object-contain"
                     loading="lazy"
                   />

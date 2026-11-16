@@ -24,6 +24,9 @@ function WelcomeSection({ t, schoolData }) {
               <img
                 src={hqImages.campus}
                 alt={schoolData.name}
+                width="1370"
+                height="1148"
+                decoding="async"
                 className="h-full w-full object-cover"
                 loading="lazy"
               />
@@ -161,7 +164,7 @@ function AcademicProgramsSection({ t, streamsData }) {
             <ScrollReveal key={stream.id} delay={0.1 * index} className="h-full">
               <Link to="/academics" className="card h-full overflow-hidden group" aria-label={`${stream.name}`}>
                 <div className="relative h-48 overflow-hidden">
-                  <img src={stream.image} alt={stream.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                  <img src={stream.image} alt={stream.name} width="1482" height="1061" decoding="async" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-forest-900/60 via-transparent to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
                     <div className="p-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20">
@@ -246,7 +249,7 @@ function FacilitiesPreviewSection({ t, facilitiesData }) {
             <ScrollReveal key={facility.id} delay={0.1 * index}>
               <Link to="/facilities" className="card overflow-hidden group">
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <img src={facility.image} alt={facility.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                  <img src={facility.image} alt={facility.name} width="1483" height="1061" decoding="async" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-forest-900/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 <div className="p-5">
@@ -305,7 +308,7 @@ function GalleryPreviewSection({ t }) {
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           <div className="group relative col-span-2 aspect-[16/10] overflow-hidden rounded-card-lg lg:col-span-2 lg:row-span-2 lg:aspect-[4/3]">
-            <img src={hqImages.building} alt={t.home.galleryCampus} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="eager" />
+            <img src={hqImages.building} alt={t.home.galleryCampus} width="1482" height="1061" decoding="async" fetchPriority="high" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="eager" />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%] bg-[linear-gradient(to_top,rgba(0,0,0,0.65),transparent)]" aria-hidden="true" />
             <div className="pointer-events-none absolute inset-0 z-10 flex items-end p-4 sm:p-6">
               <div className="min-w-0 text-white [text-shadow:0_2px_6px_rgba(0,0,0,0.6)]">
@@ -314,20 +317,20 @@ function GalleryPreviewSection({ t }) {
               </div>
             </div>
           </div>
-          <div className="relative aspect-square rounded-card-lg overflow-hidden group">
-            <img src={hqImages.classroom} alt={t.home.galleryClassroom} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: 0.1 }} className="aspect-square rounded-card-lg overflow-hidden relative group cursor-pointer" onClick={() => window.location.href = "/gallery"}>
+            <img src={hqImages.classroom} alt={t.home.galleryClassroom} width="1483" height="1061" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%] bg-[linear-gradient(to_top,rgba(0,0,0,0.65),transparent)]" aria-hidden="true" />
             <div className="pointer-events-none absolute inset-0 z-10 flex items-end p-4">
               <h3 className="font-semibold text-white [text-shadow:0_2px_6px_rgba(0,0,0,0.6)]">{t.home.galleryClassroom}</h3>
             </div>
-          </div>
-          <div className="relative aspect-square rounded-card-lg overflow-hidden group">
-            <img src={hqImages.campus} alt={t.home.galleryCampusView} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+          </motion.div>
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: 0.2 }} className="aspect-square rounded-card-lg overflow-hidden relative group cursor-pointer" onClick={() => window.location.href = "/gallery"}>
+            <img src={hqImages.campus} alt={t.home.galleryCampusView} width="1370" height="1148" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%] bg-[linear-gradient(to_top,rgba(0,0,0,0.65),transparent)]" aria-hidden="true" />
             <div className="pointer-events-none absolute inset-0 z-10 flex items-end p-4">
               <h3 className="font-semibold text-white [text-shadow:0_2px_6px_rgba(0,0,0,0.6)]">{t.home.galleryCampusView}</h3>
             </div>
-          </div>
+          </motion.div>
         </div>
         <div className="text-center">
           <Link to="/gallery" className="btn-primary group inline-flex">
