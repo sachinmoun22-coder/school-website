@@ -1,9 +1,13 @@
 import express from "express";
 import cors from "cors";
 import nodemailer from "nodemailer";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(cors({ origin: process.env.CLIENT_URL || "*" }));
 app.use(express.json({ limit: "1mb" }));
@@ -141,6 +145,14 @@ ${message}
 
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
+});
+
+// Serve built frontend static files
+app.use(express.static(path.join(__dirname, "dist")));
+
+// SPA fallback: send index.html for all non-API routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 app.listen(PORT, () => {
