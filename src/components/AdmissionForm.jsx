@@ -2,8 +2,7 @@ import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle, AlertCircle, Loader2, User, Mail, Phone, GraduationCap, MessageSquare } from "lucide-react";
 
-const WEB3FORMS_URL = "https://api.web3forms.com/submit";
-const WEB3FORMS_ACCESS_KEY = "5f6fe484-c896-4011-8b2e-70e5db9fdf28";
+const API_URL = import.meta.env.VITE_API_URL || "";
 
 export function AdmissionForm() {
   const [formData, setFormData] = useState({
@@ -45,34 +44,22 @@ export function AdmissionForm() {
     e.preventDefault();
     if (!validateForm()) return;
 
-    if (formRef.current?.botcheck?.checked) {
-      return;
-    }
-
     setStatus("submitting");
     setSubmitMessage("");
 
     try {
-      const payload = {
-        access_key: WEB3FORMS_ACCESS_KEY,
-        subject: "Website se naya message - SBS School",
-        from_name: "SBS School Website",
-        botcheck: "",
-        name: formData.name.trim(),
-        email: formData.email.trim(),
-        phone: formData.phone.trim(),
-        student_name: formData.studentName.trim(),
-        class_of_interest: formData.classOfInterest,
-        message: formData.message.trim(),
-      };
-
-      const response = await fetch(WEB3FORMS_URL, {
+      const response = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          message: `Admission Enquiry\nParent: ${formData.name.trim()}\nStudent: ${formData.studentName.trim()}\nClass: ${formData.classOfInterest}\n${formData.message.trim()}`,
+        }),
       });
 
       const result = await response.json();
@@ -129,18 +116,6 @@ export function AdmissionForm() {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-5" noValidate>
-      <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
-      <input type="hidden" name="subject" value="Website se naya message - SBS School" />
-      <input type="hidden" name="from_name" value="SBS School Website" />
-      <input
-        type="checkbox"
-        name="botcheck"
-        className="hidden"
-        style={{ display: "none" }}
-        tabIndex={-1}
-        autoComplete="off"
-        aria-hidden="true"
-      />
 
       <div className="grid sm:grid-cols-2 gap-5">
         <div>

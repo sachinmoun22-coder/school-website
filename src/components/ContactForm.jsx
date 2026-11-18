@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 import { AlertCircle, CheckCircle, Loader2, Send } from "lucide-react";
 import { useSiteText } from "../i18n/useSiteText";
 
-const WEB3FORMS_URL = "https://api.web3forms.com/submit";
-const WEB3FORMS_ACCESS_KEY = "5f6fe484-c896-4011-8b2e-70e5db9fdf28";
+const API_URL = import.meta.env.VITE_API_URL || "";
 
 export function ContactForm() {
   const t = useSiteText();
@@ -58,44 +57,33 @@ export function ContactForm() {
     }
   };
 
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-
-    const form = formRef.current;
-    if (form?.botcheck?.checked) {
-      return;
-    }
 
     setStatus("submitting");
     setServerMessage("");
 
     try {
-      const payload = {
-        access_key: WEB3FORMS_ACCESS_KEY,
-        subject: "Website se naya message - SBS School",
-        from_name: "SBS School Website",
-        botcheck: "",
-        name: formData.name.trim(),
-        email: formData.email.trim(),
-        phone: formData.phone.trim(),
-        message: formData.message.trim(),
-      };
-
-      const response = await fetch(WEB3FORMS_URL, {
+      const response = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          message: formData.message.trim(),
+        }),
       });
 
       const result = await response.json();
 
       if (result.success) {
         setStatus("success");
-        setServerMessage(t.forms.successContact);
+        setServerMessage(result.message || t.forms.successContact);
         setFormData({ name: "", email: "", phone: "", message: "" });
         formRef.current?.reset();
       } else {
@@ -110,18 +98,6 @@ export function ContactForm() {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-5" noValidate>
-      <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
-      <input type="hidden" name="subject" value="Website se naya message - SBS School" />
-      <input type="hidden" name="from_name" value="SBS School Website" />
-      <input
-        type="checkbox"
-        name="botcheck"
-        className="hidden"
-        style={{ display: "none" }}
-        tabIndex={-1}
-        autoComplete="off"
-        aria-hidden="true"
-      />
 
       <div>
         <label htmlFor="name" className="label-field">

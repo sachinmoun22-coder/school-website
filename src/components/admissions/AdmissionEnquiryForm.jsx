@@ -2,8 +2,7 @@ import { useRef, useState } from "react";
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import { useSiteText } from "../../i18n/useSiteText";
 
-const WEB3FORMS_URL = "https://api.web3forms.com/submit";
-const WEB3FORMS_ACCESS_KEY = "5f6fe484-c896-4011-8b2e-70e5db9fdf28";
+const API_URL = import.meta.env.VITE_API_URL || "";
 
 const classOptions = [
   "Nursery", "LKG", "UKG",
@@ -63,41 +62,29 @@ export function AdmissionEnquiryForm() {
       return;
     }
 
-    if (formRef.current?.botcheck?.checked) {
-      return;
-    }
-
     setStatus("submitting");
     setServerMessage("");
 
     try {
-      const payload = {
-        access_key: WEB3FORMS_ACCESS_KEY,
-        subject: "Website se naya message - SBS School",
-        from_name: "SBS School Website",
-        botcheck: "",
-        name: form.name.trim(),
-        student_name: form.studentName.trim(),
-        class_applying_for: form.classApplyingFor,
-        email: form.email.trim(),
-        phone: form.phone.trim(),
-        message: form.message.trim(),
-      };
-
-      const response = await fetch(WEB3FORMS_URL, {
+      const response = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          message: `Admission Enquiry\nParent: ${form.name.trim()}\nStudent: ${form.studentName.trim()}\nClass: ${form.classApplyingFor}\n${form.message.trim()}`,
+        }),
       });
 
       const result = await response.json();
 
       if (result.success) {
         setStatus("success");
-        setServerMessage(t.forms.enquirySuccess);
+        setServerMessage(result.message || t.forms.enquirySuccess);
         setForm(initialForm);
         formRef.current?.reset();
       } else {
@@ -112,18 +99,6 @@ export function AdmissionEnquiryForm() {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-5">
-      <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
-      <input type="hidden" name="subject" value="Website se naya message - SBS School" />
-      <input type="hidden" name="from_name" value="SBS School Website" />
-      <input
-        type="checkbox"
-        name="botcheck"
-        className="hidden"
-        style={{ display: "none" }}
-        tabIndex={-1}
-        autoComplete="off"
-        aria-hidden="true"
-      />
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
