@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { AlertCircle, CheckCircle, Loader2, Send } from "lucide-react";
 import { useSiteText } from "../i18n/useSiteText";
 
-const API_URL = import.meta.env.VITE_API_URL || "";
 
 export function ContactForm() {
   const t = useSiteText();
@@ -64,24 +63,30 @@ export function ContactForm() {
     setStatus("submitting");
     setServerMessage("");
 
+    if (!import.meta.env.VITE_WEB3FORMS_KEY) {
+      console.warn("VITE_WEB3FORMS_KEY is not set; using fallback key.");
+    }
+
     try {
-      const response = await fetch(`${API_URL}/api/contact`, {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
+          access_key: import.meta.env.VITE_WEB3FORMS_KEY || "921fc13a-48d7-4df6-becf-d4e7148b2f8b",
           name: formData.name.trim(),
           email: formData.email.trim(),
           phone: formData.phone.trim(),
           message: formData.message.trim(),
+          subject: "New message from S.B.S School website",
         }),
       });
 
       const result = await response.json();
 
-      if (result.success) {
+      if (result.success === true) {
         setStatus("success");
         setServerMessage(result.message || t.forms.successContact);
         setFormData({ name: "", email: "", phone: "", message: "" });
