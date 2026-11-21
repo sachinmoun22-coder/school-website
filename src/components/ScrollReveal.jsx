@@ -30,7 +30,7 @@ export function ScrollReveal({
   const lightweight = useLightweightReveal();
 
   if (lightweight) {
-    const { variants, initial, whileInView, viewport, transition, ...rest } = props;
+    const { variants: _variants, initial: _initial, whileInView: _whileInView, viewport: _viewport, transition: _transition, ...rest } = props;
     return (
       <div className={className} {...rest}>
         {children}
@@ -81,7 +81,7 @@ export function StaggerContainer({
   const lightweight = useLightweightReveal();
 
   if (lightweight) {
-    const { variants, initial, whileInView, viewport, transition, ...rest } = props;
+    const { variants: _variants, initial: _initial, whileInView: _whileInView, viewport: _viewport, transition: _transition, ...rest } = props;
     return (
       <div className={className} {...rest}>
         {children}

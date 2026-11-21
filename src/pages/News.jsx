@@ -12,7 +12,7 @@ import { useLocalizedData } from "../i18n/useLocalizedData";
 export function News() {
   const { pathname } = useLocation();
   const seo = getSEO(pathname);
-  const { t, schoolData, language } = useLocalizedData();
+  const { t, schoolData } = useLocalizedData();
   const n = t.news;
   const icons = [Calendar, FileText, Bell, GraduationCap];
 

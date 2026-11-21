@@ -142,8 +142,8 @@ export function Header() {
                 <img
                   src="/images/school-logo-matour-kaithal.webp"
                   alt={schoolData.shortName}
-                  width="500"
-                  height="588"
+                  width="120"
+                  height="140"
                   decoding="async"
                   fetchPriority="high"
                   className="h-full w-full object-contain"

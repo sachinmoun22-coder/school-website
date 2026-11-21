@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { BookOpen, GraduationCap, Target, FileText, Calendar, User, Mail, Phone, MapPin, AlertCircle, CheckCircle, Clock, ArrowRight, Shield, Heart, Home, Bed, Bus, FlaskConical } from "lucide-react";
+import { BookOpen, GraduationCap, Target, FileText, Calendar, Mail, Phone, MapPin, AlertCircle, CheckCircle, ArrowRight, Home } from "lucide-react";
 import { schoolData, admissionInfo } from "../data/schoolData";
 import { getSEO } from "../data/seoConfig";
 import { SEOHead } from "../components/SEOHead";

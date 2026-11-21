@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "name": "S.B.S Sr.Sec. School Matour Kaithal",
+  "description": "BSEH-affiliated co-educational senior secondary school in Matour village, Kaithal, Haryana, India. Offers education from Nursery to Class 12 with Arts, Commerce and Science streams.",
+  "url": "https://school-website-dun-three.vercel.app/",
+  "contact": {
+    "phone": "+917015056542",
+    "email": "sachinmoun22@gmail.com",
+    "address": {
+      "street": "Matour village",
+      "city": "Kaithal",
+      "state": "Haryana",
+      "country": "IN"
+    }
+  },
+  "school": {
+    "code": "10244",
+    "board": "BSEH",
+    "type": "Senior Secondary School",
+    "streams": ["Arts", "Commerce", "Science"],
+    "classes": "Nursery to Class 12",
+    "principal": "Shri Rambilash Sharma"
+  },
+  "endpoints": {
+    "home": "/",
+    "about": "/about",
+    "academics": "/academics",
+    "facilities": "/facilities",
+    "achievements": "/achievements",
+    "gallery": "/gallery",
+    "admissions": "/admissions",
+    "admissionProcedure": "/admissions/procedure",
+    "admissionEligibility": "/admissions/eligibility",
+    "feeStructure": "/admissions/fee-structure",
+    "documentsFaq": "/admissions/documents-faq",
+    "news": "/news",
+    "contact": "/contact"
+  },
+  "api": {
+    "contact": "/api/contact"
+  }
+}

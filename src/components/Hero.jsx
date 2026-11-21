@@ -30,7 +30,7 @@ export function Hero() {
             loading="eager"
             decoding="async"
             width="1200"
-            height="860"
+            height="859"
             sizes="100vw"
             className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
           />

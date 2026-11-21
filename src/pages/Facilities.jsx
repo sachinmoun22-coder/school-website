@@ -17,10 +17,6 @@ const facilityIcons = {
   "School Campus": Building2,
 };
 
-function getFacilityIcon(name) {
-  return facilityIcons[name] || Building2;
-}
-
 export function Facilities() {
   const { pathname } = useLocation();
   const seo = getSEO(pathname);

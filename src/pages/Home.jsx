@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, GraduationCap, Award, Users, Building2, Target, Palette, Briefcase, Microscope, Heart, Shield, Bus, Home as HomeIcon, Bed, FlaskConical } from "lucide-react";
+import { ArrowRight, BookOpen, GraduationCap, Award, Users, Building2, Target, Palette, Briefcase, Microscope, Heart, Bus, Home as HomeIcon, Bed, FlaskConical } from "lucide-react";
 import { hqImages } from "../data/schoolData";
 import { getSEO } from "../data/seoConfig";
 import { SEOHead } from "../components/SEOHead";

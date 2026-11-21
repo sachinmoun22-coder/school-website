@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import { BookOpen, GraduationCap, Building2, Award, MapPin, Mail, Phone, ArrowRight, CheckCircle, Quote } from "lucide-react";
-import { hqImages } from "../data/schoolData";
 import { PageBanner } from "../components/PageBanner";
 import { Breadcrumb } from "../components/Breadcrumb";
 import { SectionTitle } from "../components/SectionTitle";

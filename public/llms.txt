@@ -1,0 +1,55 @@
+# S.B.S Sr.Sec. School Matour Kaithal
+
+## Overview
+S.B.S Sr.Sec. School Matour Kaithal is a BSEH-affiliated co-educational senior secondary school in Matour village, Kaithal, Haryana, India. Offers education from Nursery to Class 12 with Arts, Commerce and Science streams. School Code: 10244.
+
+## Key Information
+- **Name**: S.B.S Sr.Sec. School Matour Kaithal
+- **Location**: Matour village, Kaithal, Haryana, India
+- **Phone**: +91 70150 56542
+- **Email**: sachinmoun22@gmail.com
+- **Board**: BSEH (Board of School Education Haryana)
+- **School Code**: 10244
+- **Streams**: Arts, Commerce, Science (Classes 11-12)
+- **Classes**: Nursery to Class 12
+
+## Navigation
+- Home: https://school-website-dun-three.vercel.app/
+- About Us: https://school-website-dun-three.vercel.app/about
+- Academics: https://school-website-dun-three.vercel.app/academics
+- Facilities: https://school-website-dun-three.vercel.app/facilities
+- Achievements: https://school-website-dun-three.vercel.app/achievements
+- Gallery: https://school-website-dun-three.vercel.app/gallery
+- Admissions: https://school-website-dun-three.vercel.app/admissions
+- Admission Procedure: https://school-website-dun-three.vercel.app/admissions/procedure
+- Admission Eligibility: https://school-website-dun-three.vercel.app/admissions/eligibility
+- Fee Structure: https://school-website-dun-three.vercel.app/admissions/fee-structure
+- Documents & FAQ: https://school-website-dun-three.vercel.app/admissions/documents-faq
+- News & Notices: https://school-website-dun-three.vercel.app/news
+- Contact: https://school-website-dun-three.vercel.app/contact
+
+## Principal
+- **Name**: Shri Rambilash Sharma
+
+## Admissions
+The school accepts admissions from Nursery to Class 12. For Class 11, students can choose from Arts, Commerce, or Science streams. Contact the school directly for admission opening dates, eligibility criteria, required documents, fee structure, and seat availability.
+
+## Contact
+- **Address**: Matour village, Kaithal, Kalayat, Haryana, India
+- **Phone**: +91 70150 56542
+- **Email**: sachinmoun22@gmail.com
+- **Website**: https://school-website-dun-three.vercel.app/
+
+## Transport
+School transport covers: Matour, Kala Sher, Bhalang, Kheri Sher Khan, Mandi Kalan, Lodhar, Sudkan Khurad, Sighwal, Simla, Pinjupura, Badsikri Kalan, Kamalpur, Chausala, Balu, and other nearby villages.
+
+## Facilities
+- 35 spacious, well-ventilated classrooms
+- Science Laboratory (Physics, Chemistry, Biology)
+- Transport facility (5 buses, 1 van)
+- Hostel accommodation
+- Playground
+- Green campus environment
+
+## Structured Data
+The website includes Schema.org School structured data for search engines.

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, Send, Sparkles, X, User } from "lucide-react";
-import { facilitiesData, schoolData, streamsData, transportRoutes } from "../data/schoolData";
+import { facilitiesData, schoolData, transportRoutes } from "../data/schoolData";
 
 const CHATBOT_AVATAR = "/images/school-chatbot-avatar.webp";
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
